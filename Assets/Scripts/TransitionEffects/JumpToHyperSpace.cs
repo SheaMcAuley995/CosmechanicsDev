@@ -6,11 +6,16 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class JumpToHyperSpace : MonoBehaviour
 {
-    [Header("Camera Variables")]
+    [Header("Camera Setup")]
     public GameObject mainCam;
     [SerializeField] Vector3 camStartPos;
     [SerializeField] Vector3 camEndPos;
 
+    [Header("Win UI Setup")]
+    public Animator winScreenAnimator;
+    public ScoreDisplay scoreDisplay;
+
+    [Header("Post Process Setup")]
     public PostProcessVolume volume;
     public AnimationCurve effectCurve;
     public AnimationCurve fadeBackCurve;
@@ -18,7 +23,7 @@ public class JumpToHyperSpace : MonoBehaviour
     LensDistortion lensLayer = null;
     DepthOfField depthLayer = null;
 
-    [Header("Post Process Variables")]
+    [Header("Post Process Settings")]
     [SerializeField] float bloomStartVal = 0.5f;
     [SerializeField] float bloomEndVal = 50f;
     [SerializeField] float lensDistStartVal = 0f;
@@ -26,7 +31,7 @@ public class JumpToHyperSpace : MonoBehaviour
     [SerializeField] float depthStartVal = 50f;
     [SerializeField] float depthEndVal = 300f;
 
-    [Header("Effect Settings")]
+    [Header("Effect Duration Settings")]
     [SerializeField] float effectDurationTime = 3f;
     [SerializeField] float effectFadeTime = 0.5f;
 
@@ -51,13 +56,13 @@ public class JumpToHyperSpace : MonoBehaviour
     }
 
     // This is for testing please remove when done testing thanks
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(HyperspaceJump());
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        StartCoroutine(HyperspaceJump());
+    //    }
+    //}
 
     public IEnumerator HyperspaceJump()
     {
@@ -85,6 +90,7 @@ public class JumpToHyperSpace : MonoBehaviour
         mainCam.GetComponent<CameraMultiTarget>().enabled = false;
 
         StartCoroutine(ReverseEffect());
+
         yield break;
     }
 
@@ -110,6 +116,23 @@ public class JumpToHyperSpace : MonoBehaviour
         bloomLayer.intensity.value = bloomStartVal;
         lensLayer.intensity.value = lensDistStartVal;
         depthLayer.focalLength.value = depthStartVal;
+
+        StartCoroutine(RevealWinScreen());
+
+        yield break;
+    }
+
+    IEnumerator RevealWinScreen()
+    {
+        yield return new WaitForSeconds(1f);
+
+        winScreenAnimator.transform.parent.gameObject.SetActive(true);
+        winScreenAnimator.SetTrigger("Win");
+
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(scoreDisplay.FillCogs());
+
         yield break;
     }
 }

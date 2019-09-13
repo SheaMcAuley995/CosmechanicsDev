@@ -95,7 +95,6 @@ public class PauseGame : MonoBehaviour
     {
         selection.enabled = true;
         paused = true;
-        //Time.timeScale = 0f;
         GameStateManager.instance.SetGameState(GameState.Paused);
         AudioEventManager.instance.GetComponent<AudioSource>().Pause();
 
