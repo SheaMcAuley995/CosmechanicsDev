@@ -7,8 +7,8 @@ public class VictoryAnimsManager : MonoBehaviour
     public Transform[] animPositions = new Transform[4];
     PlayerController[] players;
 
-	// Use this for initialization
-	void Start ()
+	
+    public void DisplayVictoryAnims()
     {
         players = FindObjectsOfType<PlayerController>();
 
@@ -22,7 +22,7 @@ public class VictoryAnimsManager : MonoBehaviour
 
             // Gets each player's animator component for the body & head
             Animator bodyAnimator = players[i].GetComponent<Animator>();
-            Animator headAnimator = players[i].GetComponentInChildren<Head>().GetComponent<Animator>(); // This is, quite possibly, the most disgusting thing I've ever written lmao
+            Animator headAnimator = players[i].GetComponentInChildren<Head>().GetComponent<Animator>(); // This is, quite possibly, the most disgusting thing I've ever written
 
             // Identifies which head each player has in order to determine the correct body animation to play
             switch (headAnimator.gameObject.name)
@@ -44,5 +44,5 @@ public class VictoryAnimsManager : MonoBehaviour
             // Sets the head animation to play
             headAnimator.SetTrigger("Win");
         }
-	}
+    }
 }

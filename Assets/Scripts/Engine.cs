@@ -16,6 +16,7 @@ public class Engine : MonoBehaviour {
     [HideInInspector] public bool startEngineBehavior = false;
 
     [Header("Win Condition")]
+    public JumpToHyperSpace jumpScript;
     public float winConditionLimit;
     public float currentProgress;
     public float enemyProgress;
@@ -49,7 +50,7 @@ public class Engine : MonoBehaviour {
     private void Update()
     {
         // If the engine event can run & the game isn't paused
-        if(startEngineBehavior && GameStateManager.instance.GetState() != GameState.Paused)
+        if(startEngineBehavior && (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won))
         {
             EngineUpdate();
         }
@@ -87,8 +88,8 @@ public class Engine : MonoBehaviour {
 
     private void WinGame()
     {
-        SceneFader.instance.FadeTo("WinScene");
-        //ASyncManager.instance.winOperation.allowSceneActivation = true;
+        GameStateManager.instance.SetGameState(GameState.Won);
+        StartCoroutine(jumpScript.HyperspaceJump());
     }
 
     private void LoseGame()

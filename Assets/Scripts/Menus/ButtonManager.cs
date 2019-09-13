@@ -93,6 +93,8 @@ public class ButtonManager : MonoBehaviour
     // Fades to overworld
     public void ContinueGame()
     {
+        GameStateManager.instance.SetGameState(GameState.Playing);
+
         players = FindObjectsOfType<SelectedPlayer>();
         pickups = FindObjectsOfType<PickUp>();
 
