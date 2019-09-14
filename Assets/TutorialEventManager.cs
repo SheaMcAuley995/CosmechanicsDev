@@ -30,6 +30,8 @@ public class TutorialEventManager : MonoBehaviour{
     public DialogueManager dialogueManager;
     public DialogueTrigger[] dialogueTriggers;
 
+    public JumpToHyperSpace jumpScript;
+
     void Start () {
 
         damagedObjects = new Collider[12];
@@ -114,7 +116,8 @@ public class TutorialEventManager : MonoBehaviour{
     {
         if(florpReceptor.isFilled > 3)
         {
-            SceneFader.instance.FadeTo("WinScene");
+            GameStateManager.instance.SetGameState(GameState.Won);
+            StartCoroutine(jumpScript.HyperspaceJump());
         }
     }
 
