@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class JumpToHyperSpace : MonoBehaviour
 {
@@ -52,7 +53,29 @@ public class JumpToHyperSpace : MonoBehaviour
         volume.profile.TryGetSettings(out depthLayer);
 
         camStartPos = mainCam.transform.position;
-        camEndPos = new Vector3(camStartPos.x + 35f, camStartPos.y, camStartPos.z);
+
+        // I HAVE NO INTENTION OF KEEPING THIS! 
+        // Our ships aren't all facing the same direction (from an axis standpoint OR right vs. left).
+        // This makes the jump to hyperspace look weird when the camera jumps to the right (on the x axis) in level 2,
+        // but jumps upward on levels 1 & 3 because they're aligned on the z axis, or when the ship appears to jump backwards
+        // in the tutorial because it's facing the opposite direction. This is my quick fix. When we have more consistently
+        // aligned levels I will remove this switch statement and just have the one camEndPos possibility (and it won't be hardcoded).
+        // Thank you for your understanding during this trying time. ;) 
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "Ship_Level_Tutorial NEW":
+                camEndPos = new Vector3(camStartPos.x + 35f, camStartPos.y, camStartPos.z);
+                break;
+            case "Ship_Level_1Final":
+                camEndPos = new Vector3(camStartPos.x, camStartPos.y, camStartPos.z + 35f);
+                break;
+            case "BetaMichaelTest":
+                camEndPos = new Vector3(camStartPos.x + 35f, camStartPos.y, camStartPos.z);
+                break;
+            case "Ship_Level_3":
+                camEndPos = new Vector3(camStartPos.x, camStartPos.y, camStartPos.z + 35f);
+                break;
+        }
     }
 
     // This is for testing please remove when done testing thanks
@@ -112,7 +135,10 @@ public class JumpToHyperSpace : MonoBehaviour
             yield return 0;
         }
 
-        Engine.instance.engineHeat = 2f;
+        if (Engine.instance != null)
+        {
+            Engine.instance.engineHeat = 2f;
+        }
         bloomLayer.intensity.value = bloomStartVal;
         lensLayer.intensity.value = lensDistStartVal;
         depthLayer.focalLength.value = depthStartVal;
