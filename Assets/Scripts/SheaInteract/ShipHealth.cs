@@ -103,7 +103,7 @@ public class ShipHealth : MonoBehaviour {
         {
             yield return new WaitForSeconds(timeBetweenNEvents);
             // If the game isn't paused
-            if (GameStateManager.instance.GetState() != GameState.Paused)
+            if (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won)
             {
                 StartCoroutine("shipBlast");
             }

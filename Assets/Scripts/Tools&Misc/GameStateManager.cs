@@ -6,6 +6,7 @@ public enum GameState
 {
     Paused,
     Playing,
+    Won,
     LostByDamage,
     LostByFlorp
 }
