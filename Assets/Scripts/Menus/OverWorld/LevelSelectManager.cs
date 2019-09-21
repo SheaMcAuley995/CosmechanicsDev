@@ -7,10 +7,11 @@ public class LevelSelectManager : MonoBehaviour
 {
     CharToDestroy[] charsToDestroy;
 
-    [Header("Not-hardcoded scene names :D")]
+    [Header("Not-hardcoded scene names")]
     public string tutorialLevelName;
     public string levelOneName;
     public string levelTwoName;
+    public string levelThreeName;
 
     // TODO: Store user data on levels they've beaten & lock levels 2 and 3 until reached
     public void LaunchLevel(string scene)
@@ -28,6 +29,9 @@ public class LevelSelectManager : MonoBehaviour
             case OverworldManager.Level.Level3:
                 scene = levelTwoName;
                 break;
+            case OverworldManager.Level.Level4:
+                scene = levelThreeName;
+                break;
         }
 
         for (int i = 0; i < PlayerActivation.instance.chosenCharacters.Length; i++)
@@ -41,6 +45,7 @@ public class LevelSelectManager : MonoBehaviour
         }
 
         PlayerActivation.instance.chosenCharacters[0].GetLevelScene(scene);
+        GameStateManager.instance.SetGameState(GameState.Playing);
         SceneFader.instance.FadeTo(scene);
     }
 }

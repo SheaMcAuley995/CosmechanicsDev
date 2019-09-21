@@ -30,6 +30,8 @@ public class TutorialEventManager : MonoBehaviour{
     public DialogueManager dialogueManager;
     public DialogueTrigger[] dialogueTriggers;
 
+    public JumpToHyperSpace jumpScript;
+
     void Start () {
 
         damagedObjects = new Collider[12];
@@ -80,7 +82,7 @@ public class TutorialEventManager : MonoBehaviour{
         {
             dialogueManager.trigger = dialogueTriggers[1];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
-            doorAnimator[0].SetBool("Open", true);
+            doorAnimator[0].SetBool("IsOpen", true);
             doorCollider[0].enabled = false;
             myTutorial = checkFire;
             //Debug.Log("WORKS");
@@ -104,7 +106,7 @@ public class TutorialEventManager : MonoBehaviour{
         {
             dialogueManager.trigger = dialogueTriggers[2];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
-            doorAnimator[1].SetBool("Open", true);
+            doorAnimator[1].SetBool("IsOpen", true);
             doorCollider[1].enabled = false;
             myTutorial = checkEngine;
         }
@@ -114,7 +116,8 @@ public class TutorialEventManager : MonoBehaviour{
     {
         if(florpReceptor.isFilled > 3)
         {
-            SceneFader.instance.FadeTo("WinScene");
+            GameStateManager.instance.SetGameState(GameState.Won);
+            StartCoroutine(jumpScript.HyperspaceJump());
         }
     }
 

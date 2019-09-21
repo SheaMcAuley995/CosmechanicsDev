@@ -79,16 +79,6 @@ public class PauseGame : MonoBehaviour
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
-
-            //if (player.pickUp && selection.isActiveAndEnabled)
-            //{
-            //    ResumeGame();
-            //}
-
-            //if (player.sprint && selection.isActiveAndEnabled)
-            //{
-            //    QuitGame();
-            //}
         }
     }
 
@@ -105,7 +95,6 @@ public class PauseGame : MonoBehaviour
     {
         selection.enabled = true;
         paused = true;
-        //Time.timeScale = 0f;
         GameStateManager.instance.SetGameState(GameState.Paused);
         AudioEventManager.instance.GetComponent<AudioSource>().Pause();
 
