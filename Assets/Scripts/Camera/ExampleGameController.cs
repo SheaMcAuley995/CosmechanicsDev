@@ -19,6 +19,13 @@ public class ExampleGameController : MonoBehaviour
 
     private void Awake()
     {
+        if(GameStateManager.instance == null)
+        {
+            GameObject gameStateManager = new GameObject();
+            gameStateManager.name = "GameStateManager";
+            gameStateManager.AddComponent<GameStateManager>();
+        }
+
        // DontDestroyOnLoad(this.gameObject);
         if(instance == null)
         {
