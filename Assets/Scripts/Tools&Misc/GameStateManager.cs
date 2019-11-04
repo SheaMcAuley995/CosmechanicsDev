@@ -16,6 +16,8 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager instance;
     public GameState gameState = GameState.Playing;
 
+    
+
     void Awake()
     {
         #region Singleton
