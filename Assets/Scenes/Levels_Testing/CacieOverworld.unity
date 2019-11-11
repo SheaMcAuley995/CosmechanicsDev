@@ -1284,7 +1284,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22
+  m_fontSize: 23.25
   m_fontSizeBase: 52.4
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2285,7 +2285,17 @@ PrefabInstance:
     - target: {fileID: 114206786905761604, guid: 8d2f1f34e8044914ab38ffcb0e566180,
         type: 3}
       propertyPath: levelTwoName
-      value: BetaMichaelTest
+      value: Ship_Level_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114206786905761604, guid: 8d2f1f34e8044914ab38ffcb0e566180,
+        type: 3}
+      propertyPath: tutorialLevelName
+      value: Ship_Level_Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 114206786905761604, guid: 8d2f1f34e8044914ab38ffcb0e566180,
+        type: 3}
+      propertyPath: levelOneName
+      value: Ship_Level_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d2f1f34e8044914ab38ffcb0e566180, type: 3}
@@ -2628,7 +2638,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 51.15
+  m_fontSize: 53.95
   m_fontSizeBase: 83.98
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4041,7 +4051,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20.35
+  m_fontSize: 21.45
   m_fontSizeBase: 47.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4510,7 +4520,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20.35
+  m_fontSize: 21.45
   m_fontSizeBase: 47.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7035,7 +7045,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 21.1
+  m_fontSize: 22.25
   m_fontSizeBase: 47.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
