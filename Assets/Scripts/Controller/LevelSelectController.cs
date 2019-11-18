@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 
-public class ShipController : MonoBehaviour
+public class LevelSelectController : MonoBehaviour
 {
     //Rewired ID
     public int playerId = 0;
