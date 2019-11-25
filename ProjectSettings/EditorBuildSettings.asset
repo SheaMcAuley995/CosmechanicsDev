@@ -18,11 +18,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels_Ships/Ship_Level_Tutorial.unity
     guid: d792703bb646fa746894df76997b509f
   - enabled: 1
-    path: Assets/Scenes/Levels_Ships/Ship_Level_1Final.unity
-    guid: d859c503edf0f8f46937e0ce356d72b8
+    path: Assets/Scenes/Levels_Ships/Ship_Level_1.unity
+    guid: 7dcedee770067244b9d82005b2b3d282
   - enabled: 1
     path: Assets/Scenes/Levels_Ships/Ship_Level_2.unity
-    guid: 78b9f9bbb44a9fa42acdb5a5e297896d
+    guid: 0c68054998f3a47428eb371ef770b3a2
   - enabled: 1
     path: Assets/Scenes/Levels_Ships/Ship_Level_3.unity
     guid: 1bbf2e9ed693f07419bec799f1e4015a
