@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ButtonSelectionManager : MonoBehaviour
 {
     PlayerController[] controlers;
-    ShipController shipController;
+    LevelSelectController levelController;
 
     Image selector, lastSelector, buttonImage, lastButtonImage;
 
@@ -29,7 +29,7 @@ public class ButtonSelectionManager : MonoBehaviour
         selectedButtonIndex = -1;
         yield return new WaitForSeconds(0.2f);
         controlers = FindObjectsOfType<PlayerController>();
-        shipController = FindObjectOfType<ShipController>();
+        levelController = FindObjectOfType<LevelSelectController>();
         ableToGetInput = true;
         currentScene = SceneManager.GetActiveScene().name;
         SelectButtonDownward();
@@ -62,19 +62,19 @@ public class ButtonSelectionManager : MonoBehaviour
 
         if (ableToGetInput && currentScene == "CacieOverworld")
         {
-            shipController.GetInput();
+            levelController.GetInput();
 
-            if (shipController.movementVector.y < 0 && !selecting)
+            if (levelController.movementVector.y < 0 && !selecting)
             {
                 SelectButtonDownward();
             }
 
-            if (shipController.movementVector.y > 0 && !selecting)
+            if (levelController.movementVector.y > 0 && !selecting)
             {
                 SelectButtonUpward();
             }
 
-            if (shipController.pickUp && !selecting)
+            if (levelController.pickUp && !selecting)
             {
                 PressButton();
             }
