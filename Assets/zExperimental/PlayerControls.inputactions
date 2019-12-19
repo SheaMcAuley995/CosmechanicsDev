@@ -9,7 +9,7 @@
                     "name": "Move",
                     "type": "Value",
                     "id": "a928f16d-a592-4d9a-92a5-4f60702e3c2b",
-                    "expectedControlType": "",
+                    "expectedControlType": "Stick",
                     "processors": "",
                     "interactions": ""
                 },

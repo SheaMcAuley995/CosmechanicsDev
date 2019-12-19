@@ -1,13 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
-//using Rewired;
-
-
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public PlayerControls controls;
 
@@ -50,7 +46,7 @@ public class PlayerController : MonoBehaviour
     public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
 
-    public float speedSmoothTime = 0.1f;
+    public float speedSmoothTime = 0.1f; 
     float speedSmoothVelocity;
     float currentSpeed;
     float velocityY;
@@ -83,11 +79,11 @@ public class PlayerController : MonoBehaviour
         onFireTimerCur = onFiretimer;
         animators = GetComponentsInChildren<Animator>();
         //player = ReInput.players.GetPlayer(playerId);
-        
+
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         interact = GetComponentInChildren<InteractWithInterface>();
-        //interact.controller = this;
+        interact.controller = this;
     }
 
     private void Move_performed(InputAction.CallbackContext obj)
@@ -112,15 +108,15 @@ public class PlayerController : MonoBehaviour
     {
         #region Main Game Input
         // Normal axis when player is not on fire
-       // movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
-       // movementVector.y = player.GetAxisRaw("Move Vertical");
-       //
-       // movementDir = movementVector.normalized;
-       // Interact = player.GetButtonDown("Interact");
-       // sprint = player.GetButton("Sprint");
-       // pickUp = player.GetButtonDown("PickUp");
-       // bumper = player.GetButtonDown("Bumper");
-       // pauseButton = player.GetButtonDown("Pause");
+        // movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
+        // movementVector.y = player.GetAxisRaw("Move Vertical");
+        //
+        // movementDir = movementVector.normalized;
+        // Interact = player.GetButtonDown("Interact");
+        // sprint = player.GetButton("Sprint");
+        // pickUp = player.GetButtonDown("PickUp");
+        // bumper = player.GetButtonDown("Bumper");
+        // pauseButton = player.GetButtonDown("Pause");
         #endregion
 
         #region Char Select Input
@@ -158,7 +154,7 @@ public class PlayerController : MonoBehaviour
             Interaction();
         }
 
-        if(pickUp)
+        if (pickUp)
         {
             interact.pickUpObject(myCollider);
         }
@@ -268,5 +264,5 @@ public class PlayerController : MonoBehaviour
             onFire = false;
         }
     }
-    
+
 }

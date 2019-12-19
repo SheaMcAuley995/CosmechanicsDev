@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/zExperimenta/PlayerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/zExperimental/PlayerControls.inputactions'
 
 using System;
 using System.Collections;
@@ -22,7 +22,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""a928f16d-a592-4d9a-92a5-4f60702e3c2b"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Stick"",
                     ""processors"": """",
                     ""interactions"": """"
                 },

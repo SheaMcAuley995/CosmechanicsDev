@@ -17,7 +17,7 @@ public class InteractWithInterface : MonoBehaviour
     bool isPuu = false;
 
     public GameObject interactedObject;
-    public PlayerController controller;
+    public Player controller;
 
     public void InteractWithObject()
     {
