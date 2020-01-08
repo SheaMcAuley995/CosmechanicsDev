@@ -1,55 +1,134 @@
 fileFormatVersion: 2
 guid: 17819e54aa185472089096cf688428a9
 ModelImporter:
-  serializedVersion: 15
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: sf_filledframe
-    100004: sf_lightcone
-    100006: sf_mat_platform
-    100008: sf_plant
-    100010: sf_vertex_color_hexagon
-    100012: sf_frame
-    400000: //RootNode
-    400002: sf_filledframe
-    400004: sf_lightcone
-    400006: sf_mat_platform
-    400008: sf_plant
-    400010: sf_vertex_color_hexagon
-    400012: sf_frame
-    2300000: sf_filledframe
-    2300002: sf_lightcone
-    2300004: sf_mat_platform
-    2300006: sf_plant
-    2300008: sf_vertex_color_hexagon
-    2300010: sf_frame
-    3300000: sf_filledframe
-    3300002: sf_lightcone
-    3300004: sf_mat_platform
-    3300006: sf_plant
-    3300008: sf_vertex_color_hexagon
-    3300010: sf_frame
-    4300000: sf_plant
-    4300002: sf_lightcone
-    4300004: sf_filledframe
-    4300006: sf_mat_platform
-    4300008: sf_vertex_color_hexagon
-    4300010: sf_frame
-    9500000: //RootNode
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: sf_filledframe
+  - first:
+      1: 100004
+    second: sf_lightcone
+  - first:
+      1: 100006
+    second: sf_mat_platform
+  - first:
+      1: 100008
+    second: sf_plant
+  - first:
+      1: 100010
+    second: sf_vertex_color_hexagon
+  - first:
+      1: 100012
+    second: sf_frame
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: sf_filledframe
+  - first:
+      4: 400004
+    second: sf_lightcone
+  - first:
+      4: 400006
+    second: sf_mat_platform
+  - first:
+      4: 400008
+    second: sf_plant
+  - first:
+      4: 400010
+    second: sf_vertex_color_hexagon
+  - first:
+      4: 400012
+    second: sf_frame
+  - first:
+      23: 2300000
+    second: sf_filledframe
+  - first:
+      23: 2300002
+    second: sf_lightcone
+  - first:
+      23: 2300004
+    second: sf_mat_platform
+  - first:
+      23: 2300006
+    second: sf_plant
+  - first:
+      23: 2300008
+    second: sf_vertex_color_hexagon
+  - first:
+      23: 2300010
+    second: sf_frame
+  - first:
+      33: 3300000
+    second: sf_filledframe
+  - first:
+      33: 3300002
+    second: sf_lightcone
+  - first:
+      33: 3300004
+    second: sf_mat_platform
+  - first:
+      33: 3300006
+    second: sf_plant
+  - first:
+      33: 3300008
+    second: sf_vertex_color_hexagon
+  - first:
+      33: 3300010
+    second: sf_frame
+  - first:
+      43: 4300000
+    second: sf_plant
+  - first:
+      43: 4300002
+    second: sf_lightcone
+  - first:
+      43: 4300004
+    second: sf_filledframe
+  - first:
+      43: 4300006
+    second: sf_mat_platform
+  - first:
+      43: 4300008
+    second: sf_vertex_color_hexagon
+  - first:
+      43: 4300010
+    second: sf_frame
+  - first:
+      95: 9500000
+    second: //RootNode
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
@@ -57,34 +136,59 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
+    secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 4
+    secondaryUVPackMargin: 10
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
+    serializedVersion: 3
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 
