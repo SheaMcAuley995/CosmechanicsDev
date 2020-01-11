@@ -9,7 +9,7 @@ public class ButtonSelectionManager : MonoBehaviour
     PlayerController[] controlers;
     LevelSelectController levelController;
 
-    Image selector, lastSelector, buttonImage, lastButtonImage;
+    Image buttonImage, lastButtonImage;
 
     public List<Button> menuButtons = new List<Button>();
     [Space]
@@ -102,16 +102,6 @@ public class ButtonSelectionManager : MonoBehaviour
         lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
         buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
 
-        if (lastSelector != null)
-        {
-            lastSelector.enabled = false;
-        }
-
-        if (selector != null)
-        {
-            selector.enabled = true;
-        }
-
         if (lastButtonImage != null)
         {
             lastButtonImage.sprite = highlightSprites[0];
@@ -143,16 +133,6 @@ public class ButtonSelectionManager : MonoBehaviour
         //selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
         lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
         buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
-
-        if (lastSelector != null)
-        {
-            lastSelector.enabled = false;
-        }
-
-        if (selector != null)
-        {
-            selector.enabled = true;
-        }
 
         if (lastButtonImage != null)
         {
