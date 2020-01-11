@@ -4,17 +4,14 @@ using UnityEngine;
 
 public class ScoreDisplay : MonoBehaviour
 {
+    public VictoryAnimsManager victoryManager;
+
     public Animator[] animators = new Animator[3];
     [Space]
     [SerializeField] float initialDelay = 1.0f;
     [SerializeField] float animationDelay = 1.5f;
 
-    void Awake()
-    {
-        StartCoroutine(FillCogs());
-    }
-
-    IEnumerator FillCogs()
+    public IEnumerator FillCogs()
     {
         yield return new WaitForSecondsRealtime(initialDelay);
 
@@ -25,6 +22,11 @@ public class ScoreDisplay : MonoBehaviour
         yield return new WaitForSecondsRealtime(animationDelay);
 
         animators[2].SetBool("Fill_Cog3", true);
+
+        yield return new WaitForSeconds(0.833f);
+
+        // TODO: RE-ENABLE THIS WHEN THE VICTORY ANIMS GET FIXED
+        //victoryManager.DisplayVictoryAnims();
 
         yield break;
     }

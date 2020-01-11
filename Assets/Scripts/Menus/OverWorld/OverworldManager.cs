@@ -29,7 +29,7 @@ public class OverworldManager : MonoBehaviour
 {
     public static OverworldManager instance; // Singleton instance
     public OverworldData data; // Reference to the struct containing the constructor
-    public ShipController shipController; // For handling input
+    public LevelSelectController levelController; // For handling input
     PlayerController[] playerControllers;
     SelectedPlayer[] selectedPlayers;
 
@@ -47,16 +47,8 @@ public class OverworldManager : MonoBehaviour
     int selectedLevel = 1;
     public string charSelectSceneName;
 
-    [Header("Ship Components")]
-    public Transform shipTransform;
-    
-    [Header("Orbital Components")]
-    public Image[] levelObjects;
-    public GameObject[] orbitPositions;
-    Vector3 shipPos; // Ship's current position at time of MoveShip() being called
-    Vector3 shipDest; // Ship's target destination
-
     [Header("Overworld UI")]
+    public Image[] levelObjects;
     public GameObject levelPanel;
     public TextMeshProUGUI levelSelectedText;
     public Sprite[] highlightSprites;
@@ -67,14 +59,7 @@ public class OverworldManager : MonoBehaviour
     public string[] levelNames;
     [TextArea(3, 10)] public string[] descriptions;
 
-    [Header("Orbit Settings")]
-    [SerializeField] float travelTime = 1f;
-    [SerializeField] float orbitSpeed = 80f;
-    [SerializeField] Vector3 orbitOffset = new Vector3(15f, 0f, 10f);
-    Vector3 direction = -Vector3.up; // The direction in which the ship orbits
-
     // These should be fairly self-explanatory 
-    bool moving, orbiting;
     bool ableToLaunch;
     bool selecting;
 
@@ -102,7 +87,6 @@ public class OverworldManager : MonoBehaviour
         selectedLevel = 1;
         level = Level.Level1;
 
-        MoveShip();
         ApplyText();
 
         foreach (PlayerController player in playerControllers)
@@ -114,23 +98,7 @@ public class OverworldManager : MonoBehaviour
 	void Update ()
     {       
         GetInput(); // Checks for input to select a level
-        CheckIfOrbiting(); // Checks if the ship is supposed to be orbiting
         selectedPlanet();
-    }
-
-    // See Update() for explanation
-    void CheckIfOrbiting()
-    {
-        if (orbiting)
-        {
-            OrbitShip(direction);
-        }
-    }
-
-    // Rotates the ship around the selected level object in a given direction based on movement
-    void OrbitShip(Vector3 dir)
-    {
-        shipTransform.RotateAround(levelObjects[selectedLevel - 1].transform.position, dir, orbitSpeed * Time.deltaTime);
     }
 
     void selectedPlanet()
@@ -146,7 +114,6 @@ public class OverworldManager : MonoBehaviour
             {
                 //levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 levelObjects[i].sprite = highlightSprites[0];
-                levelObjects[3].sprite = highlightSprites[3]; // THIS LOCKS SHIP 3 SINCE IT'S NOT FINISHED
             }
         }
     }
@@ -154,10 +121,10 @@ public class OverworldManager : MonoBehaviour
     // See Update() for explanation
     void GetInput()
     {
-        shipController.GetInput(); // Checks for input from the ship
+        levelController.GetInput(); // Checks for input from the ship
 
         // Selection input
-        if (shipController.pickUp && !ableToLaunch && !selecting)
+        if (levelController.pickUp && !ableToLaunch && !selecting)
         {
             selecting = true;
             StartCoroutine(SelectionDelay());
@@ -169,8 +136,11 @@ public class OverworldManager : MonoBehaviour
         }
 
         // Directional movement input (RIGHT)
-        if (shipController.movementVector.x > 0 && !moving && !ableToLaunch)
+        if (levelController.movementVector.x > 0 && !ableToLaunch && !selecting)
         {
+            selecting = true;
+            StartCoroutine(SelectionDelay());
+
             // SUMMARY: If the player moves to another level, data needs to be updated
             switch (selectedLevel)
             {
@@ -178,37 +148,35 @@ public class OverworldManager : MonoBehaviour
                 case 1:
                     selectedLevel++;
                     level = Level.Level2;
-                    direction = -Vector3.up;
                     break;
                 // If level 2 had been selected...
                 case 2:
                     selectedLevel++;
                     level = Level.Level3;
-                    direction = -Vector3.up;
                     break;
                 // If level 3 had been selected...
                 case 3:
                     selectedLevel++;
                     level = Level.Level4;
-                    direction = Vector3.up;
                     break;
                 // If level 4 had been selected...
                 case 4:
                     selectedLevel = 1;
                     level = Level.Level1;
-                    direction = Vector3.up;
                     break;
             }
 
-            // Moves the ship and updates the UI according to the new selected level
-            MoveShip();
+            // Updates the UI according to the new selected level
             DeactivatePanel();
             ApplyText();
         }
 
         // Directional movement input (LEFT)
-        if (shipController.movementVector.x < 0 && !moving && !ableToLaunch)
+        if (levelController.movementVector.x < 0 && !ableToLaunch && !selecting)
         {
+            selecting = true;
+            StartCoroutine(SelectionDelay());
+
             /// SUMMARY: If the player moves to another level, data needs to be updated
             switch (selectedLevel)
             {
@@ -216,34 +184,29 @@ public class OverworldManager : MonoBehaviour
                 case 1:
                     selectedLevel = 4;
                     level = Level.Level4;
-                    direction = -Vector3.up;
                     break;
                 // If level 2 had been selected...
                 case 2:
                     selectedLevel--;
                     level = Level.Level1;
-                    direction = Vector3.up;
                     break;
                 // If level 3 had been selected...
                 case 3:
                     selectedLevel--;
                     level = Level.Level2;
-                    direction = Vector3.up;
                     break;
                 case 4:
                     selectedLevel--;
                     level = Level.Level3;
-                    direction = Vector3.up;
                     break;
             }
 
-            // Moves the ship and updates the UI according to the new selected level
-            MoveShip();
+            // Updates the UI according to the new selected level
             DeactivatePanel();
             ApplyText();
         }
 
-        if (shipController.sprint && !ableToLaunch && !selecting)
+        if (levelController.sprint && !ableToLaunch && !selecting)
         {
             selectedPlayers = FindObjectsOfType<SelectedPlayer>();
 
@@ -300,8 +263,8 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.mapPreview.sprite = mapImages[3];
                 selectionPanel.levelName.text = levelNames[3];
                 selectionPanel.description.text = descriptions[3];
-                selectionPanel.launchButton.interactable = false;
-                launchButtonText.text = "CANNOT LAUNCH";
+                selectionPanel.launchButton.interactable = true;
+                launchButtonText.text = "Launch";
                 break;
         }
     }
@@ -311,39 +274,6 @@ public class OverworldManager : MonoBehaviour
     {
         ableToLaunch = false;
         levelPanel.SetActive(false);
-    }
-
-    // Moves the ship to a new level
-    void MoveShip()
-    {
-        DeactivatePanel();
-
-        orbiting = false;
-        moving = true;
-
-        // Gets the ship's current position and orbit position of the next level
-        shipPos = shipTransform.position;
-        shipDest = levelObjects[selectedLevel - 1].transform.position + orbitOffset;
-
-        // Starts the moving animation
-        StartCoroutine(WaitAndMove());
-    }
-
-    // Basically just lerps the ship from it's current position to it's desired orbit position
-    IEnumerator WaitAndMove()
-    {
-        float startTime = Time.time;
-        while (Time.time - startTime <= travelTime)
-        {
-            shipTransform.position = Vector3.Lerp(shipPos, shipDest, Time.time - startTime);
-
-            yield return 1;
-        }
-
-        moving = false;
-        orbiting = true;
-
-        yield return null;
     }
 
     // Updates primary Overworld UI

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.PostProcessing;
 
 public class SceneFader : MonoBehaviour
-{
+{ 
     public static SceneFader instance;
 
     [Header("Scene Transition Setup")]

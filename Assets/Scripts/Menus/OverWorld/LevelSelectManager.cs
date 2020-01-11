@@ -45,6 +45,7 @@ public class LevelSelectManager : MonoBehaviour
         }
 
         PlayerActivation.instance.chosenCharacters[0].GetLevelScene(scene);
+        GameStateManager.instance.SetGameState(GameState.Playing);
         SceneFader.instance.FadeTo(scene);
     }
 }
