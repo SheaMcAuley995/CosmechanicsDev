@@ -12,8 +12,12 @@ public class TreadmillScript : MonoBehaviour
     {
         if (turning)
         {
-
             other.transform.position += transform.right * (Time.deltaTime * speed/4);
+            other.transform.rotation = new Quaternion(other.transform.rotation.x, other.transform.rotation.y, other.transform.rotation.z, other.transform.rotation.w + (1 * (Time.deltaTime * speed / 2)));
+        }
+        else if(turning == true && reverse == true)
+        {
+            other.transform.position += transform.right * (Time.deltaTime * speed / 4);
             other.transform.rotation = new Quaternion(other.transform.rotation.x, other.transform.rotation.y, other.transform.rotation.z, other.transform.rotation.w + (1 * (Time.deltaTime * speed / 2)));
         }
         else
