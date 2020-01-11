@@ -14,17 +14,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Rotate",
+                    "name": "PickUp",
                     "type": "Button",
-                    "id": "efaa6f12-8094-4786-8e64-94887f5d4b85",
+                    "id": "b27b6bde-db2d-4edd-9695-8ab4faaa237e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Jump",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "b27b6bde-db2d-4edd-9695-8ab4faaa237e",
+                    "id": "ccc21c8f-89dc-4c8c-b3e3-fd727313907d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -44,23 +44,23 @@
                 },
                 {
                     "name": "",
-                    "id": "1879e388-18b5-423f-89b3-a6ace204c878",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
+                    "id": "28ac879f-d8f3-40b1-989c-2f2dbefa128d",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotate",
+                    "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "28ac879f-d8f3-40b1-989c-2f2dbefa128d",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
+                    "id": "eb347a57-f32a-4a0a-8001-e4cd3ceb73c7",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

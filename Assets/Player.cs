@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool start;
     CharacterController cc;
 
-    [HideInInspector] public bool pickUp = false;
+    public bool pickUp = false;
     public Transform pickUpTransform;
 
     // preReWired scripts
@@ -69,10 +69,22 @@ public class Player : MonoBehaviour
     private bool onFire;
     public Collider myCollider;
 
+    private void Awake()
+    {
+        controls = new PlayerControls();
+        
+        
+        controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
+        //controls.Gameplay.Interact.started += ctx => interact.InteractWithObject();
+        //controls.Gameplay.Interact.started += ctx => Interaction();
+        controls.Gameplay.PickUp.performed += ctx => interact.pickUpObject(myCollider);
+        //controls.Gameplay.PickUp.performed += ctx => pickUp;
+
+    }
+
     private void Start()
     {
-        controls.Gameplay.Move.performed += Move_performed;
-
 
         thisCollider = GetComponent<CapsuleCollider>();
         possibleColliders = new Collider[maxPossibleCollisions];
@@ -95,11 +107,16 @@ public class Player : MonoBehaviour
     void Update()
     {
         // If the game isn't paused
-        if (GameStateManager.instance.GetState() != GameState.Paused)
-        {
-            getInput();
-            ProcessInput();
-        }
+
+
+        //if (GameStateManager.instance.GetState() != GameState.Paused)
+        //{
+        //    getInput();
+        //    ProcessInput();
+        //}
+
+        movementDir = movementVector.normalized;
+        ProcessInteraction();
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
@@ -111,7 +128,7 @@ public class Player : MonoBehaviour
         // movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
         // movementVector.y = player.GetAxisRaw("Move Vertical");
         //
-        // movementDir = movementVector.normalized;
+         //movementDir = movementVector.normalized;
         // Interact = player.GetButtonDown("Interact");
         // sprint = player.GetButton("Sprint");
         // pickUp = player.GetButtonDown("PickUp");
@@ -134,7 +151,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void ProcessInput()
+    private void ProcessInteraction()
     {
         Move(movementVector, sprint);
 
@@ -263,6 +280,16 @@ public class Player : MonoBehaviour
         {
             onFire = false;
         }
+    }
+
+
+    private void OnEnable()
+    {
+        controls.Gameplay.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.Gameplay.Disable();
     }
 
 }

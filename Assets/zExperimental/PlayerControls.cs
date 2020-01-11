@@ -27,17 +27,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Rotate"",
+                    ""name"": ""PickUp"",
                     ""type"": ""Button"",
-                    ""id"": ""efaa6f12-8094-4786-8e64-94887f5d4b85"",
+                    ""id"": ""b27b6bde-db2d-4edd-9695-8ab4faaa237e"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Interact"",
                     ""type"": ""Button"",
-                    ""id"": ""b27b6bde-db2d-4edd-9695-8ab4faaa237e"",
+                    ""id"": ""ccc21c8f-89dc-4c8c-b3e3-fd727313907d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -57,23 +57,23 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1879e388-18b5-423f-89b3-a6ace204c878"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
+                    ""id"": ""28ac879f-d8f3-40b1-989c-2f2dbefa128d"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotate"",
+                    ""action"": ""PickUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""28ac879f-d8f3-40b1-989c-2f2dbefa128d"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
+                    ""id"": ""eb347a57-f32a-4a0a-8001-e4cd3ceb73c7"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Jump"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -85,8 +85,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Gameplay
         m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
         m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
-        m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
-        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_PickUp = m_Gameplay.FindAction("PickUp", throwIfNotFound: true);
+        m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -137,15 +137,15 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_Gameplay_Move;
-    private readonly InputAction m_Gameplay_Rotate;
-    private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_PickUp;
+    private readonly InputAction m_Gameplay_Interact;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
         public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Gameplay_Move;
-        public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
-        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @PickUp => m_Wrapper.m_Gameplay_PickUp;
+        public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -158,12 +158,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
-                @Rotate.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
-                @Rotate.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
-                @Rotate.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
-                @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                @PickUp.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPickUp;
+                @PickUp.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPickUp;
+                @PickUp.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPickUp;
+                @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -171,12 +171,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Rotate.started += instance.OnRotate;
-                @Rotate.performed += instance.OnRotate;
-                @Rotate.canceled += instance.OnRotate;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @PickUp.started += instance.OnPickUp;
+                @PickUp.performed += instance.OnPickUp;
+                @PickUp.canceled += instance.OnPickUp;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -184,7 +184,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IGameplayActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnRotate(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnPickUp(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
