@@ -76,8 +76,8 @@ public class Player : MonoBehaviour
         
         controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
-        //controls.Gameplay.Interact.started += ctx => interact.InteractWithObject();
-        //controls.Gameplay.Interact.started += ctx => Interaction();
+        controls.Gameplay.Interact.started += ctx => interact.InteractWithObject();
+        controls.Gameplay.Interact.started += ctx => Interaction();
         controls.Gameplay.PickUp.performed += ctx => interact.pickUpObject(myCollider);
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
