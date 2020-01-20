@@ -9,12 +9,12 @@ public class ButtonSelectionManager : MonoBehaviour
     PlayerController[] controlers;
     LevelSelectController levelController;
 
-    Image selector, lastSelector, buttonImage, lastButtonImage;
+    Image buttonImage, lastButtonImage;
 
     public List<Button> menuButtons = new List<Button>();
     [Space]
-    public List<Image> buttonSelectors = new List<Image>();
-    [Space]
+    //public List<Image> buttonSelectors = new List<Image>();
+    //[Space]
     public List<Sprite> highlightSprites = new List<Sprite>();
 
     int selectedButtonIndex, lastSelectedButton;
@@ -87,30 +87,20 @@ public class ButtonSelectionManager : MonoBehaviour
         StartCoroutine(WaitForNextSelection());
 
         selectedButtonIndex++;
-        if (selectedButtonIndex > buttonSelectors.Count - 1)
+        if (selectedButtonIndex > menuButtons.Count - 1)
         {
             selectedButtonIndex = 0;
         }
         lastSelectedButton = selectedButtonIndex - 1;
         if (lastSelectedButton < 0)
         {
-            lastSelectedButton = buttonSelectors.Count - 1;
+            lastSelectedButton = menuButtons.Count - 1;
         }
 
-        lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
-        selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
+        //lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
+        //selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
         lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
         buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
-
-        if (lastSelector != null)
-        {
-            lastSelector.enabled = false;
-        }
-
-        if (selector != null)
-        {
-            selector.enabled = true;
-        }
 
         if (lastButtonImage != null)
         {
@@ -131,28 +121,18 @@ public class ButtonSelectionManager : MonoBehaviour
         selectedButtonIndex--;
         if (selectedButtonIndex < 0)
         {
-            selectedButtonIndex = buttonSelectors.Count - 1;
+            selectedButtonIndex = menuButtons.Count - 1;
         }
         lastSelectedButton = selectedButtonIndex + 1;
-        if (lastSelectedButton > buttonSelectors.Count - 1)
+        if (lastSelectedButton > menuButtons.Count - 1)
         {
             lastSelectedButton = 0;
         }
 
-        lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
-        selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
+        //lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
+        //selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
         lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
         buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
-
-        if (lastSelector != null)
-        {
-            lastSelector.enabled = false;
-        }
-
-        if (selector != null)
-        {
-            selector.enabled = true;
-        }
 
         if (lastButtonImage != null)
         {

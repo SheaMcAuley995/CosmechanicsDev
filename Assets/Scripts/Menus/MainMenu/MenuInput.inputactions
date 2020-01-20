@@ -1,0 +1,52 @@
+{
+    "name": "MenuInput",
+    "maps": [
+        {
+            "name": "MainMenu",
+            "id": "38808d88-298c-4f4f-8a23-da06c0fb1ef8",
+            "actions": [
+                {
+                    "name": "NavigateMenu",
+                    "type": "Value",
+                    "id": "e4e8cb18-6cec-4834-b879-534d0b385ddd",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectButton",
+                    "type": "Button",
+                    "id": "e04757dc-3b4e-4f4e-bb31-5cd8bddffd2d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f2b6ade0-6b4d-4a35-8a4a-9d2f6dbaca37",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NavigateMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6b6d4eae-624b-47e7-bc3c-0c500cce3f48",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
