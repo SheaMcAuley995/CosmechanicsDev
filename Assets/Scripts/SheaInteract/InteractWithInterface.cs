@@ -17,7 +17,7 @@ public class InteractWithInterface : MonoBehaviour
     bool isPuu = false;
 
     public GameObject interactedObject;
-    public PlayerController controller;
+    public Player controller;
 
     public void InteractWithObject()
     {
@@ -72,10 +72,15 @@ public class InteractWithInterface : MonoBehaviour
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
                     hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
+                    
                     isPuu = true;
                     puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
                     box.enabled = true;
 
+                    if(hitColliders[i].GetComponent<Interactable>() != false)
+                    {
+                        interactableObject = hitColliders[i].GetComponent<Interactable>();
+                    }
                     break;
                 }
             }

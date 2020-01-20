@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Rewired;
+using UnityEngine.InputSystem;
+
+//using Rewired;
 
 
 public class PlayerController : MonoBehaviour
 {
-
+    public PlayerControls controls;
 
     public delegate void currentInteraction();
     public currentInteraction myCurrentInteraction;
@@ -17,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     //Rewired ID
     public int playerId = 0;
-    [HideInInspector] public Player player;
+    [HideInInspector] public PlayerController player;
 
     [HideInInspector] public Vector2 movementVector;
     private Vector2 movementDir;
@@ -35,7 +37,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool Button_B;
     [HideInInspector] public bool start;
     CharacterController cc;
-    public bool normalMovement = true;
 
     [HideInInspector] public bool pickUp = false;
     public Transform pickUpTransform;
@@ -74,15 +75,25 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        controls.Gameplay.Move.performed += Move_performed;
+
+
         thisCollider = GetComponent<CapsuleCollider>();
         possibleColliders = new Collider[maxPossibleCollisions];
         onFireTimerCur = onFiretimer;
         animators = GetComponentsInChildren<Animator>();
-        player = ReInput.players.GetPlayer(playerId);
+        //player = ReInput.players.GetPlayer(playerId);
+        
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         interact = GetComponentInChildren<InteractWithInterface>();
-        interact.controller = this;
+        //interact.controller = this;
+    }
+
+    private void Move_performed(InputAction.CallbackContext obj)
+    {
+        Debug.LogError("MOVEMENT NOT IMPLIMENTED");
+        throw new System.NotImplementedException();
     }
 
     void Update()
@@ -101,35 +112,30 @@ public class PlayerController : MonoBehaviour
     {
         #region Main Game Input
         // Normal axis when player is not on fire
-        if (normalMovement)
-        {
-            movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
-            movementVector.y = player.GetAxisRaw("Move Vertical");
-        }
-        // Flipped axis when a player is on fire
-        else
-        {
-            movementVector.x = player.GetAxisRaw("Move Vertical"); // get input by name or action id
-            movementVector.y = player.GetAxisRaw("Move Horizontal");
-        }
-        movementDir = movementVector.normalized;
-        Interact = player.GetButtonDown("Interact");
-        sprint = player.GetButton("Sprint");
-        pickUp = player.GetButtonDown("PickUp");
-        bumper = player.GetButtonDown("Bumper");
-        pauseButton = player.GetButtonDown("Pause");
+       // movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
+       // movementVector.y = player.GetAxisRaw("Move Vertical");
+       //
+       // movementDir = movementVector.normalized;
+       // Interact = player.GetButtonDown("Interact");
+       // sprint = player.GetButton("Sprint");
+       // pickUp = player.GetButtonDown("PickUp");
+       // bumper = player.GetButtonDown("Bumper");
+       // pauseButton = player.GetButtonDown("Pause");
         #endregion
 
         #region Char Select Input
-        selectModel.x = player.GetAxisRaw("ModelSelect");
-        Button_Y = player.GetButtonDown("SelectCrime");
-        Button_X = player.GetButtonDown("PrevCrime");
-        Button_RB = player.GetButtonDown("ColourSelectRight");
-        Button_LB = player.GetButtonDown("ColourSelectLeft");
-        Button_A = player.GetButtonDown("ReadyUp");
-        Button_B = player.GetButtonDown("Cancel");
-        start = player.GetButtonDown("Start");
+        //selectModel.x = player.GetAxisRaw("ModelSelect");
+        //Button_Y = player.GetButtonDown("SelectCrime");
+        //Button_X = player.GetButtonDown("PrevCrime");
+        //Button_RB = player.GetButtonDown("ColourSelectRight");
+        //Button_LB = player.GetButtonDown("ColourSelectLeft");
+        //Button_A = player.GetButtonDown("ReadyUp");
+        //Button_B = player.GetButtonDown("Cancel");
+        //start = player.GetButtonDown("Start");
         #endregion
+
+
+
     }
 
     private void ProcessInput()

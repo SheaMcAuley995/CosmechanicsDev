@@ -4727,7 +4727,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f87f61d8b0c32fb409c66f8f90045549, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -6691,6 +6691,7 @@ GameObject:
   - component: {fileID: 136650645927904474}
   - component: {fileID: 114092620267416716}
   - component: {fileID: 135916360088757896}
+  - component: {fileID: -1457293073563547887}
   m_Layer: 10
   m_Name: Player_Prefab
   m_TagString: Char
@@ -6780,6 +6781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
+  player: {fileID: 0}
   movementVector: {x: 0, y: 0}
   Interact: 0
   sprint: 0
@@ -6793,7 +6795,6 @@ MonoBehaviour:
   Button_A: 0
   Button_B: 0
   start: 0
-  normalMovement: 1
   pickUp: 0
   pickUpTransform: {fileID: 4592010599831842}
   walkSpeed: 6
@@ -6827,6 +6828,38 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.5, z: 1}
+--- !u!114 &-1457293073563547887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951382722408284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: d0952b2183670e445bb61a0b2d95c01c,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.InputSystem.PlayerInput+DeviceLostEvent, Unity.InputSystem,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.InputSystem.PlayerInput+DeviceRegainedEvent, Unity.InputSystem,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1978953235343840
 GameObject:
   m_ObjectHideFlags: 0
