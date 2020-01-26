@@ -6,7 +6,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour {
 
     public Rigidbody rb;
-    public PlayerController playerController;
+    public Player playerController;
     public Collider myCollider;
 
     private void Start()

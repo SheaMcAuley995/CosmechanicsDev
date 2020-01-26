@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Rewired;
+//using Rewired;
 
 public class CardInput : MonoBehaviour
 {
@@ -21,18 +21,18 @@ public class CardInput : MonoBehaviour
 
     void Start()
     {
-        player = ReInput.players.GetPlayer(playerId);
+     //   player = ReInput.players.GetPlayer(playerId);
     }
 
     public void GetInput()
     {
-        selectModel.x = player.GetAxisRaw("ModelSelect");
-        selectCrime = player.GetButtonDown("SelectCrime");
-        previousCrime = player.GetButtonDown("PrevCrime");
-        selectColourRight = player.GetButtonDown("ColourSelectRight");
-        selectColourLeft = player.GetButtonDown("ColourSelectLeft");
-        readyUp = player.GetButtonDown("ReadyUp");
-        cancel = player.GetButtonDown("Cancel");
-        start = player.GetButtonDown("Start");
+     //  selectModel.x = player.GetAxisRaw("ModelSelect");
+     //  selectCrime = player.GetButtonDown("SelectCrime");
+     //  previousCrime = player.GetButtonDown("PrevCrime");
+     //  selectColourRight = player.GetButtonDown("ColourSelectRight");
+     //  selectColourLeft = player.GetButtonDown("ColourSelectLeft");
+     //  readyUp = player.GetButtonDown("ReadyUp");
+     //  cancel = player.GetButtonDown("Cancel");
+     //  start = player.GetButtonDown("Start");
     }
 }

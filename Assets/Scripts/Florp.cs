@@ -81,8 +81,8 @@ public class Florp : PickUp , IInteractableTool
 
         if (playerController != null)
         {
-            isFilling = playerController.player.GetButton("Interact");
-
+            // isFilling = playerController.player.GetButton("Interact");
+            //TODO *Bool needs to be compatible with new input system*
             if (isFilling)
             {
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1.5f, interactableLayer);
