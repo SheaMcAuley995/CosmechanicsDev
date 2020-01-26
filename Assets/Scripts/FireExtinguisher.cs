@@ -20,7 +20,9 @@ public class FireExtinguisher : PickUp
     {
         if (playerController != null)
         {
-            isExtinguishing = playerController.player.GetButton("Interact");
+            //isExtinguishing = playerController.player.GetButton("Interact");
+
+            //TODO *Bool needs to be compatible with new input system*
 
             if (isExtinguishing)
             {
