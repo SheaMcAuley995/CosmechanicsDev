@@ -1090,7 +1090,8 @@ PrefabInstance:
       propertyPath: myCollider
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 202609199262425763, guid: 592d767253ae042428293b0c7ce2ae9d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 592d767253ae042428293b0c7ce2ae9d, type: 3}
 --- !u!1 &1172208345
 GameObject:
