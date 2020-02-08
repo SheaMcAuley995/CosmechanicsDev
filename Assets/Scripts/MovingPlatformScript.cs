@@ -71,5 +71,13 @@ public class MovingPlatformScript : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        collision.collider.transform.parent = transform;        
+    }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        collision.collider.transform.parent = null;
+    }
 }
