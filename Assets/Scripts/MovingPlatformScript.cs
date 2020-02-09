@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class MovingPlatformScript : MonoBehaviour
 {
-    public Vector3 pointA;
-    public Vector3 pointB;
+    //public Vector3 pointA;
+    //public Vector3 pointB;
 
     Vector3 currentTarget;
     Vector3 startPos;
+
+    public List<Vector3> points;
+
+    Vector3 currentVelocity;
+    bool dumbBool;
 
     public float speed;
     public float pauseTime;
@@ -17,34 +22,39 @@ public class MovingPlatformScript : MonoBehaviour
 
     float startTime;
 
-    bool firstPass;
-
     bool stop;
+
+    int currentPoint;
+
+    Rigidbody[] rigidbodies;
 
     private void Start()
     {
+        rigidbodies = new Rigidbody[5];
         startTime = Time.time;
-        firstPass = true;
 
-        startPos = pointA;
+        //startPos = pointA;
+        currentPoint = 0;
+        startPos = points[currentPoint];
 
         distance = Vector3.Distance(startPos, currentTarget);
 
         StartCoroutine(PlatformMovement());
     }
 
+
     void ChangeDirection()
     {
         startPos = transform.position;
 
-        if (transform.position == pointA)
+        currentPoint++;
+
+        if (currentPoint + 1 > points.Count)
         {
-            currentTarget = pointB;
+            currentPoint = 0;
         }
-        else if(transform.position == pointB)
-        {
-            currentTarget = pointA;
-        }
+
+        currentTarget = points[currentPoint];
 
         startTime = Time.time;
         distance = Vector3.Distance(startPos, currentTarget);
@@ -55,29 +65,62 @@ public class MovingPlatformScript : MonoBehaviour
     {
         while (!stop)
         {
+
+
             float distCovered = (Time.time - startTime) * speed;
 
             float distanceFraction = (distCovered / distance);
 
             transform.position = Vector3.Lerp(startPos, currentTarget, distanceFraction);
 
-            if (transform.position == pointB || transform.position == pointA)
-            {
-                yield return new WaitForSeconds(pauseTime);
-                ChangeDirection();
-            }   
 
-            yield return null;
+            for(int i = 0; i < points.Count; ++i)
+            {
+                if(transform.position == points[i] && points != null)
+                {
+                    yield return new WaitForSeconds(pauseTime);
+                    ChangeDirection();
+                }
+            }
+
+            var dir = currentTarget - transform.position;
+
+
+            for (int i = 0; i < rigidbodies.Length; i++)
+            {
+                if (rigidbodies[i] != null)
+                {
+                    rigidbodies[i].MovePosition(rigidbodies[i].position + dir.normalized * speed * Time.deltaTime);
+                }
+            }
+                yield return new WaitForFixedUpdate();
         }
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
-        collision.collider.transform.parent = transform;        
+        for(int i = 0; i < rigidbodies.Length; i++)
+        {
+            if(rigidbodies[i] == null)
+            {
+                rigidbodies[i] = collision.rigidbody;
+                break;
+            }
+        }
+        //collision.collider.transform.parent = transform;        
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        collision.collider.transform.parent = null;
+        for (int i = 0; i < rigidbodies.Length; i++)
+        {
+            if (rigidbodies[i] == collision.rigidbody)
+            {
+                rigidbodies[i] = null;
+                break;
+            }
+        }
+        //collision.collider.transform.parent = null;
     }
 }
