@@ -7,19 +7,10 @@ public class Player : MonoBehaviour
 {
     public PlayerControls controls;
 
-    public delegate void currentInteraction();
-    public currentInteraction myCurrentInteraction;
-
-    public delegate void Interactions();
-    public Interactions myInteractions;
-
-    //Rewired ID
-    public int playerId = 0;
-    [HideInInspector] public PlayerController player;
 
     [HideInInspector] public Vector2 movementVector;
     private Vector2 movementDir;
-    [HideInInspector] public bool Interact;
+    [HideInInspector] public bool InteractionBool;
     [HideInInspector] public bool sprint;
     [HideInInspector] public bool bumper;
     [HideInInspector] public bool pauseButton;
@@ -56,7 +47,8 @@ public class Player : MonoBehaviour
     Rigidbody rb;
     public InteractWithInterface interact;
     public int maxPossibleCollisions;
-    public LayerMask collisionLayer;
+    //public LayerMask collisionLayer;
+    public LayerMask interactableLayer;
     public float radius;
     Collider[] possibleColliders;
     private Collider thisCollider;
@@ -68,7 +60,7 @@ public class Player : MonoBehaviour
     public GameObject onFireEffect;
     private bool onFire;
     public Collider myCollider;
-
+    public Interactable interactableObject;
     private void Awake()
     {
         controls = new PlayerControls();
@@ -76,9 +68,10 @@ public class Player : MonoBehaviour
         
         controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
-        controls.Gameplay.Interact.started += ctx => interact.InteractWithObject();
+       //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
         controls.Gameplay.Interact.started += ctx => Interaction();
-        controls.Gameplay.PickUp.performed += ctx => interact.pickUpObject(myCollider);
+        controls.Gameplay.Interact. += ctx => endInteraction();
+        controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
     }
@@ -98,22 +91,8 @@ public class Player : MonoBehaviour
         interact.controller = this;
     }
 
-    private void Move_performed(InputAction.CallbackContext obj)
-    {
-        Debug.LogError("MOVEMENT NOT IMPLIMENTED");
-        throw new System.NotImplementedException();
-    }
-
     void Update()
     {
-        // If the game isn't paused
-
-
-        //if (GameStateManager.instance.GetState() != GameState.Paused)
-        //{
-        //    getInput();
-        //    ProcessInput();
-        //}
 
         movementDir = movementVector.normalized;
         ProcessInteraction();
@@ -121,100 +100,127 @@ public class Player : MonoBehaviour
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
 
-    public void getInput()
-    {
-        #region Main Game Input
-        // Normal axis when player is not on fire
-        // movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
-        // movementVector.y = player.GetAxisRaw("Move Vertical");
-        //
-         //movementDir = movementVector.normalized;
-        // Interact = player.GetButtonDown("Interact");
-        // sprint = player.GetButton("Sprint");
-        // pickUp = player.GetButtonDown("PickUp");
-        // bumper = player.GetButtonDown("Bumper");
-        // pauseButton = player.GetButtonDown("Pause");
-        #endregion
-
-        #region Char Select Input
-        //selectModel.x = player.GetAxisRaw("ModelSelect");
-        //Button_Y = player.GetButtonDown("SelectCrime");
-        //Button_X = player.GetButtonDown("PrevCrime");
-        //Button_RB = player.GetButtonDown("ColourSelectRight");
-        //Button_LB = player.GetButtonDown("ColourSelectLeft");
-        //Button_A = player.GetButtonDown("ReadyUp");
-        //Button_B = player.GetButtonDown("Cancel");
-        //start = player.GetButtonDown("Start");
-        #endregion
-
-
-
-    }
 
     private void ProcessInteraction()
     {
         Move(movementVector, sprint);
-
-        if (myCurrentInteraction != null)
-        {
-            myCurrentInteraction();
-        }
-
-        if (interact.interactableObject == null)
-        {
-            myCurrentInteraction -= pickUpInteraction;
-        }
-
-        if (Interact)
-        {
-            interact.InteractWithObject();
-            Interaction();
-        }
-
-        if (pickUp)
-        {
-            interact.pickUpObject(myCollider);
-        }
-
     }
+
     public void pickUpInteraction()
     {
         interact.interactableObject.pickUpTransform = pickUpTransform;
     }
+
     public virtual void Interaction()
     {
-        if (interact.interactableObject != null)
+
+        if (interactedObject != null)
         {
-            if (myInteractions == null)
+            if (interactedObject.GetComponent<PickUp>() != null)
             {
-                if (myCurrentInteraction == null)
+                Debug.Log("TOOL INTEREACTION");
+                interactedObject.GetComponent<PickUp>().myInteraction();
+            }
+        }
+        else
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                Debug.Log("Interacting with :" + hitColliders[i].name);
+                if (hitColliders[i].GetComponent<RepairableObject>() != null)
                 {
-                    myCurrentInteraction += pickUpInteraction;
-                    interact.callInteract();
+                    if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
+                    {
+                        animators[0].SetTrigger("PipeFix");
+                        animators[1].SetTrigger("PipeFix");
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                        break;
+                    }
                 }
                 else
                 {
-                    interact.interactableObject.pickUpTransform = null;
-                    interact.interactableObject = null;
-                    myCurrentInteraction -= pickUpInteraction;
-                    interact.callInteract();
+                    if (hitColliders[i].GetComponent<IInteractable>() != null)
+                    {
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    }
+                    break;
+                }
+
+            }
+        }
+    }
+
+    public void endInteraction()
+    {
+        if (interactedObject != null)
+        {
+            if (interactedObject.GetComponent<PickUp>() != null)
+            {
+                Debug.Log("TOOL INTEREACTION");
+                interactedObject.GetComponent<PickUp>().endMyInteraction();
+            }
+        }
+    }
+
+    public void pickUpObject()
+    {
+        Debug.Log("CAST");
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
+        Debug.Log(transform.forward);
+        if (interactedObject == null)
+        {
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                if (hitColliders[i].GetComponent<PickUp>() != null)
+                {
+                    hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
+                    hitColliders[i].GetComponent<PickUp>().playerController = this;
+                    //hitColliders[i].GetComponent<PickUp>().playerController = controller;
+                    interactedObject = hitColliders[i].gameObject;
+
+                    //isPuu = true;
+                    //puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
+                    //box.enabled = true;
+
+                    if (hitColliders[i].GetComponent<Interactable>() != false)
+                    {
+                        interactableObject = hitColliders[i].GetComponent<Interactable>();
+                    }
+                    break;
                 }
             }
-            else if (myInteractions != null)
-            {
-                myInteractions();
-                Debug.Log("Running " + myInteractions);
-            }
-
-
         }
-        else if (interact.interactableObject == null)
+        else
         {
-            if (myCurrentInteraction != null)
+            if (interactedObject.GetComponent<PickUp>() != null)
             {
-                myCurrentInteraction = null;
+                interactedObject.GetComponent<PickUp>().playerController = null;
             }
+            interactedObject.GetComponent<PickUp>().putMeDown();
+            //isPuu = false;
+            //Destroy(puu);
+           // box.enabled = false;
+            interactedObject = null;
         }
+        //if (!isPuu)
+        //{
+        //    Destroy(puu);
+        //}
+    }
+
+
+    public void callInteract()
+    {
+        if (interactableObject != null)
+        {
+            interactableObject.InteractWith();
+        }
+    }
+    public void closeInteract()
+    {
+        interactableObject = null;
     }
 
     void Move(Vector2 inputDir, bool running)

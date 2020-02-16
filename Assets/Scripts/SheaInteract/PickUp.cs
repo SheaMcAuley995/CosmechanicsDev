@@ -32,6 +32,16 @@ public class PickUp : MonoBehaviour {
         transform.position = pickUpTransform.position;
         transform.eulerAngles = pickUpTransform.eulerAngles;
     }
+
+    public virtual void myInteraction()
+    {
+        
+    }
+
+    public virtual void endMyInteraction()
+    {
+
+    }
    
     public void putMeDown()
     {
