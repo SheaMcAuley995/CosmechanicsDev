@@ -32,9 +32,20 @@ public class PickUp : MonoBehaviour {
         transform.position = pickUpTransform.position;
         transform.eulerAngles = pickUpTransform.eulerAngles;
     }
+
+    public virtual void myInteraction()
+    {
+        
+    }
+
+    public virtual void endMyInteraction()
+    {
+
+    }
    
     public void putMeDown()
     {
+        endMyInteraction();
         myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;
