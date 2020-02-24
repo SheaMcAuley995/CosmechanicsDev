@@ -21,6 +21,7 @@ TagManager:
   - Floor
   - Laser
   - Head
+  - World
   layers:
   - Default
   - TransparentFX

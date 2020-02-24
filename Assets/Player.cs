@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
        //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
         controls.Gameplay.Interact.started += ctx => Interaction();
-        controls.Gameplay.Interact. += ctx => endInteraction();
+        //controls.Gameplay.Interact. += ctx => endInteraction();
         controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
