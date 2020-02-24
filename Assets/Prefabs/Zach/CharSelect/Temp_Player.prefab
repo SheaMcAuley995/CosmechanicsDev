@@ -130,12 +130,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2283345004860383787}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82828250b22012447bef57b4c794336f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
+  player: {fileID: 0}
   movementVector: {x: 0, y: 0}
   Interact: 0
   sprint: 0
@@ -149,7 +150,6 @@ MonoBehaviour:
   Button_A: 0
   Button_B: 0
   start: 0
-  normalMovement: 1
   pickUp: 0
   pickUpTransform: {fileID: 4592010599831842, guid: 592d767253ae042428293b0c7ce2ae9d,
     type: 3}
@@ -225,12 +225,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2283345004860383787}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1585959ef07ec74fa75e96100729765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterStatus: 0
   heads:
   - {fileID: 1626386772252174, guid: 2b095bde293478a4f926ddc5b5615c31, type: 3}
   - {fileID: 1132333130957944, guid: 6b01f29fb527ef145914c19332aa360d, type: 3}
@@ -6842,7 +6841,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f87f61d8b0c32fb409c66f8f90045549, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0

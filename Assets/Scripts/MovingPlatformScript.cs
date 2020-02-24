@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MovingPlatformScript : MonoBehaviour
 {
-    //public Vector3 pointA;
-    //public Vector3 pointB;
-
     Vector3 currentTarget;
     Vector3 startPos;
 
@@ -33,7 +30,6 @@ public class MovingPlatformScript : MonoBehaviour
         rigidbodies = new Rigidbody[5];
         startTime = Time.time;
 
-        //startPos = pointA;
         currentPoint = 0;
         startPos = points[currentPoint];
 
