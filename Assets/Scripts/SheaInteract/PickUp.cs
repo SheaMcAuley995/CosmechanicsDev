@@ -45,6 +45,7 @@ public class PickUp : MonoBehaviour {
    
     public void putMeDown()
     {
+        endMyInteraction();
         myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;

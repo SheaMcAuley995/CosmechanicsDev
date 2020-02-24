@@ -6631,7 +6631,6 @@ GameObject:
   - component: {fileID: 114092620267416716}
   - component: {fileID: 135916360088757896}
   - component: {fileID: -1457293073563547887}
-  - component: {fileID: 202609199262425763}
   m_Layer: 10
   m_Name: Player_Prefab
   m_TagString: Char
@@ -6800,53 +6799,6 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &202609199262425763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1951382722408284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef530c324841ed244ad5be1d292586a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId: 0
-  player: {fileID: 0}
-  movementVector: {x: 0, y: 0}
-  Interact: 0
-  sprint: 0
-  bumper: 0
-  pauseButton: 0
-  selectModel: {x: 0, y: 0}
-  Button_Y: 0
-  Button_X: 0
-  Button_RB: 0
-  Button_LB: 0
-  Button_A: 0
-  Button_B: 0
-  start: 0
-  pickUp: 0
-  pickUpTransform: {fileID: 4592010599831842}
-  walkSpeed: 6
-  runSpeed: 6
-  gravity: -12
-  jumpheight: 1
-  turnSmoothTime: 0.05
-  speedSmoothTime: 0
-  cameraTrans: {fileID: 0}
-  interact: {fileID: 0}
-  maxPossibleCollisions: 5
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 1025
-  radius: 1
-  animators: []
-  onFiretimer: 3
-  onFireTimerCur: 0
-  onFireEffect: {fileID: 1045824128199880}
-  myCollider: {fileID: 136650645927904474}
 --- !u!1 &1978953235343840
 GameObject:
   m_ObjectHideFlags: 0

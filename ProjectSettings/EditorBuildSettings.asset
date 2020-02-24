@@ -29,4 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels_UI/LoseScene.unity
     guid: cefb25f814e00d14fb5840daae71363c
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 39cd13adb31e54e4eb92d604c0f98cbe,
+      type: 2}

@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
     private bool onFire;
     public Collider myCollider;
     public Interactable interactableObject;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -70,7 +71,7 @@ public class Player : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
        //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
         controls.Gameplay.Interact.started += ctx => Interaction();
-        //controls.Gameplay.Interact. += ctx => endInteraction();
+        //controls.Gameplay.Interact.canceled += ctx => endInteraction();
         controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
@@ -104,6 +105,17 @@ public class Player : MonoBehaviour
     private void ProcessInteraction()
     {
         Move(movementVector, sprint);
+
+        if(Gamepad.current.xButton.wasReleasedThisFrame)
+        {
+            endInteraction();
+        }
+
+        if(controls.Gameplay.Interact.triggered)
+        {
+            Debug.Log("Pressed");
+
+        }
     }
 
     public void pickUpInteraction()
@@ -118,7 +130,7 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                Debug.Log("TOOL INTEREACTION");
+                //Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().myInteraction();
             }
         }
@@ -194,6 +206,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            interactedObject.GetComponent<FireExtinguisher>().endMyInteraction();
             if (interactedObject.GetComponent<PickUp>() != null)
             {
                 interactedObject.GetComponent<PickUp>().playerController = null;
@@ -201,7 +214,7 @@ public class Player : MonoBehaviour
             interactedObject.GetComponent<PickUp>().putMeDown();
             //isPuu = false;
             //Destroy(puu);
-           // box.enabled = false;
+            // box.enabled = false;
             interactedObject = null;
         }
         //if (!isPuu)
