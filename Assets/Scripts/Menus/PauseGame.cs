@@ -13,7 +13,7 @@ public class PauseGame : MonoBehaviour
     public Text[] texts;
 
     [Header("Configurations")]
-    public ButtonSelectionManager selection;
+    public MenuControler selection;
     public KeyCode pauseButton1;
     public KeyCode pauseButton2;
     public string menuScene;

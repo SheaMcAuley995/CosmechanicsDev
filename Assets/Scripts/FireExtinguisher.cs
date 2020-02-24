@@ -16,32 +16,27 @@ public class FireExtinguisher : PickUp
         box.enabled = false;
     }
 
-    public void Update()
+    public override void myInteraction()
     {
+        base.myInteraction();
+
         if (playerController != null)
         {
-            isExtinguishing = playerController.player.GetButton("Interact");
-
-            if (isExtinguishing)
-            {
-                if (!waterHoseEffect.isPlaying)
-                {
-                    waterHoseEffect.Play();
-                }
-                box.enabled = true;
-            }
-            else
-            {
-                if (!waterHoseEffect.isStopped)
-                {
-                    waterHoseEffect.Stop();
-                }
-                box.enabled = false;
-            }
+            waterHoseEffect.Play();
+            box.enabled = true;
         }
-        else
+
+    }
+
+
+    public override void endMyInteraction()
+    {
+        base.endMyInteraction();
+        if(playerController != null)
         {
             waterHoseEffect.Stop();
+            box.enabled = false;
         }
     }
 }
+
