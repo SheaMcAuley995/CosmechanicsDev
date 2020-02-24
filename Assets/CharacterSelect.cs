@@ -1,25 +1,41 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CharacterSelect : MonoBehaviour
 {
-    PlayerInputManager inputManager;
-    PlayerInput input;
+    public static CharacterSelect instance;
+    
+    [HideInInspector]public PlayerInput[] playerInputs;
+    
+    public Transform[] spawnPositions;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        inputManager = GetComponent<PlayerInputManager>();
-
-        inputManager.
+        instance = this;
+        playerInputs = new PlayerInput[4];
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        //inputManager = GetComponent<PlayerInputManager>();
+        //inputManager.onPlayerJoined += onSpawnedPlayer(new PlayerInput player);
     }
 
+    public void onPlayerSpawned(PlayerInput player)
+    {
+        for(int i = 0; i < 4; i++ )
+        {
+            if(playerInputs[i] == null)
+            {
+                playerInputs[i] = player;
+                player.transform.position = spawnPositions[i].position;
+                player.transform.rotation = spawnPositions[i].rotation;
+                break;
+            }
+        }
+
+    }
 }
