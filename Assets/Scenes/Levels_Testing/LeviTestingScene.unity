@@ -2670,6 +2670,7 @@ MonoBehaviour:
   worlds:
   - {fileID: 1480505470}
   - {fileID: 351484966}
+  worldSelected: 0
 --- !u!1 &2079380393
 GameObject:
   m_ObjectHideFlags: 0
