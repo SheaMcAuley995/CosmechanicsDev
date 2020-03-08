@@ -25,9 +25,9 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "ccc21c8f-89dc-4c8c-b3e3-fd727313907d",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Hold"
                 },
                 {
                     "name": "Up",
@@ -89,7 +89,7 @@
                     "name": "",
                     "id": "eb347a57-f32a-4a0a-8001-e4cd3ceb73c7",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "Hold",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
@@ -137,6 +137,82 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "MainMenu",
+            "id": "3a5ba496-4a5b-496e-9c56-22c551764086",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "5257692f-8f79-4b4c-ba4a-c80018bb800a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Selection",
+                    "type": "Button",
+                    "id": "60c99ef4-9eca-484d-b4ef-ba2919e69500",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "286d6094-db83-4a8f-90c1-c05752ee9a0a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e773ceb5-30e9-4aff-bf7e-5225b2272c96",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7852c419-0c1c-47e8-b256-62526fe0889f",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d4433b67-65f9-4cc3-8438-15cdcbd74de2",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Selection",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc0e9101-4b8a-407c-8ede-839197275066",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

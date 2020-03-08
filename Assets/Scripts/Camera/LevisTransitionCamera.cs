@@ -6,22 +6,27 @@ public class LevisTransitionCamera : MonoBehaviour
 {
     public Vector3 offset;
 
-    public List<GameObject> targets;
+    List<GameObject> targets;
     public GameObject target;
 
     public float transitionSpeed;
 
+    public List<GameObject> worlds;
+    int world;
 
     int currentTarget;
 
     private void Start()
     {
         currentTarget = 0;
+
+        targets = worlds;
+
         if(targets != null)
         {
             transform.position = targets[0].transform.position + offset;
             target = targets[0];
-        }
+        }       
     }
 
     public void NextTarget()
@@ -51,6 +56,32 @@ public class LevisTransitionCamera : MonoBehaviour
         target = targets[currentTarget];
         StartCoroutine(ShiftCamera());
     }
+
+    public void WorldSelect()
+    {
+        offset = new Vector3(0, 0, 5);
+
+        world = currentTarget;
+        currentTarget = 0;
+
+        targets = target.GetComponent<LevelSecion>().levelList;
+        target = targets[0];
+
+
+        StartCoroutine(ShiftCamera());
+    }
+
+    public void BackToWorldSelect()
+    {
+        offset = new Vector3(0, 0, 25);
+
+        currentTarget = world;
+        targets = worlds;
+        target = worlds[currentTarget];
+
+        StartCoroutine(ShiftCamera());
+    }
+
 
     IEnumerator ShiftCamera()
     {
