@@ -208,8 +208,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!onFire)
         {
-            animators[0].SetBool("OnFire", false);
-            animators[1].SetBool("OnFire", false);
+            //animators[0].SetBool("OnFire", false);
+            //animators[1].SetBool("OnFire", false);
             if (inputDir != Vector2.zero)
             {
                 float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
@@ -234,8 +234,8 @@ public class PlayerController : MonoBehaviour
 
         if (onFire)
         {
-            animators[0].SetBool("OnFire", true);
-            animators[1].SetBool("OnFire", true);
+           // animators[0].SetBool("OnFire", true);
+           // animators[1].SetBool("OnFire", true);
             onFireEffect.SetActive(true);
 
             if (inputDir != Vector2.zero)

@@ -28,7 +28,7 @@ public class Fire : MonoBehaviour
         particles = GetComponent<ParticleSystem>();
         emiss = GetComponent<ParticleSystem>().emission;
         //ShipHealth.instance.shipCurrenHealth -= damageToShip;
-        ShipHealth.instance.AdjustUI();
+        Old_GameplayEvents.instance.AdjustUI();
 
         StartCoroutine(FireSpread());
     }
