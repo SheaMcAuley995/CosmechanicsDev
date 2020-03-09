@@ -1,0 +1,128 @@
+{
+    "name": "QuickButtons",
+    "maps": [
+        {
+            "name": "ButtonTerminal",
+            "id": "9955dac9-fd73-47b4-89ae-b661ce2bced1",
+            "actions": [
+                {
+                    "name": "PressedNorthButton",
+                    "type": "Button",
+                    "id": "ff8979ec-3738-4a9e-a5ca-2a9abd1212ef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PressedSouthButton",
+                    "type": "Button",
+                    "id": "fbd340a2-46c3-4ec6-b5b7-d8c76edb1fef",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PressedWestButton",
+                    "type": "Button",
+                    "id": "692d61c3-3280-48ac-b1aa-f1bcb75d6f63",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PressedEastButton",
+                    "type": "Button",
+                    "id": "3b51bfa3-c981-479b-8a80-38d07aa271e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PressedLeftShoulder",
+                    "type": "Button",
+                    "id": "941631b4-b4ef-4e56-88d3-8c7f4c0c4006",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PressedRightShoulder",
+                    "type": "Button",
+                    "id": "22908567-7f47-4e46-97b7-6905bac64221",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8235ce40-6d1b-4a38-a8b6-9158f1426d0a",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressedNorthButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15c16670-4ab5-4ae7-91f8-d98444f95681",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressedSouthButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d871c4ef-408f-46c6-a056-cd0483d2747b",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressedWestButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cd780be-fc71-47ac-ac68-2d31c9f00f61",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressedEastButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4d64131-25aa-4b73-9ae2-685d58751777",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressedLeftShoulder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "233a7ccf-9457-4746-8dca-ac466a77a609",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressedRightShoulder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
