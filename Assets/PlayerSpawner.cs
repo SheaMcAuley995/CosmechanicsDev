@@ -8,6 +8,6 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Start()
     {
-        PlayerInputManager.instance.
+       //PlayerInputManager.instance.
     }
 }

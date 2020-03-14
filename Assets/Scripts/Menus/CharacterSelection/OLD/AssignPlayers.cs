@@ -25,7 +25,7 @@ public class AssignPlayers : MonoBehaviour
 
     IEnumerator Start()
     {
-        ExampleGameController.instance.setSpawnPoints();
+       // ExampleGameController.instance.setSpawnPoints();
         ExampleGameController.instance.numberOfPlayers = 0;
         for (int i = 0; i < cards.Length; i++)
         {
