@@ -7,6 +7,8 @@ public class LevisTransitionCamera : MonoBehaviour
 {
     public Vector3 offset;
 
+    public Quaternion baseRotation;
+
     List<GameObject> targets;
     public GameObject target;
 
@@ -35,12 +37,16 @@ public class LevisTransitionCamera : MonoBehaviour
 
         targets = worlds;
 
+        transform.rotation = baseRotation;
+
         if(targets != null)
         {
             transform.position = targets[0].transform.position + offset;
             target = targets[0];
         }       
     }
+
+
 
     public void NextTarget()
     {
@@ -95,6 +101,7 @@ public class LevisTransitionCamera : MonoBehaviour
         currentTarget = world;
         targets = worlds;
         target = worlds[currentTarget];
+      
 
         StartCoroutine(ShiftCamera());
     }
@@ -118,6 +125,8 @@ public class LevisTransitionCamera : MonoBehaviour
                 break;
             }
             yield return new WaitForEndOfFrame();
+            transform.parent = target.transform;
+            transform.rotation = baseRotation;
         }
 
         yield return null;
