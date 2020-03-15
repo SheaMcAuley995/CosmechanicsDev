@@ -26,10 +26,10 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         if(filter == null) { filter = GetComponent<MeshFilter>(); }
         if(mesh == null) { mesh = GetComponent<MeshRenderer>(); }
         
-        if(ShipHealth.instance != null)
+        if(Old_GameplayEvents.instance != null)
         {
-            ShipHealth.instance.shipMaxHealth += healthMax;
-            ShipHealth.instance.shipCurrenHealth += health;
+            Old_GameplayEvents.instance.shipMaxHealth += healthMax;
+            Old_GameplayEvents.instance.shipCurrenHealth += health;
         }
 
         
@@ -82,10 +82,10 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;
         //alertUI.problemCurrent += repairAmount;
-        if (ShipHealth.instance != null)
+        if (Old_GameplayEvents.instance != null)
         {
-            ShipHealth.instance.shipCurrenHealth += repairAmount;
-            ShipHealth.instance.AdjustUI();
+            Old_GameplayEvents.instance.shipCurrenHealth += repairAmount;
+            Old_GameplayEvents.instance.AdjustUI();
         }
 
         // health = Mathf.Clamp(health + repairAmount, 0, healthMax);
@@ -103,10 +103,10 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             filter.mesh = meshes[currentMesh];
             mesh.material.color += Color.red;
             if (alertUI != null) { alertUI.problemCurrent -= damageTaken; }
-            if(ShipHealth.instance != null)
+            if(Old_GameplayEvents.instance != null)
             {
-                ShipHealth.instance.shipCurrenHealth -= damageTaken;
-                ShipHealth.instance.AdjustUI();
+                Old_GameplayEvents.instance.shipCurrenHealth -= damageTaken;
+                Old_GameplayEvents.instance.AdjustUI();
             }
             //Debug.Log("Health Points : " + health);
             if (AudioEventManager.instance != null)

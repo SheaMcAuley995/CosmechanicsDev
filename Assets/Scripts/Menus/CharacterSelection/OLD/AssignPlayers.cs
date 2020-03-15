@@ -17,7 +17,7 @@ public class AssignPlayers : MonoBehaviour
     public List<Material> availableColors = new List<Material>();
     public List<Material> takenColors = new List<Material>();
 
-    [Header("Spawn Positions -- DON'T TOUCH THESE PLEASE!!")]
+    [Header("Spawn Positions")]
     [SerializeField] Vector3[] spawnPositions = new Vector3[4];
 
     bool checkingInput = false;
