@@ -8,10 +8,14 @@ public class CharacterSelect : MonoBehaviour
 {
     public static CharacterSelect instance;
     
-    [HideInInspector]public PlayerInput[] playerInputs;
-    
-    public Transform[] spawnPositions;
+    public PlayerInput[] playerInputs;
 
+
+    public CharacterCardGenerator[] characterCards;
+    public List<GameObject> heads;
+    public Transform[] spawnPositions;
+    public Material[] materials;
+    public List<Material> materialsList;
     private void Awake()
     {
         instance = this;
@@ -33,9 +37,14 @@ public class CharacterSelect : MonoBehaviour
                 playerInputs[i] = player;
                 player.transform.position = spawnPositions[i].position;
                 player.transform.rotation = spawnPositions[i].rotation;
+
+                //player.GetComponent<CharacterCustomization>().cardGenerator = characterCards[i];
+                //characterCards[i].newPlayer = player.gameObject;
                 break;
             }
         }
+        //player.GetComponent<CharacterCustomization>().characterSelection = this;
+
 
     }
 }

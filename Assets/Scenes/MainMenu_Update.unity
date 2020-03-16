@@ -3912,7 +3912,7 @@ MonoBehaviour:
   m_ActionsAsset: {fileID: -944628639613478452, guid: d0952b2183670e445bb61a0b2d95c01c,
     type: 3}
   m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: 7723093844229559393, guid: d0952b2183670e445bb61a0b2d95c01c,
+  m_MoveAction: {fileID: -1084325251331065162, guid: d0952b2183670e445bb61a0b2d95c01c,
     type: 3}
   m_SubmitAction: {fileID: -3511259328498993640, guid: d0952b2183670e445bb61a0b2d95c01c,
     type: 3}
