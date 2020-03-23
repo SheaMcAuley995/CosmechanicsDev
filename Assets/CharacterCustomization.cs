@@ -7,17 +7,21 @@ public class CharacterCustomization : MonoBehaviour
 {
     PlayerControls controls;
     PlayerInputManager PlayerInputManager;
-
+    //[HideInInspector]public int playerID;
     //public CharacterCardGenerator cardGenerator;
     public List<GameObject> heads;
     public GameObject head;
     //public CharacterSelect characterSelect;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        controls = new PlayerControls();
         var action = new InputAction();
         int retVal = 0;
         Vector2 retVec2 = new Vector2();
+
+        //controls = new PlayerControls();
+
 
         controls.MainMenu.LSelection.started += ctx => retVal = -1;
         controls.MainMenu.RSelection.started += ctx => retVal = 1;
@@ -32,7 +36,7 @@ public class CharacterCustomization : MonoBehaviour
         //Debug.Log(ctx.valueType);
         //controls.MainMenu.Alt_Selection.performed += ctx => retVal = 
         //controls.MainMenu.Alt_Selection.started += ctx => ColorSelection(retVal);
-        controls.MainMenu.Cancel.started += ctx => OnPlayerLeft();
+        controls.MainMenu.Cancel.started += ctx => PlayerLeft();
         CharacterSelect.instance.onPlayerSpawned(gameObject.GetComponent<PlayerInput>());
         //cardGenerator.
     }
@@ -64,24 +68,23 @@ public class CharacterCustomization : MonoBehaviour
         Debug.Log("Player Joined");
     }
 
-    public void OnPlayerLeft()
+    public void PlayerLeft()
     {
-        for (int i = 0; i < 4; i++)
-        {
-            if (CharacterSelect.instance.playerInputs[i] == gameObject.GetComponent<PlayerInput>())
-            {
-                CharacterSelect.instance.playerInputs[i] = null;
-                Destroy(this.gameObject);
-            }
-        }
+        // if (CharacterSelect.instance.playerInputs[i] == gameObject.GetComponent<PlayerInput>())
+        // {
+        //     CharacterSelect.instance.playerInputs[i] = null;
+        //     Destroy(this.gameObject);
+        //
+        // }
 
+        //CharacterSelect.instance.playerInputs[GetComponent<PlayerInput>().playerIndex] = null;
+        Destroy(gameObject);
         Debug.Log("Player Left");
     }
 
 
     private void OnEnable()
     {
-        controls = new PlayerControls();
         controls.MainMenu.Enable();
     }
     private void OnDisable()

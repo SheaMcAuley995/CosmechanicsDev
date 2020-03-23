@@ -12,7 +12,7 @@ public class CharacterSelect : MonoBehaviour
 
 
     public CharacterCardGenerator[] characterCards;
-    public List<GameObject> heads;
+    
     public Transform[] spawnPositions;
     public Material[] materials;
     public List<Material> materialsList;
@@ -34,10 +34,10 @@ public class CharacterSelect : MonoBehaviour
         {
             if(playerInputs[i] == null)
             {
-                playerInputs[i] = player;
+                //playerInputs[i] = player;
                 player.transform.position = spawnPositions[i].position;
                 player.transform.rotation = spawnPositions[i].rotation;
-
+                //player.playerIndex
                 //player.GetComponent<CharacterCustomization>().cardGenerator = characterCards[i];
                 //characterCards[i].newPlayer = player.gameObject;
                 break;

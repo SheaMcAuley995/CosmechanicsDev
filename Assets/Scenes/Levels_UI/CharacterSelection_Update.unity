@@ -691,7 +691,8 @@ MonoBehaviour:
         m_Groups: 
         m_Action: Action
         m_Flags: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 3596116152685009727, guid: 28280f00eeff01448a811c3953ac3e5b,
+      type: 3}
   m_PlayerPrefab: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d,
     type: 3}
   m_SplitScreen: 0
@@ -753,8 +754,7 @@ MonoBehaviour:
     type: 3}
   m_SubmitAction: {fileID: -3511259328498993640, guid: d0952b2183670e445bb61a0b2d95c01c,
     type: 3}
-  m_CancelAction: {fileID: 5238560093108460383, guid: d0952b2183670e445bb61a0b2d95c01c,
-    type: 3}
+  m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: 0}
   m_MiddleClickAction: {fileID: 0}
   m_RightClickAction: {fileID: 0}
@@ -1322,6 +1322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114903188380854496, guid: fd1b08d5134ed844c8dbe541262aec6e,
+        type: 3}
+      propertyPath: colorIndex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd1b08d5134ed844c8dbe541262aec6e, type: 3}
