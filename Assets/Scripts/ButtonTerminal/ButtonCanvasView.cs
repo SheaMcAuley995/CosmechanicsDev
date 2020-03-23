@@ -32,18 +32,12 @@ public class ButtonCanvasView : MonoBehaviour
     {
         if (!isEnabled)
         {
-            for (int i = 0; i < buttonManager.images.Count; i++)
-            {
-                buttonManager.images[i].enabled = false;
-            }
+            buttonManager.image.enabled = false;
             isActive = false;
         }
         else
         {
-            for (int i = 0; i < buttonManager.images.Count; i++)
-            {
-                buttonManager.images[i].enabled = true;
-            }
+            buttonManager.image.enabled = true;
             isActive = true;
         }
     }
