@@ -86,6 +86,11 @@ public class Player : MonoBehaviour
         animators = GetComponentsInChildren<Animator>();
         //player = ReInput.players.GetPlayer(playerId);
 
+        if(cameraTrans == null)
+        {
+            cameraTrans = Camera.main.transform;
+        }
+
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         interact = GetComponentInChildren<InteractWithInterface>();
