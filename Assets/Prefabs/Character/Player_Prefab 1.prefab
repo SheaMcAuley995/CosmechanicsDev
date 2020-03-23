@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 228857624158811868}
   - component: {fileID: 7568695366728193861}
   - component: {fileID: 202609199262425763}
+  - component: {fileID: -6325178230515989664}
   m_Layer: 10
   m_Name: Player_Prefab 1
   m_TagString: Char
@@ -352,10 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef530c324841ed244ad5be1d292586a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerId: 0
-  player: {fileID: 0}
   movementVector: {x: 0, y: 0}
-  Interact: 0
+  InteractionBool: 0
   sprint: 0
   bumper: 0
   pauseButton: 0
@@ -378,15 +377,30 @@ MonoBehaviour:
   cameraTrans: {fileID: 0}
   interact: {fileID: 0}
   maxPossibleCollisions: 5
-  collisionLayer:
+  interactableLayer:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 0
   radius: 1
   animators: []
   onFiretimer: 3
   onFireTimerCur: 0
   onFireEffect: {fileID: 201668941927005340}
   myCollider: {fileID: 228193707084305550}
+  interactableObject: {fileID: 0}
+--- !u!114 &-6325178230515989664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200728199365951240}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baca0a2bf09b932489dedb5779470085, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heads: []
+  head: {fileID: 0}
 --- !u!1 &200730266903630936
 GameObject:
   m_ObjectHideFlags: 0

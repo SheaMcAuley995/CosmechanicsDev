@@ -48,7 +48,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     [HideInInspector] public Vector3 spawnPos;
 
-    GameObject newPlayer;
+    public GameObject newPlayer;
     GameObject newHead;
     Vector3 headPos;
     Renderer[] childRenderers;
@@ -90,7 +90,7 @@ public class CharacterCardGenerator : MonoBehaviour
     }
 
     // Generates a full new prisoner card (done the first time to give players a default character)
-    public void GenerateFullCard(int playerId)
+    public void GenerateFullCard(Head head, GameObject playerObj)
     {
         // Sets random values for each card parameter
         nameIndex = Random.Range(0, namesList.Count);
@@ -101,18 +101,18 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter.nameField.text = namesList[nameIndex];
 
         // Creates the new player and assigns necessary components
-        newPlayer = Instantiate(characterToSpawn, spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        newPlayer = playerObj;
         newPlayer.AddComponent<SelectedPlayer>();
         animator = newPlayer.GetComponent<Animator>();
 
-        AssignHead();
+        //AssignHead();
         AssignColour();
 
         // Assigns newly created characters a playerId for ReWired, and assigns the camera
         controller = newPlayer.GetComponent<PlayerController>();
-        currentPlayerId = playerId;
-        controller.playerId = currentPlayerId;
-        currentPlayerId++;
+        //currentPlayerId = playerId;
+        //controller.playerId = currentPlayerId;
+        //currentPlayerId++;
         controller.cameraTrans = Camera.main.transform;
 
         // This prevents characters from moving around when players are selecting characters
@@ -124,7 +124,7 @@ public class CharacterCardGenerator : MonoBehaviour
         assignPlayers.availableColors.RemoveAt(colorIndex);
     }
 
-    public void NextHead()
+    public void NextHead(Head head)
     {
         // Cycles through the array of heads
         if (headIndex >= heads.Length - 1)
@@ -136,10 +136,10 @@ public class CharacterCardGenerator : MonoBehaviour
             headIndex++;
         }
 
-        AssignHead();
+        AssignHead(head);
     }
 
-    public void PreviousHead()
+    public void PreviousHead(Head head)
     {
         // Cycles through the array of heads
         if (headIndex <= 0)
@@ -152,13 +152,13 @@ public class CharacterCardGenerator : MonoBehaviour
         }
 
         // Assigns the selected head to the character
-        AssignHead();
+        AssignHead(head);
     }
 
-    void AssignHead()
+    void AssignHead(Head head)
     {
         // Identifies the active head and destroys it
-        newHead = newPlayer.GetComponentInChildren<Head>().gameObject;
+        newHead = head.gameObject;
         headPos = newHead.transform.position;
         Destroy(newHead.gameObject);
 
