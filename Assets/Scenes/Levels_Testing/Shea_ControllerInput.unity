@@ -985,6 +985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4241908675869778, guid: 592d767253ae042428293b0c7ce2ae9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.03
@@ -1217,7 +1221,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1306389716}
   - component: {fileID: 1306389715}
-  - component: {fileID: 1306389717}
   m_Layer: 0
   m_Name: PlayerSpawner
   m_TagString: Untagged
@@ -1240,7 +1243,7 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: -1
   m_AllowJoining: 1
-  m_JoinBehavior: 2
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1262,8 +1265,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
+  m_PlayerPrefab: {fileID: 200728199365951240, guid: 5e84428ae8c0de548a1343b929796a17,
+    type: 3}
+  m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
   m_SplitScreenRect:
@@ -1286,18 +1290,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1306389717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1306389714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9b47258ef41a045b5fb544da6c83c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1341528031
 GameObject:
   m_ObjectHideFlags: 0

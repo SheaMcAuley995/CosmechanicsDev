@@ -65,16 +65,14 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerControls();
-        
-        
+
         controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
-       //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
+        //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
         controls.Gameplay.Interact.started += ctx => Interaction();
         //controls.Gameplay.Interact.canceled += ctx => endInteraction();
         controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
-
     }
 
     private void Start()
