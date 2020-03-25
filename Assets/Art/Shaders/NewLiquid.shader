@@ -3,7 +3,7 @@
 	Properties
 	{
 		_Colour("Colour", Color) = (1,1,1,1)
-		_FillAmount("Fill Amount", Range(-10,10)) = 0.0
+		[PerRendererData]_FillAmount("Fill Amount", Range(-0.5,0.5)) = 0.0
 		[HideInInspector] _WobbleX("WobbleX", Range(-1,1)) = 0.0
 		[HideInInspector] _WobbleZ("WobbleZ", Range(-1,1)) = 0.0
 		_TopColor("Top Color", Color) = (1,1,1,1)

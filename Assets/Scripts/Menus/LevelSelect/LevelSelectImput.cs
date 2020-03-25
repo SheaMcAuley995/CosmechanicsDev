@@ -8,7 +8,7 @@ using UnityEngine.InputSystem.Utilities;
 
 public class @LevelSelectImput : IInputActionCollection, IDisposable
 {
-    private InputActionAsset asset;
+    public InputActionAsset asset { get; }
     public @LevelSelectImput()
     {
         asset = InputActionAsset.FromJson(@"{
