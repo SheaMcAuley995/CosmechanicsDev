@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Florp : PickUp , IInteractableTool
 {
+    /*
     public bool isFilling = false;
 
     Vector3 zero = Vector3.zero;
@@ -12,19 +13,52 @@ public class Florp : PickUp , IInteractableTool
     public float lerpTime = 1.25f;
     public AnimationCurve curve;
     public float containedFlorp = 50f;
+    */
     public bool doFill;
     public bool isFilled = false;
+
+    public float offset;
+
+    public Renderer renderer;
+    private MaterialPropertyBlock propertyBlock;
+
+    /*
     private int florpFilled = 1;
     [Space]
     [Header("Inner")]
     public GameObject innerContObj;
+    */
+
     Renderer innerRenderer;
 
-    public float florpFillAmount = 0.2f;
+    float florpFillMax = 0.5f;
+    float florpFillMin = -0.5f;
+
+    public float florpFillAmount;
 
     //public ParticleSystem particle;
 
+    
+
     public LayerMask interactableLayer;
+
+    private void Awake()
+    {
+        propertyBlock = new MaterialPropertyBlock();
+        //renderer = GetComponent<Renderer>();
+    }
+
+    private void Update()
+    {
+        renderer.GetPropertyBlock(propertyBlock);
+
+        propertyBlock.SetFloat("_FillAmount", Mathf.Lerp(florpFillMin, florpFillMax, (Mathf.Sin(Time.time + offset) + 1) / 2f));
+
+        renderer.SetPropertyBlock(propertyBlock);
+    }
+
+
+    /*
 
     private void Start()
     {
@@ -36,6 +70,7 @@ public class Florp : PickUp , IInteractableTool
         innerRenderer = innerContObj.GetComponent<Renderer>();
 
     }
+    */
     public override void pickMeUp(Transform pickUpTransform)
     {
         base.pickMeUp(pickUpTransform);
@@ -66,12 +101,12 @@ public class Florp : PickUp , IInteractableTool
            // Debug.Log("florp is filles");
             //particle.Play();
             isFilled = true;
-            EndGameScore.instance.AddFlorpScore(florpFilled);
+            //EndGameScore.instance.AddFlorpScore(florpFilled);
         }
      //   Debug.Log(name + " is being interacted with");
     }
 
-
+    /*
     private void Update()
     {
         float timeSince = Time.time - initTime;
@@ -115,4 +150,5 @@ public class Florp : PickUp , IInteractableTool
             }
         }
     }
+    */
 }
