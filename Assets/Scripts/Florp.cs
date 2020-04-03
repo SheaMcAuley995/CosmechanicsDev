@@ -17,7 +17,7 @@ public class Florp : PickUp , IInteractableTool
     public bool doFill;
     public bool isFilled = false;
 
-    public float offset;
+    public float fillSpeed;
 
     public Renderer renderer;
     private MaterialPropertyBlock propertyBlock;
@@ -36,26 +36,28 @@ public class Florp : PickUp , IInteractableTool
 
     public float florpFillAmount;
 
+    public float amountFilled;
     //public ParticleSystem particle;
-
-    
 
     public LayerMask interactableLayer;
 
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
-        //renderer = GetComponent<Renderer>();
-    }
-
-    private void Update()
-    {
         renderer.GetPropertyBlock(propertyBlock);
-
-        propertyBlock.SetFloat("_FillAmount", Mathf.Lerp(florpFillMin, florpFillMax, (Mathf.Sin(Time.time + offset) + 1) / 2f));
-
-        renderer.SetPropertyBlock(propertyBlock);
+        florpFillAmount = -0.5f;
     }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Florp")
+        {
+            StartCoroutine(FlorpFill());
+        }
+    }
+
+    
 
 
     /*
@@ -79,6 +81,8 @@ public class Florp : PickUp , IInteractableTool
 
 
     }
+
+
     public void toolInteraction()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1, interactableLayer);
@@ -105,6 +109,28 @@ public class Florp : PickUp , IInteractableTool
         }
      //   Debug.Log(name + " is being interacted with");
     }
+
+    public IEnumerator FlorpFill()
+    {
+        if (propertyBlock.GetFloat("_FillAmount") < florpFillMax)
+        {
+            propertyBlock.SetFloat("_FillAmount",florpFillAmount);
+            renderer.SetPropertyBlock(propertyBlock);
+            florpFillAmount += (.01f * fillSpeed);
+
+            amountFilled = (florpFillAmount - florpFillMin) / (florpFillMax) * 50;
+
+            //Debug.Log(propertyBlock.GetFloat("_FillAmount"));
+        }
+        else
+        {
+            Debug.Log("Hit");
+            yield return null;
+        }
+
+        yield return new WaitForFixedUpdate();
+    }
+
 
     /*
     private void Update()
