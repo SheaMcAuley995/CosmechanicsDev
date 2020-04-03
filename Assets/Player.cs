@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     float velocityY;
 
     public Transform cameraTrans;
-
+    GameObject[] players = new GameObject[1];
     Rigidbody rb;
     public InteractWithInterface interact;
     public int maxPossibleCollisions;
@@ -61,10 +61,13 @@ public class Player : MonoBehaviour
     private bool onFire;
     public Collider myCollider;
     public Interactable interactableObject;
+    public int playerId;
+
     private void Awake()
     {
         controls = new PlayerControls();
 
+        //CameraMultiTarget.instance.SetTargets(players);
 
         controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
