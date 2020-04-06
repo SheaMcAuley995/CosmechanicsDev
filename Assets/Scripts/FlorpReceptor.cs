@@ -10,7 +10,7 @@ public class FlorpReceptor : MonoBehaviour
     float florpMin = -0.5f;
     float currentFill;
     float amountDeposited;
-
+    float emptyTotal;
 
     Florp currentContainer;
 
@@ -41,10 +41,16 @@ public class FlorpReceptor : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        {
         if (other.tag == "Florp")
+        {
             StartCoroutine(FlorpEmpty());
         }
+
+        if (florpTotal > 500)
+        {
+            florpTotal = 500;
+        }
+
     }
 
     
@@ -56,35 +62,29 @@ public class FlorpReceptor : MonoBehaviour
         
         if (currentFill > -0.5f )
         {
+
             propertyBlock.SetFloat("_FillAmount", currentFill);
             florpRenderer.SetPropertyBlock(propertyBlock);
 
             currentFill -= (.01f * currentContainer.fillSpeed);
             amountDeposited += (.01f * currentContainer.fillSpeed);
 
+            currentContainer.florpFillAmount = propertyBlock.GetFloat("_FillAmount");
             currentContainer.amountFilled = ((currentFill - florpMin) / (florpMax) * 50);
 
-            buffer = florpTotal + ((amountDeposited - florpMin) / (florpMax));
-
-
-            florpTotal = buffer/5;
-
-            Debug.Log(florpTotal + " :FlorpTotal");
-
+            buffer = -((currentFill + florpMin) / (florpMax) * 50);
+            florpTotal += (buffer - (buffer - 1))/4;
         }
         else
         {
-            if (currentFill < -0.5f)
+            if (currentFill <= -0.5f)
             {
                 currentFill = -0.5f;
 
                 propertyBlock.SetFloat("_FillAmount", currentFill);
                 florpRenderer.SetPropertyBlock(propertyBlock);
-            }
 
-            if(florpTotal > 500)
-            {
-                florpTotal = 500;
+                Debug.Log(propertyBlock.GetFloat("_FillAmount"));
             }
 
             Debug.Log("Hit");
