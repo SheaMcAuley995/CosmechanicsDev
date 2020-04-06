@@ -108,18 +108,18 @@ public class TutorialEventManager : MonoBehaviour{
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[1].SetBool("IsOpen", true);
             doorCollider[1].enabled = false;
-            myTutorial = checkEngine;
+            //myTutorial = checkEngine;
         }
     }
 
-    void checkEngine()
-    {
-        if(florpReceptor.isFilled > 3)
-        {
-            GameStateManager.instance.SetGameState(GameState.Won);
-            StartCoroutine(jumpScript.HyperspaceJump());
-        }
-    }
+    //void checkEngine()
+    //{
+    //    if(florpReceptor.isFilled > 3)
+    //    {
+    //        GameStateManager.instance.SetGameState(GameState.Won);
+    //        StartCoroutine(jumpScript.HyperspaceJump());
+    //    }
+    //}
 
 
     private void OnDrawGizmosSelected()
