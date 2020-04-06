@@ -22,6 +22,7 @@ TagManager:
   - Laser
   - Head
   - World
+  - Dispenser
   layers:
   - Default
   - TransparentFX

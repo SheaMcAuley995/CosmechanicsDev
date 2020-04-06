@@ -2,32 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Florp : PickUp , IInteractableTool
+public class Florp : MonoBehaviour
 {
-    /*
-    public bool isFilling = false;
-
-    Vector3 zero = Vector3.zero;
-    Vector3 one = Vector3.one;
-    public float initTime;
-    public float lerpTime = 1.25f;
-    public AnimationCurve curve;
-    public float containedFlorp = 50f;
-    */
     public bool doFill;
-    public bool isFilled = false;
 
     public float fillSpeed;
 
     public Renderer renderer;
     private MaterialPropertyBlock propertyBlock;
-
-    /*
-    private int florpFilled = 1;
-    [Space]
-    [Header("Inner")]
-    public GameObject innerContObj;
-    */
 
     Renderer innerRenderer;
 
@@ -51,68 +33,25 @@ public class Florp : PickUp , IInteractableTool
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Florp")
+        if (other.tag == "Dispenser")
         {
+            doFill = true;
             StartCoroutine(FlorpFill());
         }
     }
 
-    
-
-
-    /*
-
-    private void Start()
+    private void OnTriggerExit(Collider other)
     {
-        doFill = false;
-        isFilled = false;
-        transform.localScale = zero;
-        rb = GetComponent<Rigidbody>();
-        initTime = Time.time;
-        innerRenderer = innerContObj.GetComponent<Renderer>();
-
-    }
-    */
-    public override void pickMeUp(Transform pickUpTransform)
-    {
-        base.pickMeUp(pickUpTransform);
-        if (!isFilled) AudioEventManager.instance.PlaySound("bottledrop", .3f, Random.Range(.5f, .7f), 0);
-        if (isFilled) AudioEventManager.instance.PlaySound("halfsplat", .3f, Random.Range(.5f, .7f), 0);
-
-
-    }
-
-
-    public void toolInteraction()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1, interactableLayer);
-        FlorpDespenser despenser = null;
-        for (int i = 0; i < hitColliders.Length; i++)
+        if(other.tag == "Dispenser")
         {
-            despenser = hitColliders[i].GetComponent<FlorpDespenser>();
-
-            if(despenser != null)
-            {
-
-            }
+            doFill = false;
         }
-
-        if (doFill)
-        {
-
-
-            innerRenderer.material.SetFloat("_FillAmount", florpFillAmount);
-           // Debug.Log("florp is filles");
-            //particle.Play();
-            isFilled = true;
-            //EndGameScore.instance.AddFlorpScore(florpFilled);
-        }
-     //   Debug.Log(name + " is being interacted with");
     }
 
     public IEnumerator FlorpFill()
     {
-        if (propertyBlock.GetFloat("_FillAmount") < florpFillMax)
+        Debug.Log(propertyBlock.GetFloat("_FillAmount"));
+        if (florpFillAmount < florpFillMax && doFill == true)
         {
             propertyBlock.SetFloat("_FillAmount",florpFillAmount);
             renderer.SetPropertyBlock(propertyBlock);
@@ -120,61 +59,23 @@ public class Florp : PickUp , IInteractableTool
 
             amountFilled = (florpFillAmount - florpFillMin) / (florpFillMax) * 50;
 
+
             //Debug.Log(propertyBlock.GetFloat("_FillAmount"));
         }
         else
         {
+            if(amountFilled > 0.5f)
+            {
+                florpFillAmount = 0.5f;
+                propertyBlock.SetFloat("_FillAmount", florpFillAmount);
+                renderer.SetPropertyBlock(propertyBlock);
+                yield return null;
+            }
+
             Debug.Log("Hit");
             yield return null;
         }
 
         yield return new WaitForFixedUpdate();
     }
-
-
-    /*
-    private void Update()
-    {
-        float timeSince = Time.time - initTime;
-
-        float fracTime = timeSince / lerpTime;
-        transform.localScale = Vector3.Lerp(zero, one, curve.Evaluate(fracTime));
-
-        if (playerController != null)
-        {
-            // isFilling = playerController.player.GetButton("Interact");
-            //TODO *Bool needs to be compatible with new input system*
-            if (isFilling)
-            {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1.5f, interactableLayer);
-
-                for(int i = 0; i < hitColliders.Length; i++)
-                {
-                    if(hitColliders[i].GetComponent<FlorpDespenser>() != null)
-                    {
-                        innerRenderer.material.SetFloat("_FillAmount", florpFillAmount);
-                        // Debug.Log("florp is filles");
-                        //particle.Play();
-                        isFilled = true;
-                        //EndGameScore.instance.AddFlorpScore(florpFilled);
-                    }
-                    else if(hitColliders[i].GetComponent<FlorpReceptor>() != null)
-                    {
-                        hitColliders[i].GetComponent<FlorpReceptor>().fillTheEngine(this);
-                        playerController.myCollider.enabled = false;
-                    }
-                    else if(hitColliders[i].GetComponent<FlorpReceptorTutorial>() != null)
-                    {
-                        hitColliders[i].GetComponent<FlorpReceptorTutorial>().fillTheEngine(this);
-                        playerController.myCollider.enabled = false;
-                    }
-
-
-
-                }
-
-            }
-        }
-    }
-    */
 }
