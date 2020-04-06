@@ -168,11 +168,9 @@ GameObject:
   - component: {fileID: 260585837065054660}
   - component: {fileID: 147984422366215768}
   - component: {fileID: 228193707084305550}
-  - component: {fileID: 241674151992589528}
   - component: {fileID: 228857624158811868}
   - component: {fileID: 7568695366728193861}
   - component: {fileID: 202609199262425763}
-  - component: {fileID: -6325178230515989664}
   m_Layer: 10
   m_Name: Player_Prefab 1
   m_TagString: Char
@@ -249,53 +247,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &241674151992589528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200728199365951240}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82828250b22012447bef57b4c794336f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerId: 0
-  player: {fileID: 0}
-  movementVector: {x: 0, y: 0}
-  Interact: 0
-  sprint: 0
-  bumper: 0
-  pauseButton: 0
-  selectModel: {x: 0, y: 0}
-  Button_Y: 0
-  Button_X: 0
-  Button_RB: 0
-  Button_LB: 0
-  Button_A: 0
-  Button_B: 0
-  start: 0
-  pickUp: 0
-  pickUpTransform: {fileID: 0}
-  walkSpeed: 2
-  runSpeed: 6
-  gravity: -12
-  jumpheight: 1
-  turnSmoothTime: 0.2
-  speedSmoothTime: 0.1
-  cameraTrans: {fileID: 0}
-  interact: {fileID: 0}
-  maxPossibleCollisions: 0
-  collisionLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  radius: 0
-  animators: []
-  onFiretimer: 0
-  onFireTimerCur: 0
-  onFireEffect: {fileID: 0}
-  myCollider: {fileID: 0}
 --- !u!135 &228857624158811868
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -379,7 +330,7 @@ MonoBehaviour:
   maxPossibleCollisions: 5
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   radius: 1
   animators: []
   onFiretimer: 3
@@ -387,20 +338,6 @@ MonoBehaviour:
   onFireEffect: {fileID: 201668941927005340}
   myCollider: {fileID: 228193707084305550}
   interactableObject: {fileID: 0}
---- !u!114 &-6325178230515989664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200728199365951240}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baca0a2bf09b932489dedb5779470085, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heads: []
-  head: {fileID: 0}
 --- !u!1 &200730266903630936
 GameObject:
   m_ObjectHideFlags: 0

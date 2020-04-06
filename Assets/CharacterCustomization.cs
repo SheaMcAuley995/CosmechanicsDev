@@ -37,7 +37,7 @@ public class CharacterCustomization : MonoBehaviour
         //controls.MainMenu.Alt_Selection.performed += ctx => retVal = 
         //controls.MainMenu.Alt_Selection.started += ctx => ColorSelection(retVal);
         controls.MainMenu.Cancel.started += ctx => PlayerLeft();
-        CharacterSelect.instance.onPlayerSpawned(gameObject.GetComponent<PlayerInput>());
+        //CharacterSelect.instance.onPlayerSpawned(gameObject.GetComponent<PlayerInput>());
         //cardGenerator.
     }
 

@@ -10,7 +10,6 @@ public class MovingPlatformScript : MonoBehaviour
     public List<Vector3> points;
 
     Vector3 currentVelocity;
-    bool dumbBool;
 
     public float speed;
     public float pauseTime;
@@ -61,8 +60,6 @@ public class MovingPlatformScript : MonoBehaviour
     {
         while (!stop)
         {
-
-
             float distCovered = (Time.time - startTime) * speed;
 
             float distanceFraction = (distCovered / distance);

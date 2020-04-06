@@ -37,13 +37,13 @@ public class Player : MonoBehaviour
     public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
 
-    public float speedSmoothTime = 0.1f; 
+    public float speedSmoothTime = 0.1f;
     float speedSmoothVelocity;
     float currentSpeed;
     float velocityY;
 
     public Transform cameraTrans;
-
+    GameObject[] players = new GameObject[1];
     Rigidbody rb;
     public InteractWithInterface interact;
     public int maxPossibleCollisions;
@@ -61,17 +61,19 @@ public class Player : MonoBehaviour
     private bool onFire;
     public Collider myCollider;
     public Interactable interactableObject;
+    public int playerId;
 
     private void Awake()
     {
         controls = new PlayerControls();
-        
-        
+
+        //CameraMultiTarget.instance.SetTargets(players);
+
         controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
-       //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
+        //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
         controls.Gameplay.Interact.started += ctx => Interaction();
-        //controls.Gameplay.Interact.canceled += ctx => endInteraction();
+        //controls.Gameplay.Interact. += ctx => endInteraction();
         controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
@@ -85,11 +87,6 @@ public class Player : MonoBehaviour
         onFireTimerCur = onFiretimer;
         animators = GetComponentsInChildren<Animator>();
         //player = ReInput.players.GetPlayer(playerId);
-
-        if(cameraTrans == null)
-        {
-            cameraTrans = Camera.main.transform;
-        }
 
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
@@ -110,17 +107,6 @@ public class Player : MonoBehaviour
     private void ProcessInteraction()
     {
         Move(movementVector, sprint);
-
-        if(Gamepad.current.xButton.wasReleasedThisFrame)
-        {
-            endInteraction();
-        }
-
-        if(controls.Gameplay.Interact.triggered)
-        {
-            Debug.Log("Pressed");
-
-        }
     }
 
     public void pickUpInteraction()
@@ -135,7 +121,7 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                //Debug.Log("TOOL INTEREACTION");
+                Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().myInteraction();
             }
         }
@@ -211,7 +197,6 @@ public class Player : MonoBehaviour
         }
         else
         {
-            interactedObject.GetComponent<FireExtinguisher>().endMyInteraction();
             if (interactedObject.GetComponent<PickUp>() != null)
             {
                 interactedObject.GetComponent<PickUp>().playerController = null;

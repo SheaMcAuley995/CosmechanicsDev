@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CameraMultiTarget : MonoBehaviour
 {
+	public static CameraMultiTarget instance;
+
+
 	public float Pitch;
 	public float Yaw;
 	public float Roll;
@@ -22,6 +25,11 @@ public class CameraMultiTarget : MonoBehaviour
 
     private void Awake()
 	{
+		if(CameraMultiTarget.instance != null)
+		{
+			Destroy(gameObject);
+		}
+
 		_camera = gameObject.GetComponent<Camera>();
 		_debugProjection = DebugProjection.ROTATED;
 	}
