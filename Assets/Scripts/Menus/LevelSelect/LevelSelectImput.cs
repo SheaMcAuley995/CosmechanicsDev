@@ -20,9 +20,9 @@ public class @LevelSelectImput : IInputActionCollection, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""464c7b72-8664-4554-825c-5685bf88459d"",
-                    ""expectedControlType"": ""Dpad"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 },
@@ -44,17 +44,6 @@ public class @LevelSelectImput : IInputActionCollection, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""1be3ff28-dfea-4d26-a655-032964522cfe"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": ""D-Pad"",
                     ""id"": ""f4aece4a-a6ac-47b3-9f63-0334483a590f"",
@@ -109,6 +98,17 @@ public class @LevelSelectImput : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""818874a1-f1ad-41cd-a789-585c0dfe145d"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",

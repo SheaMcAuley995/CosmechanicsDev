@@ -4,25 +4,58 @@ using UnityEngine;
 
 public class OrbiterScript : MonoBehaviour
 {
-    public Transform planet;
-    public float radius;
-    public float radSpeed;
+    public Transform center;
+    public float angle;
+    Vector3 centerPos;
 
-    public Vector3 axis;
-    public float rotSpeed;
-    Vector3 desiredPos;
+    public bool doOrbit;
+    public bool moveBack;
+
+
+    Vector3 selectionPos;
+    public Vector3 offset;
+
+    Vector3 startingPos;
+
+
+    float flightSpeed = .2f;
+
+    Vector3 velocity = Vector3.zero;
 
     private void Start()
     {
-        //planet = transform.parent;
-        transform.position = (transform.position - planet.position).normalized * radius + planet.position;
-    }
+        centerPos = center.localPosition;
 
-    private void Update()
+        selectionPos = centerPos + new Vector3(0, 0, 5);
+
+        startingPos = transform.localPosition;
+
+        doOrbit = true;
+        moveBack = false;
+    }
+    float counter;
+    private void FixedUpdate()
     {
-        transform.RotateAround(planet.position, axis, rotSpeed * Time.deltaTime);
-        desiredPos = (transform.position - planet.position).normalized * radius + planet.position;
-        transform.position = Vector3.MoveTowards(transform.position, desiredPos, Time.deltaTime * radSpeed);
-    }
+        if(moveBack == true)
+        {
+            counter += .1f;
+            transform.localPosition = Vector3.Lerp(transform.localPosition, startingPos, counter);
+            if(transform.localPosition == startingPos)
+            {
+                counter = 0;
+                moveBack = false;
+            }
+        }
 
+        if (doOrbit == true && moveBack == false)
+        {
+            transform.localPosition = new Vector3(Mathf.Cos(angle) * (transform.localPosition.x - centerPos.x) - Mathf.Sin(angle) * (transform.localPosition.z - centerPos.z) + centerPos.x, transform.localPosition.y,
+                                                  Mathf.Sin(angle) * (transform.localPosition.x - centerPos.x) + Mathf.Cos(angle) * (transform.localPosition.z - centerPos.z) + centerPos.z);
+            angle = Mathf.Lerp(0, 1, Time.deltaTime);
+        }
+        else
+        {
+            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, selectionPos + offset, ref velocity, flightSpeed);
+        }
+    }
 }
