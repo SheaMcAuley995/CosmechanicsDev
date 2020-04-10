@@ -10,7 +10,7 @@ public class BalanceManager : EditorWindow
     [SerializeField] [Tooltip("Percentage of engine that is cooled when florp is inserted.")] [Range(0.1f, 1)] float florpPower = 0.3f;
     [SerializeField] [Tooltip("How fast the ship progression bar will move.")] [Range(0.1f, 2)] float ProgressionMultiplier = 0.4f;
     [Header("Ship Health")]
-    [SerializeField] ShipHealth shipHealth;
+    [SerializeField] Old_GameplayEvents shipHealth;
     [SerializeField] [Tooltip("Time between the blasts. Or the time between the events that will cause damage to the ship")] float TimeBetweenEvents;
     
     [Header("PlayerInfo")]
@@ -22,7 +22,7 @@ public class BalanceManager : EditorWindow
     public void Awake()
     {
         engine = FindObjectOfType<Engine>();
-        shipHealth = FindObjectOfType<ShipHealth>();
+        shipHealth = FindObjectOfType<Old_GameplayEvents>();
         grid = FindObjectOfType<Grid>();
         
     }
@@ -54,7 +54,7 @@ public class BalanceManager : EditorWindow
         if (GUILayout.Button("RESET CONNECTIONS"))
         {
             engine = FindObjectOfType<Engine>();
-            shipHealth = FindObjectOfType<ShipHealth>();
+            shipHealth = FindObjectOfType<Old_GameplayEvents>();
             grid = FindObjectOfType<Grid>();
         }
     }

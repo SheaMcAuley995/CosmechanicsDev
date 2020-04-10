@@ -8,8 +8,15 @@ public class LevisSceneTransition : MonoBehaviour
 {
     public new LevisTransitionCamera camera;
     TextMeshProUGUI buttonText;
-    
+
+    LevelSelectImput inputActions;
+
     string sceneName;
+
+    private void Awake()
+    {
+        inputActions = new LevelSelectImput();
+    }
 
     private void Start()
     {
@@ -25,5 +32,27 @@ public class LevisSceneTransition : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    private void OnEnable()
+    {
+        inputActions.MenuControls.Select.performed += Select_performed; ;
+        inputActions.MenuControls.Select.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.MenuControls.Select.performed -= Select_performed;
+        inputActions.MenuControls.Select.Disable();
+    }
+
+    private void Select_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        //throw new System.NotImplementedException();
+        if(camera.worldSelected)
+        {
+            ChangeScene();
+        }
+
     }
 }

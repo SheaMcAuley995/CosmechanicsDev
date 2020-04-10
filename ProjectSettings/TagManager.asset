@@ -22,6 +22,7 @@ TagManager:
   - Laser
   - Head
   - World
+  - Dispenser
   layers:
   - Default
   - TransparentFX
@@ -41,7 +42,7 @@ TagManager:
   - Florp
   - Head
   - Extinguisher
-  - 
+  - Force Field
   - 
   - 
   - 

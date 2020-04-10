@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -197,6 +198,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -376,9 +378,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &296025441
 MeshRenderer:
@@ -394,6 +396,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -496,27 +499,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7114579993523880730, guid: 308dd870be0eea34aa55524b270728f0,
-        type: 3}
-      propertyPath: m_Name
-      value: Cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 7114579993523880730, guid: 308dd870be0eea34aa55524b270728f0,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5941584380757761766, guid: 308dd870be0eea34aa55524b270728f0,
-        type: 3}
-      propertyPath: m_Actions
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: d0952b2183670e445bb61a0b2d95c01c,
-        type: 3}
-    - target: {fileID: 5941584380757761766, guid: 308dd870be0eea34aa55524b270728f0,
-        type: 3}
-      propertyPath: m_DefaultActionMap
-      value: Gameplay
-      objectReference: {fileID: 0}
     - target: {fileID: 1232220083431816178, guid: 308dd870be0eea34aa55524b270728f0,
         type: 3}
       propertyPath: up.m_SingletonActionBindings.Array.size
@@ -627,6 +609,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5941584380757761766, guid: 308dd870be0eea34aa55524b270728f0,
+        type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: d0952b2183670e445bb61a0b2d95c01c,
+        type: 3}
+    - target: {fileID: 5941584380757761766, guid: 308dd870be0eea34aa55524b270728f0,
+        type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Gameplay
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114579993523880730, guid: 308dd870be0eea34aa55524b270728f0,
+        type: 3}
+      propertyPath: m_Name
+      value: Cube
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114579993523880730, guid: 308dd870be0eea34aa55524b270728f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1232220083431816178, guid: 308dd870be0eea34aa55524b270728f0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 308dd870be0eea34aa55524b270728f0, type: 3}
@@ -682,6 +685,7 @@ MonoBehaviour:
   onFireEffect: {fileID: 0}
   myCollider: {fileID: 0}
   interactableObject: {fileID: 0}
+  playerId: 0
 --- !u!1 &580862962
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,6 +763,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -868,6 +873,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -900,6 +906,50 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691351054}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &787248284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 787248285}
+  - component: {fileID: 787248286}
+  m_Layer: 0
+  m_Name: PlayerTracker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &787248285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787248284}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.675256, y: 1.9049277, z: -6.020051}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &787248286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787248284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92ecfdf96df96f048b7fde4ff76d485c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCount: 0
 --- !u!1001 &920951277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -907,11 +957,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1032092984985581051, guid: a0f6efb765741af49a46d01359c88010,
-        type: 3}
-      propertyPath: m_Name
-      value: Main Camera_Prefab
-      objectReference: {fileID: 0}
     - target: {fileID: 1032092984985581046, guid: a0f6efb765741af49a46d01359c88010,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -967,6 +1012,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1032092984985581051, guid: a0f6efb765741af49a46d01359c88010,
+        type: 3}
+      propertyPath: m_Name
+      value: Main Camera_Prefab
+      objectReference: {fileID: 0}
     - target: {fileID: 7355549118949717126, guid: a0f6efb765741af49a46d01359c88010,
         type: 3}
       propertyPath: field of view
@@ -984,6 +1034,10 @@ PrefabInstance:
     - target: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d, type: 3}
       propertyPath: m_Name
       value: Player_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4241908675869778, guid: 592d767253ae042428293b0c7ce2ae9d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1169,6 +1223,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1232,7 +1287,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306389714}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
@@ -1240,17 +1295,13 @@ MonoBehaviour:
   m_NotificationBehavior: 0
   m_MaxPlayerCount: -1
   m_AllowJoining: 1
-  m_JoinBehavior: 2
+  m_JoinBehavior: 0
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.InputSystem.PlayerInputManager+PlayerJoinedEvent, Unity.InputSystem,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.InputSystem.PlayerInputManager+PlayerLeftEvent, Unity.InputSystem,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_JoinAction:
     m_UseReference: 0
     m_Action:
@@ -1262,8 +1313,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
     m_Reference: {fileID: 0}
-  m_PlayerPrefab: {fileID: 0}
-  m_SplitScreen: 0
+  m_PlayerPrefab: {fileID: 200728199365951240, guid: 5e84428ae8c0de548a1343b929796a17,
+    type: 3}
+  m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 0
   m_FixedNumberOfSplitScreens: -1
   m_SplitScreenRect:
@@ -1280,7 +1332,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306389714}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.83}
+  m_LocalPosition: {x: -1.1942, y: -4.4186, z: -0.84156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1295,9 +1347,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1306389714}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9b47258ef41a045b5fb544da6c83c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5aeacf8de0b42d241a3401b6c1b431c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfPlayers: 1
+  cameraMultiTarget: {fileID: 1431466989}
+  playerPrefab: {fileID: 200728199365951240, guid: 5e84428ae8c0de548a1343b929796a17,
+    type: 3}
+  spawnPoints: []
+  spawnableScenes: []
 --- !u!1 &1341528031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,6 +1403,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1407,6 +1466,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1431466989 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1032092986038252681, guid: a0f6efb765741af49a46d01359c88010,
+    type: 3}
+  m_PrefabInstance: {fileID: 920951277}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47eae0c5e75796418463742e9a371dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1859163016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d,
@@ -1465,6 +1536,7 @@ MonoBehaviour:
   onFireEffect: {fileID: 384330312}
   myCollider: {fileID: 1859163019}
   interactableObject: {fileID: 0}
+  playerId: 0
 --- !u!1001 &2006527412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1552,8 +1624,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126790041}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10

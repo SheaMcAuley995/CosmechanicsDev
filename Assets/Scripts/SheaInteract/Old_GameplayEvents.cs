@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShipHealth : MonoBehaviour {
+public class Old_GameplayEvents : MonoBehaviour {
     
-    public static ShipHealth instance;
+    public static Old_GameplayEvents instance;
+
+
     public cameraShake shake;
     public delegate void DamageAction();
     public static event DamageAction onDamagedAction;
@@ -56,36 +58,6 @@ public class ShipHealth : MonoBehaviour {
     private void Start()
     {
 
-        for (int i = 0; i < possibleAttackPositions.Length; i++)
-        {
-            Collider[] damagedObjects = Physics.OverlapSphere(possibleAttackPositions[i].worldPositon, explosionRadius, interactableLayerMask);
-
-            foreach (Collider damageableObject in damagedObjects)
-            {
-                RepairableObject newRepairable = damageableObject.GetComponent<RepairableObject>();
-                if (newRepairable != null)
-                {
-                    possibleAttackPositions[i].repairables.Add(newRepairable);
-                }
-            }
-
-            //Debug.Log("I :" + i);
-            for (int j = 0; j < Grid.instance.gridSizeX; j++)
-            {
-                //Debug.Log("J :" +j);
-                for (int k = 0; k < Grid.instance.gridSizeY; k++)
-                {
-                    //Debug.Log("K :" +k);
-                    if ((Vector3.Distance(Grid.instance.grid[j,k].worldPosition , possibleAttackPositions[i].worldPositon) <= explosionRadius))
-                    {
-                        if(Grid.instance.grid[j, k].isFlamable)
-                        {   
-                            possibleAttackPositions[i].nodes.Add(Grid.instance.grid[j, k]);
-                        }
-                    }
-                }
-            }
-        }
 
 
 
@@ -129,20 +101,6 @@ public class ShipHealth : MonoBehaviour {
 
         attackLocation = damagableAttackPositions[Random.Range(0, damagableAttackPositions.Count)].worldPositon;
 
-       // if (attackLocation != null)
-       // {
-       //
-       //
-       //    // while (attackLocation == lastHitLocaton)
-       //    // {
-       //    //     locationIndex = Random.Range(0, possibleAttackPositions.Length);
-       //    //     attackLocation = possibleAttackPositions[locationIndex].worldPositon;
-       //    // }
-       // }
-       // else
-       // {
-       //     attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
-       // }
 
         lastHitLocaton = attackLocation;
         gotHit = true;                          //michael add
@@ -180,16 +138,49 @@ public class ShipHealth : MonoBehaviour {
 
     public void AdjustUI()
     {
-        //Debug.Log(shipCurrenHealth / shipMaxHealth);
         healthBar.value =((float)shipCurrenHealth / shipMaxHealth);
-       // healthText.text = shipCurrenHealth.ToString();
     }
 
     void LoseGame()
     {
         SceneFader.instance.FadeTo("LoseScene");
         GameStateManager.instance.SetGameState(GameState.LostByDamage);
-        //ASyncManager.instance.loseOperation.allowSceneActivation = true;
+    }
+
+
+    public void InitializeGameplay()
+    {
+        for (int i = 0; i < possibleAttackPositions.Length; i++)
+        {
+            Collider[] damagedObjects = Physics.OverlapSphere(possibleAttackPositions[i].worldPositon, explosionRadius, interactableLayerMask);
+
+            foreach (Collider damageableObject in damagedObjects)
+            {
+                RepairableObject newRepairable = damageableObject.GetComponent<RepairableObject>();
+                if (newRepairable != null)
+                {
+                    possibleAttackPositions[i].repairables.Add(newRepairable);
+                }
+            }
+
+            //Debug.Log("I :" + i);
+            for (int j = 0; j < Grid.instance.gridSizeX; j++)
+            {
+                //Debug.Log("J :" +j);
+                for (int k = 0; k < Grid.instance.gridSizeY; k++)
+                {
+                    //Debug.Log("K :" +k);
+                    if ((Vector3.Distance(Grid.instance.grid[j, k].worldPosition, possibleAttackPositions[i].worldPositon) <= explosionRadius))
+                    {
+                        if (Grid.instance.grid[j, k].isFlamable)
+                        {
+                            possibleAttackPositions[i].nodes.Add(Grid.instance.grid[j, k]);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private void OnDrawGizmosSelected()
