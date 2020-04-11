@@ -26,7 +26,7 @@ public class OrbiterScript : MonoBehaviour
     {
         centerPos = center.localPosition;
 
-        selectionPos = centerPos + new Vector3(0, 0, 5);
+        selectionPos = centerPos + offset;
 
         startingPos = transform.localPosition;
 
@@ -55,7 +55,7 @@ public class OrbiterScript : MonoBehaviour
         }
         else
         {
-            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, selectionPos + offset, ref velocity, flightSpeed);
+            transform.localPosition = Vector3.SmoothDamp(transform.localPosition, selectionPos, ref velocity, flightSpeed);
         }
     }
 }
