@@ -521,6 +521,216 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CharSelect",
+            "id": "7570d613-9316-41c7-9853-d65364955d96",
+            "actions": [
+                {
+                    "name": "MovementRight",
+                    "type": "Button",
+                    "id": "74055047-8b89-437d-8154-e4605b0790ea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=1)"
+                },
+                {
+                    "name": "MovementLeft",
+                    "type": "Button",
+                    "id": "52471491-7611-471c-9d53-be6a11dc57b3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=1)"
+                },
+                {
+                    "name": "AltMovementRight",
+                    "type": "Button",
+                    "id": "86696338-53a6-47a7-a847-c83c0a3f866f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "AltMovementLeft",
+                    "type": "Button",
+                    "id": "5785aae7-a1e2-42a9-9d73-016ecbe1f1de",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "9628192f-be27-4b04-9d9c-ec377c2ba79c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "2dd7f641-81f7-4032-8f58-7dfb81f0d56f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=1)"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "046d0b68-9a3a-4903-984f-676c639225ce",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f7e549d-f9eb-4d34-84f1-073197600742",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4366b92-24d5-4469-848d-e8c97322be28",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2073e6db-bbc9-48d0-88ad-6287a4323ac3",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47599478-9d08-4ab7-84d6-65589e815713",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "425fd42c-2cf3-4a56-a4cf-b37e5f201b9e",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ab0f8a7-2e52-40c4-bd2e-0b15a96b7e05",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltMovementRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fee74269-c96e-4d38-a170-c35702ea30cf",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltMovementRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "551c38ea-27bd-42e9-9a60-0b3bd5c86b4f",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltMovementLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e18b4fe8-bc74-4538-b282-aa3c85bbe0ad",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltMovementLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43438189-2557-45b2-8de1-60352ef79ed7",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a84422d5-c218-4f22-9ed6-fb6badb00f77",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc2edaf2-08b9-46d1-a61c-995b8f3b15ae",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "afe6480d-3f07-41e2-a1ec-eb59bf7ad65c",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

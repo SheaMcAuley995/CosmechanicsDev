@@ -30,6 +30,14 @@ public class QuickButtonManager : MonoBehaviour
     int successfulEntries = 0;
 
 
+    public Transform[] spawnPoints;
+    public GameObject playerToSpawn;
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(2f);
+        PlayerSpawn spawner = new PlayerSpawn(PlayerPrefs.GetInt("Total Players"), spawnPoints, playerToSpawn);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         successfulEntries = 0;

@@ -23,6 +23,8 @@ TagManager:
   - Head
   - World
   - Dispenser
+  - Suit
+  - GearImage
   layers:
   - Default
   - TransparentFX
