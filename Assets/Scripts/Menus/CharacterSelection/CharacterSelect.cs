@@ -114,6 +114,8 @@ public class CharacterSelect : MonoBehaviour
         if (numPlayersReady == numActivePlayers)
         {
             PlayerPrefs.SetInt("Total Players", numActivePlayers);
+            PlayerSpawn.numPlayers = numActivePlayers;
+
             SceneFader.instance.FadeTo(levelSelectScene);
         }
     }

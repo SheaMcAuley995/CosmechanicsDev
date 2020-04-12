@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.IO;
+using UnityEditor;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class CharacterCustomization : MonoBehaviour
 {
@@ -116,6 +118,12 @@ public class CharacterCustomization : MonoBehaviour
 
             //string fileDestination = Application.persistentDataPath + "\\SelectedCharacterInfo.dat";
             //FileStream file;
+
+            GameObject selectedCharPrefab = PrefabUtility.CreatePrefab("Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab", player.gameObject, ReplacePrefabOptions.ReplaceNameBased);
+            //GameObject selectedCharPrefab = PrefabUtility.SaveAsPrefabAsset(player.gameObject, "Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab");
+            selectedCharPrefab.GetComponent<CharacterCustomization>().enabled = false;
+
+            PlayerSpawn.playerPrefabs[player.playerIndex] = selectedCharPrefab;
         }
     }
     void OnCancel()
@@ -140,6 +148,8 @@ public class CharacterCustomization : MonoBehaviour
             bodyAnimator.Play("CharSelect Idle", -1, 0);
             headAnimator.SetBool("CharSelect", true);
             headAnimator.Play("CharSelect Idle", -1, 0);
+
+            PlayerSpawn.playerPrefabs[player.playerIndex] = null;
         }
     }
 

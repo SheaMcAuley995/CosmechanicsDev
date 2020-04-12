@@ -31,11 +31,10 @@ public class QuickButtonManager : MonoBehaviour
 
 
     public Transform[] spawnPoints;
-    public GameObject playerToSpawn;
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(2f);
-        PlayerSpawn spawner = new PlayerSpawn(PlayerPrefs.GetInt("Total Players"), spawnPoints, playerToSpawn);
+        PlayerSpawn spawner = new PlayerSpawn(spawnPoints);
     }
 
     void OnTriggerEnter(Collider other)
