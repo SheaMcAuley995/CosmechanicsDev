@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LevisTransitionCamera : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class LevisTransitionCamera : MonoBehaviour
     int currentTarget;
 
     private Vector2 moveAxis;
+
+    public AudioSource menuAudio;
 
     private void Awake()
     {
@@ -168,9 +171,9 @@ public class LevisTransitionCamera : MonoBehaviour
         //throw new System.NotImplementedException();
         Debug.Log("Select");
 
-
-        if(!worldSelected)
+        if (!worldSelected)
         {
+            menuAudio.Play();
             WorldSelect();
         }
     }
@@ -180,8 +183,9 @@ public class LevisTransitionCamera : MonoBehaviour
         //throw new System.NotImplementedException();
         moveAxis = obj.ReadValue<Vector2>();
         Debug.Log($"Move Axis {moveAxis}");
+        menuAudio.Play();
 
-        switch (moveAxis.x > moveAxis.y)
+        switch (moveAxis.x > 0.5f)
         {
             case true  :
                 NextTarget();
@@ -195,10 +199,15 @@ public class LevisTransitionCamera : MonoBehaviour
 
     private void Back_performed(InputAction.CallbackContext obj)
     {
+        menuAudio.Play();
         //throw new System.NotImplementedException();
         if(worldSelected)
         {
             BackToWorldSelect();
+        }
+        else
+        {
+            SceneManager.LoadScene("CharacterSelection_Update");
         }
     }
 
