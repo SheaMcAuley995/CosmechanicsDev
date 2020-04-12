@@ -6,6 +6,8 @@ public class FlorpReceptor : MonoBehaviour
 {
     public float florpTotal;
 
+    AudioSource emptySound;
+
     float florpMax;
     float florpMin = -0.5f;
     float currentFill;
@@ -20,6 +22,7 @@ public class FlorpReceptor : MonoBehaviour
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
+        emptySound = GetComponent<AudioSource>();
         //florpRenderer.GetPropertyBlock(propertyBlock);
     }
 
@@ -29,14 +32,21 @@ public class FlorpReceptor : MonoBehaviour
         currentContainer = other.GetComponent<Florp>();
         florpRenderer = currentContainer.renderer;
         currentFill = currentContainer.florpFillAmount;
-        
+
+        if (currentFill > florpMin)
+        {
+            emptySound.Play();
+        }
+
         amountDeposited = florpMin;
         florpMax = currentContainer.florpFillAmount;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        currentContainer.florpFillAmount = currentFill;   
+        currentContainer.florpFillAmount = currentFill;
+
+        emptySound.Stop();
     }
 
     private void OnTriggerStay(Collider other)
@@ -86,6 +96,7 @@ public class FlorpReceptor : MonoBehaviour
 
                 Debug.Log(propertyBlock.GetFloat("_FillAmount"));
             }
+            emptySound.Stop();
 
             Debug.Log("Hit");
             yield return null;

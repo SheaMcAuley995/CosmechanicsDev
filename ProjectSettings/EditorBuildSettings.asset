@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels_UI/CharacterSelection_Update.unity
     guid: 57021038e2d0f40499d0d02144a181df
   - enabled: 1
+    path: Assets/Scenes/Levels_Testing/LeviTestingScene.unity
+    guid: e4a2fbdfe3d36e64b900b33e5fec602f
+  - enabled: 1
     path: Assets/Scenes/Levels_Testing/CacieOverworld.unity
     guid: c20f780779ed9c94789a42ae077f34b7
   - enabled: 1
