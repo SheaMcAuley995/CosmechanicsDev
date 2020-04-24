@@ -34,44 +34,6 @@ public class CharacterSelect : MonoBehaviour
     {
         instance = this;
         playerInputs = new PlayerInput[GetComponent<PlayerInputManager>().maxPlayerCount];
-
-        //// File IO shennannigans
-        //FileStream headFile, colorFile;
-
-        //// Customization folder
-        //string folderPath = Application.persistentDataPath;
-        //string optionsFolder = folderPath + "\\CharacterOptions";
-        //if (!Directory.Exists(optionsFolder))
-        //{
-        //    Directory.CreateDirectory(optionsFolder);
-        //}
-
-        //// Available heads file
-        //string headFileLocation = optionsFolder + "\\HeadOptions.dat";
-        //if (File.Exists(headFileLocation))
-        //{
-        //    headFile = File.OpenWrite(headFileLocation);
-        //}
-        //else
-        //{
-        //    headFile = File.Create(headFileLocation);
-        //}
-
-        //// Available colours file
-        //string colorFileLocation = optionsFolder + "\\ColorOptions.dat";
-        //if (File.Exists(colorFileLocation))
-        //{
-        //    colorFile = File.OpenWrite(colorFileLocation);
-        //}
-        //else
-        //{
-        //    colorFile = File.Create(colorFileLocation);
-        //}
-
-        //// Binary formatting data to the file
-        //BinaryFormatter bf = new BinaryFormatter();
-        //bf.Serialize(colorFile, materialColors);
-        //bf.Serialize(headFile, headArray);
     }
 
     public void onPlayerSpawned(PlayerInput player)
@@ -85,6 +47,9 @@ public class CharacterSelect : MonoBehaviour
                 playerInputs[i] = player;
                 player.transform.position = spawnPositions[i].position;
                 player.transform.rotation = spawnPositions[i].rotation;
+
+                playerInputs[i].gameObject.AddComponent<CharacterCustomization>();
+                playerInputs[i].SwitchCurrentActionMap("CharSelect");
                 break;
             }
         }

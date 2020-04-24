@@ -15,7 +15,8 @@ public class CharacterCustomization : MonoBehaviour
     [SerializeField] Transform headToReplace;
     int currentHead;
 
-    [SerializeField] Transform[] coloredObjects;
+    [SerializeField] Transform suitTransform;
+    [SerializeField] Image[] coloredImages;
     int currentColor;
 
     [SerializeField] Image readyBar; // Not implemented yet. Frankly I might just wait for Unity to update the input system more to make holding buttons easier. 
@@ -26,7 +27,7 @@ public class CharacterCustomization : MonoBehaviour
     {
         player = GetComponent<PlayerInput>();
         playerMovement = GetComponent<Player>();
-        player.defaultActionMap = "CharSelect";
+        player.SwitchCurrentActionMap("CharSelect");
         playerMovement.cameraTrans = Camera.main.transform;
 
         /// WARNING: THIS METHOD SEEMINGLY APPLIES TO ALL CONTROLLERS PLUGGED IN!
@@ -62,6 +63,8 @@ public class CharacterCustomization : MonoBehaviour
         // Set random starting color
         currentColor = Random.Range(0, CharacterSelect.instance.colorOptions.Length);
         NewColor(null);
+
+        playerMovement.enabled = false;
     }
 
     /// <summary>
@@ -97,7 +100,7 @@ public class CharacterCustomization : MonoBehaviour
         {
             // Enable player movement
             ready = true;
-            player.defaultActionMap = "Gameplay";
+            player.SwitchCurrentActionMap("Gameplay");
             playerMovement.enabled = true;
 
             // Switch player animations out of Character Select state
@@ -119,10 +122,12 @@ public class CharacterCustomization : MonoBehaviour
             //string fileDestination = Application.persistentDataPath + "\\SelectedCharacterInfo.dat";
             //FileStream file;
 
+            // Creates a temporary prefab of this player which can then be assigned as a spawnable Game Object in the spawner script
             GameObject selectedCharPrefab = PrefabUtility.CreatePrefab("Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab", player.gameObject, ReplacePrefabOptions.ReplaceNameBased);
             //GameObject selectedCharPrefab = PrefabUtility.SaveAsPrefabAsset(player.gameObject, "Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab");
             selectedCharPrefab.GetComponent<CharacterCustomization>().enabled = false;
 
+            // Sets this player's created prefab to its respective position in the spawner's array of game objects to spawn
             PlayerSpawn.playerPrefabs[player.playerIndex] = selectedCharPrefab;
         }
     }
@@ -138,7 +143,7 @@ public class CharacterCustomization : MonoBehaviour
             CharacterSelect.instance.numPlayersReady--;
 
             ready = false;
-            player.defaultActionMap = "CharSelect";
+            player.SwitchCurrentActionMap("CharSelect");
             playerMovement.enabled = false;
             CharacterSelect.instance.onResetPlayer(player);
 
@@ -180,17 +185,15 @@ public class CharacterCustomization : MonoBehaviour
                 }
             }
 
-            for (int i = 0; i < coloredObjects.Length; i++)
+            coloredImages = new Image[2];
+            suitTransform = gameObject.FindComponentInChildWithTag<Transform>("Suit").transform;
+            coloredImages = gameObject.GetComponentsInChildren<Image>();
+
+            suitTransform.GetComponent<Renderer>().material = CharacterSelect.instance.colorOptions[currentColor];
+            for (int i = 0; i < coloredImages.Length; i++)
             {
-                if (!coloredObjects[i].GetComponent<Image>())
-                {
-                    coloredObjects[i].GetComponent<Renderer>().material = CharacterSelect.instance.colorOptions[currentColor];
-                }
-                else
-                {
-                    Color emissColor = CharacterSelect.instance.colorOptions[currentColor].GetColor("_EmissionColor");
-                    coloredObjects[i].GetComponent<Image>().color = emissColor;
-                }
+                Color emissColor = CharacterSelect.instance.colorOptions[currentColor].GetColor("_EmissionColor");
+                coloredImages[i].GetComponent<Image>().color = emissColor;
             }
         }
     }

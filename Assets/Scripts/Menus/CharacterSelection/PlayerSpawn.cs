@@ -7,11 +7,16 @@ using UnityEngine.InputSystem;
 public class PlayerSpawn : MonoBehaviour
 {
     public static GameObject[] playerPrefabs = new GameObject[4];
-    public static Transform[] spawnPositions = new Transform[4];
+    public static Vector3[] spawnPositions = new Vector3[4];
+    public static CameraMultiTarget cameraMultiTarget;
     public static int numPlayers; // This is automatically set when the game transitions from character selection to level selection
 
+    // This is the array of game objects that will be added as targets to the camera script once all players are spawned
+    GameObject[] spawnedPlayers = new GameObject[4];
 
-    public PlayerSpawn(Transform[] spawnPoints)
+
+    // Constructor for spawning players
+    public PlayerSpawn(Vector3[] spawnPoints, CameraMultiTarget camera)
     {
         // Set spawn points
         for (int i = 0; i < spawnPoints.Length; i++)
@@ -22,8 +27,17 @@ public class PlayerSpawn : MonoBehaviour
         // Spawn players
         for (int i = 0; i < numPlayers; i++)
         {
-            GameObject newPlayer = Instantiate(playerPrefabs[i], spawnPoints[i].position, spawnPoints[i].rotation);
+            GameObject newPlayer = Instantiate(playerPrefabs[i], spawnPoints[i], Quaternion.Euler(Vector3.zero));
+            newPlayer.GetComponent<PlayerInput>().actions = (InputActionAsset)Resources.Load("Assets/zExperimental/PlayerControls.inputactions");
+            //newPlayer.GetComponent<PlayerInput>().SwitchCurrentActionMap("Gameplay");
+
+            spawnedPlayers[i] = newPlayer;
+
+            newPlayer.GetComponent<Player>().cameraTrans = camera.GetComponent<Camera>().transform;
         }
+
+        // Set camera targets
+        camera.SetTargets(spawnedPlayers);
     }
 
     #region Old Constructor method

@@ -1062,13 +1062,12 @@ MonoBehaviour:
   playerTag: Char
   requiredSuccessfulAttempts: 6
   timeBetweenButtons: 0.65
+  cameraMultiTarget: {fileID: 1874353190}
   spawnPoints:
-  - {fileID: 777403982}
-  - {fileID: 545216346}
-  - {fileID: 930515416}
-  - {fileID: 1356907607}
-  playerToSpawn: {fileID: 200728199365951240, guid: 5e84428ae8c0de548a1343b929796a17,
-    type: 3}
+  - {x: 3.3836e-41, y: 9.46e-43, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 3.3785e-41, y: 0.000000010315082, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!65 &1876217521
 BoxCollider:
   m_ObjectHideFlags: 0

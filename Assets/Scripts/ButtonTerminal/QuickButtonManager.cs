@@ -30,11 +30,11 @@ public class QuickButtonManager : MonoBehaviour
     int successfulEntries = 0;
 
 
-    public Transform[] spawnPoints;
-    private IEnumerator Start()
+    public CameraMultiTarget cameraMultiTarget;
+    public Vector3[] spawnPoints;
+    private void Start()
     {
-        yield return new WaitForSeconds(2f);
-        PlayerSpawn spawner = new PlayerSpawn(spawnPoints);
+        PlayerSpawn spawner = new PlayerSpawn(spawnPoints, cameraMultiTarget);
     }
 
     void OnTriggerEnter(Collider other)

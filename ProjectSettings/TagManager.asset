@@ -25,6 +25,7 @@ TagManager:
   - Dispenser
   - Suit
   - GearImage
+  - PointerImage
   layers:
   - Default
   - TransparentFX
