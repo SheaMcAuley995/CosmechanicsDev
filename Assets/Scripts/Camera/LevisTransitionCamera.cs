@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class LevisTransitionCamera : MonoBehaviour
 {
@@ -25,10 +26,13 @@ public class LevisTransitionCamera : MonoBehaviour
 
     private Vector2 moveAxis;
 
+    public AudioSource menuAudio;
+
     private void Awake()
     {
         inputAction = new LevelSelectImput();
         worldSelected = false;
+        
     }
 
     private void Start()
@@ -39,11 +43,11 @@ public class LevisTransitionCamera : MonoBehaviour
 
         transform.rotation = baseRotation;
 
-        if(targets != null)
+        if (targets != null)
         {
             transform.position = targets[0].transform.position + offset;
             target = targets[0];
-        }       
+        }
     }
 
 
@@ -86,10 +90,28 @@ public class LevisTransitionCamera : MonoBehaviour
         currentTarget = 0;
 
         targets = target.GetComponent<LevelSecion>().levelList;
+
+        SetOrbit(false);
+
         target = targets[0];
 
 
         StartCoroutine(ShiftCamera());
+    }
+
+    void SetOrbit(bool state)
+    {
+        foreach (GameObject level in targets)
+        {
+            OrbiterScript orbiter = level.GetComponent<OrbiterScript>();
+
+            orbiter.doOrbit = state;
+
+            if (state == true)
+            {
+                orbiter.moveBack = true;
+            }                
+        }
     }
 
     public void BackToWorldSelect()
@@ -97,6 +119,8 @@ public class LevisTransitionCamera : MonoBehaviour
         worldSelected = false;
 
         offset = new Vector3(0, 0, 25);
+
+        SetOrbit(true);
 
         currentTarget = world;
         targets = worlds;
@@ -106,30 +130,18 @@ public class LevisTransitionCamera : MonoBehaviour
         StartCoroutine(ShiftCamera());
     }
 
-   
+    Vector3 velocity = Vector3.zero;
 
     IEnumerator ShiftCamera()
     {
-        float counter = 0;
-        int buffer = 0;
-
         while(true)
         {
-            buffer++;
-            counter = buffer / transitionSpeed;
+            transform.position = Vector3.SmoothDamp(transform.position, targets[currentTarget].transform.position + offset, ref velocity, transitionSpeed);
 
-            transform.position = Vector3.Lerp(transform.position, targets[currentTarget].transform.position + offset, counter);
-
-            if(counter >= 1)
-            {
-                break;
-            }
-            yield return new WaitForEndOfFrame();
-            transform.parent = target.transform;
+            yield return new WaitForFixedUpdate();
+            //transform.parent = target.transform;
             transform.rotation = baseRotation;
         }
-
-        yield return null;
     }
 
     private void OnEnable()
@@ -159,9 +171,9 @@ public class LevisTransitionCamera : MonoBehaviour
         //throw new System.NotImplementedException();
         Debug.Log("Select");
 
-
-        if(!worldSelected)
+        if (!worldSelected)
         {
+            menuAudio.Play();
             WorldSelect();
         }
     }
@@ -171,14 +183,15 @@ public class LevisTransitionCamera : MonoBehaviour
         //throw new System.NotImplementedException();
         moveAxis = obj.ReadValue<Vector2>();
         Debug.Log($"Move Axis {moveAxis}");
+        menuAudio.Play();
 
-        switch (moveAxis.x)
+        switch (moveAxis.x > 0.5f)
         {
-            case 1 :
+            case true  :
                 NextTarget();
                 break;
 
-            case -1 :
+            case false :
                 PrevTarget();
                 break;
         }
@@ -186,10 +199,15 @@ public class LevisTransitionCamera : MonoBehaviour
 
     private void Back_performed(InputAction.CallbackContext obj)
     {
+        menuAudio.Play();
         //throw new System.NotImplementedException();
         if(worldSelected)
         {
             BackToWorldSelect();
+        }
+        else
+        {
+            SceneManager.LoadScene("CharacterSelection_Update");
         }
     }
 

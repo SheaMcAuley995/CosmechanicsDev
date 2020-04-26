@@ -19,6 +19,8 @@ public class Florp : MonoBehaviour
     public float florpFillAmount;
 
     public float amountFilled;
+
+    public AudioSource fillingAudio;
     //public ParticleSystem particle;
 
     public LayerMask interactableLayer;
@@ -30,10 +32,17 @@ public class Florp : MonoBehaviour
         florpFillAmount = -0.5f;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Dispenser" && florpFillAmount < florpFillMax)
+        {
+            fillingAudio.Play();
+        }
+    }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Dispenser")
+        if (other.tag == "Dispenser" && florpFillAmount < florpFillMax)
         {
             doFill = true;
             StartCoroutine(FlorpFill());
@@ -45,6 +54,7 @@ public class Florp : MonoBehaviour
         if(other.tag == "Dispenser")
         {
             doFill = false;
+            fillingAudio.Stop();
         }
     }
 
@@ -71,6 +81,8 @@ public class Florp : MonoBehaviour
                 renderer.SetPropertyBlock(propertyBlock);
                 yield return null;
             }
+
+            fillingAudio.Stop();
 
             Debug.Log("Hit");
             yield return null;
