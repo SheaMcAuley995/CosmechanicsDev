@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "464c7b72-8664-4554-825c-5685bf88459d",
-                    "expectedControlType": "Dpad",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
@@ -31,17 +31,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "1be3ff28-dfea-4d26-a655-032964522cfe",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "D-Pad",
                     "id": "f4aece4a-a6ac-47b3-9f63-0334483a590f",
@@ -99,6 +88,17 @@
                 },
                 {
                     "name": "",
+                    "id": "818874a1-f1ad-41cd-a789-585c0dfe145d",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "Hold(duration=0.2,pressPoint=0.5)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ef338f38-3a90-4fe1-a70e-b3873f583666",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "Press(behavior=2)",
@@ -112,7 +112,7 @@
                     "name": "",
                     "id": "8c6870b0-9867-467a-bc62-bdf211d7a23a",
                     "path": "<Gamepad>/buttonEast",
-                    "interactions": "Press(behavior=2)",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Back",
