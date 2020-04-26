@@ -13,12 +13,19 @@ public class Florp : PickUp
 
     Renderer innerRenderer;
 
-    float florpFillMin = -0.5f;
-    float florpFillMax = 0.5f;
+    //public float florpFillMax { 
+    //    get; 
+    //    private set; }
+
+    public float florpFillMin = -0.5f;
+    public float florpFillMax = 0.5f;
+
+
 
     public float florpFillAmount;
 
     public float amountFilled;
+    
     //public ParticleSystem particle;
 
     public LayerMask FlorpFillerLayer;
@@ -50,32 +57,51 @@ public class Florp : PickUp
     public override void putMeDown()
     {
         base.putMeDown();
-
-        Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
-
-        for (int i = 0; i < hitColliders.Length; i++)
+        if (florpFillAmount <= florpFillMax)
         {
-            FlorpFiller = hitColliders[i].GetComponent<FlorpFiller>();
+            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
 
-            if (hitColliders[i] != null)
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                FlorpFiller.florp = this;
-                rb.isKinematic = true;
-                transform.position = FlorpFiller.holdPostion.position;
-                transform.rotation = FlorpFiller.holdPostion.rotation;
-                break;
+                FlorpFiller = hitColliders[i].GetComponent<FlorpFiller>();
+                FlorpFiller.curButton.On = true;
+                FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOnMat;
+                if (hitColliders[i] != null)
+                {
+                    FlorpFiller.florp = this;
+                    rb.isKinematic = true;
+                    transform.position = FlorpFiller.holdPostion.position;
+                    transform.rotation = FlorpFiller.holdPostion.rotation;
+                    break;
+                }
+
             }
-
         }
+        else
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
 
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                FlorpReceptor receptor = hitColliders[i].GetComponent<FlorpReceptor>();
+                
+
+            }
+        }
     }
 
     public override void pickMeUp(Transform pickUpTransform)
     {
-        base.pickMeUp(pickUpTransform);
+
+        if(FlorpFiller == null)
+        {
+            base.pickMeUp(pickUpTransform);
+        }
+        
 
         if(FlorpFiller != null)
         {
+            FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOffMat;
             FlorpFiller.florp = null;
             FlorpFiller = null;
         }

@@ -30,7 +30,7 @@ public class ShipHealth : MonoBehaviour
 
     [HideInInspector] public Vector3 attackLocation;
     Vector3 lastHitLocaton;
-    [HideInInspector] public bool gotHit;           //michael add
+    [HideInInspector] public bool gotHit;
 
     [Header("UI Elements")]
     public Image healthBar;
