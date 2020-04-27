@@ -47,6 +47,7 @@ public class Florp : PickUp
     {
         if (florpFillAmount < florpFillMax)
         {
+            fillingAudio.Play();
             propertyBlock.SetFloat("_FillAmount", florpFillAmount);
             renderer.SetPropertyBlock(propertyBlock);
             florpFillAmount += .25f;
