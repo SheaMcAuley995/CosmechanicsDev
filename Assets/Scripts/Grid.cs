@@ -21,7 +21,7 @@ public class Grid : MonoBehaviour {
     public float fireStartPercentage;
     public float fireTimer;
     public LayerMask playerLayer;
-    public AlertUI alertUI;
+    //public AlertUI alertUI;
     public float fireHealth;
 
     [Header("Debug tools")]
@@ -86,11 +86,11 @@ public class Grid : MonoBehaviour {
                     grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null,new Collider[4], fireHealth);
                 }
 
-                if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
-                {
-                    alertUI.problemMax += 1;
-                    alertUI.problemCurrent += 1;
-                }
+               // if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
+               // {
+               //     alertUI.problemMax += 1;
+               //     alertUI.problemCurrent += 1;
+               // }
             }
         }
 
@@ -164,10 +164,10 @@ public class Grid : MonoBehaviour {
         {
             if (firePos.isFlamable)
             {
-                if (nullCheck<AlertUI>(alertUI))
-                {
-                    alertUI.problemCurrent -= 1;
-                }
+               //if (nullCheck<AlertUI>(alertUI))
+               //{
+               //    alertUI.problemCurrent -= 1;
+               //}
                 firePos.fireTimer = fireTimer;
                 firePos.isFlamable = false;
                 firePos.fireEffect.SetActive(true);
@@ -180,10 +180,10 @@ public class Grid : MonoBehaviour {
     {
         if (firePos.isFlamable && nullCheck<Node>(firePos))
         {
-            if(nullCheck<AlertUI>(alertUI))
-            {
-                alertUI.problemCurrent -= 1;
-            }
+           // if(nullCheck<AlertUI>(alertUI))
+           // {
+           //     alertUI.problemCurrent -= 1;
+           // }
             
             firePos.fireTimer = fireTimer;
             firePos.fireEffect.SetActive(true);

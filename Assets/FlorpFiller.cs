@@ -19,6 +19,7 @@ public class FlorpFiller : MonoBehaviour
     private void Start()
     {
         curButton = buttonA;
+        curButton.On = true;
     }
 
     public void fillFlorp()

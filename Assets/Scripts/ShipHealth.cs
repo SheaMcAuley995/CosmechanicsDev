@@ -112,7 +112,7 @@ public class ShipHealth : MonoBehaviour
     {
         //Debug.Log(shipCurrenHealth / shipMaxHealth);
         healthBar.fillAmount = (float)shipCurrenHealth / shipMaxHealth;
-        healthText.text = shipCurrenHealth.ToString();
+        //healthText.text = shipCurrenHealth.ToString();
     }
 
     void LoseGame()
@@ -136,11 +136,11 @@ public class ShipHealth : MonoBehaviour
             foreach (Collider damagedObject in damagedObjects)
             {
 
-                //if (Gizmos.color == Color.red) { Gizmos.color = Color.red; } else { Gizmos.color = Color.blue; }
+                if (Gizmos.color == Color.red) { Gizmos.color = Color.red; } else { Gizmos.color = Color.blue; }
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireCube(damagedObject.transform.position, new Vector3(0.8f, 0.8f, 0.8f));
-                // MeshRenderer caughtObject = damagedObject.GetComponent<MeshRenderer>();
-                // caughtObject.material.color = Color.red;
+                 MeshRenderer caughtObject = damagedObject.GetComponent<MeshRenderer>();
+                 caughtObject.material.color = Color.red;
             }
 
         }

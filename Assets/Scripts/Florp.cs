@@ -25,11 +25,13 @@ public class Florp : PickUp
     public float florpFillAmount;
 
     public float amountFilled;
-    public AudioSource fillingAudio;
+    //public AudioSource fillingAudio;
     //public ParticleSystem particle;
 
     public LayerMask FlorpFillerLayer;
     public FlorpFiller FlorpFiller;
+
+    public FlorpReceptor florpReceptor;
 
     private void Awake()
     {
@@ -47,7 +49,7 @@ public class Florp : PickUp
     {
         if (florpFillAmount < florpFillMax)
         {
-            fillingAudio.Play();
+            //fillingAudio.Play();
             propertyBlock.SetFloat("_FillAmount", florpFillAmount);
             renderer.SetPropertyBlock(propertyBlock);
             florpFillAmount += .25f;

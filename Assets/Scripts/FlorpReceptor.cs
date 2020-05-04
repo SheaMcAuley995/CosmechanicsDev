@@ -30,7 +30,7 @@ public class FlorpReceptor : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currentContainer = other.GetComponent<Florp>();
-        florpRenderer = currentContainer.renderer;
+        //florpRenderer = currentContainer.renderer;
         currentFill = currentContainer.florpFillAmount;
 
         if (currentFill > florpMin)
