@@ -12,8 +12,8 @@ public class PlayerSpawn : MonoBehaviour
     public static int numPlayers; // This is automatically set when the game transitions from character selection to level selection
 
     // This is the array of game objects that will be added as targets to the camera script once all players are spawned
-    GameObject[] spawnedPlayers = new GameObject[4];
-
+    //GameObject[] spawnedPlayers = new GameObject[4];
+    List<GameObject> spawnedPlayers = new List<GameObject>();
 
     // Constructor for spawning players
     public PlayerSpawn(Vector3[] spawnPoints, CameraMultiTarget camera)
@@ -24,21 +24,34 @@ public class PlayerSpawn : MonoBehaviour
             spawnPositions[i] = spawnPoints[i];
         }
 
-        // Spawn players
-        for (int i = 0; i < numPlayers; i++)
+        if (numPlayers > 0)
         {
-            GameObject newPlayer = Instantiate(playerPrefabs[i], spawnPoints[i], Quaternion.Euler(Vector3.zero));
+            // Spawn players
+            for (int i = 0; i < numPlayers; i++)
+            {
+                GameObject newPlayer = Instantiate(playerPrefabs[i], spawnPoints[i], Quaternion.Euler(Vector3.zero));
+                newPlayer.GetComponent<PlayerInput>().actions = (InputActionAsset)Resources.Load("Assets/zExperimental/PlayerControls.inputactions");
+                //newPlayer.GetComponent<PlayerInput>().SwitchCurrentActionMap("Gameplay");
+
+                spawnedPlayers.Add(newPlayer);
+
+                newPlayer.GetComponent<Player>().cameraTrans = camera.GetComponent<Camera>().transform;
+            }
+        }
+        else
+        {
+            GameObject newPlayer = Instantiate(ExampleGameController.instance.playerPrefab, spawnPoints[0], Quaternion.Euler(Vector3.zero));
             newPlayer.GetComponent<PlayerInput>().actions = (InputActionAsset)Resources.Load("Assets/zExperimental/PlayerControls.inputactions");
             //newPlayer.GetComponent<PlayerInput>().SwitchCurrentActionMap("Gameplay");
 
-            spawnedPlayers[i] = newPlayer;
+            spawnedPlayers.Add(newPlayer);
 
             newPlayer.GetComponent<Player>().cameraTrans = camera.GetComponent<Camera>().transform;
         }
-
         // Set camera targets
-        camera.SetTargets(spawnedPlayers);
+        camera.SetTargets(spawnedPlayers.ToArray());
     }
+
 
     #region Old Constructor method
     //public GameObject playerPrefab;
