@@ -34,7 +34,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         oldPlayers = FindObjectsOfType<CharToDestroy>();
-        SceneFader.instance.FadeTo("CharacterSelection_Update");
+        SceneFader.instance.FadeTo("CharacterSelect_New");
         foreach (CharToDestroy player in oldPlayers)
         {
             Destroy(player.gameObject);

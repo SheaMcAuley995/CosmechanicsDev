@@ -44,7 +44,7 @@ public class Engine : MonoBehaviour {
     {
         engineHeat = maxHeat * 0.75f;
         currentProgress = winConditionLimit / 25;
-        alertUI.problemMax = maxHeat;
+        //alertUI.problemMax = maxHeat;
     }
 
     private void Update()
