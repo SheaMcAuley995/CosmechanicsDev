@@ -21,8 +21,13 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     public AlertUI alertUI;
 
     public bool takeDamageDebug = false;
+
+    AudioSource pipeSound;
+
     private void Start()
     {
+        pipeSound = GetComponent<AudioSource>();
+
         if(filter == null) { filter = GetComponent<MeshFilter>(); }
         if(mesh == null) { mesh = GetComponent<MeshRenderer>(); }
         
@@ -78,6 +83,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public void repairObject(int repairAmount)
     {
+        pipeSound.pitch = Random.Range(1.6f, 2.2f);
+        pipeSound.Play();
         currentMesh -= 1;
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;

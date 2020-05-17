@@ -33,7 +33,7 @@ public class ExampleGameController : MonoBehaviour
         }
         else if (instance != this)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
     }
@@ -49,18 +49,22 @@ public class ExampleGameController : MonoBehaviour
             if (true)
             {
                 setSpawnPoints();
-                var targets = new List<GameObject>(numberOfPlayers);
+                /// ZACH REMOVAL
+                //var targets = new List<GameObject>(numberOfPlayers);
 
-                for (int i = 0; i < numberOfPlayers; i++)
-                {
-                    targets.Add(addPlayer());
-                    cameraMultiTarget.SetTargets(targets.ToArray());
-                }
+                //for (int i = 0; i < numberOfPlayers; i++)
+                //{
+                //    targets.Add(addPlayer());
+                //    cameraMultiTarget.SetTargets(targets.ToArray());
+                //}
 
             }
 
-        SceneManager.activeSceneChanged += MakePlayers;
+        /// ZACH REMOVAL
+        //SceneManager.activeSceneChanged += MakePlayers;
         SceneManager.activeSceneChanged += cameraCheck;
+        PlayerSpawn spawner = new PlayerSpawn(spawnPoints, cameraMultiTarget); /// ZACH ADDITION
+        //if(PlayerSpawner.)
     }
 
      private void cameraCheck(Scene current, Scene next)
@@ -83,20 +87,21 @@ public class ExampleGameController : MonoBehaviour
     
          Debug.Log("Scenes: " + currentName + ", " + next.name);
     
-         foreach(string scene in spawnableScenes)
-         {
-             if(currentName == scene)
-             {
-                 var targets = new List<GameObject>(numberOfPlayers);
-                 Debug.Log(currentName + " works as a scene");
-                 for (int i = 0; i < numberOfPlayers; i++)
-                 {
-    
-                     targets.Add(addPlayer());
-                     cameraMultiTarget.SetTargets(targets.ToArray());
-                 }
-             }
-         }
+        // foreach(string scene in spawnableScenes)
+        // {
+        //     if(currentName == scene)
+        //     {
+        //        /// ZACH REMOVAL
+        //         //var targets = new List<GameObject>(numberOfPlayers);
+        //         //Debug.Log(currentName + " works as a scene");
+        //         //for (int i = 0; i < numberOfPlayers; i++)
+        //         //{
+        //
+        //         //    targets.Add(addPlayer());
+        //         //    cameraMultiTarget.SetTargets(targets.ToArray());
+        //         //}
+        //     }
+        // }
      }
 
     public void setSpawnPoints()

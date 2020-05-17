@@ -43,7 +43,7 @@ public class PickUp : MonoBehaviour {
 
     }
    
-    public void putMeDown()
+    public virtual void putMeDown()
     {
         endMyInteraction();
         myCollider.enabled = true;

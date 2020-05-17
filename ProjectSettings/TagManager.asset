@@ -23,6 +23,9 @@ TagManager:
   - Head
   - World
   - Dispenser
+  - Suit
+  - GearImage
+  - PointerImage
   layers:
   - Default
   - TransparentFX
@@ -43,7 +46,7 @@ TagManager:
   - Head
   - Extinguisher
   - Force Field
-  - 
+  - FlorpFiller
   - 
   - 
   - 

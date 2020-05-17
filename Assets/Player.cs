@@ -169,9 +169,9 @@ public class Player : MonoBehaviour
 
     public void pickUpObject()
     {
-        Debug.Log("CAST");
+        //Debug.Log("CAST");
         Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
-        Debug.Log(transform.forward);
+       // Debug.Log(transform.forward);
         if (interactedObject == null)
         {
             for (int i = 0; i < hitColliders.Length; i++)

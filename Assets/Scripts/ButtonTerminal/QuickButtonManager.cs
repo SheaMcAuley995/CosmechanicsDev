@@ -30,6 +30,13 @@ public class QuickButtonManager : MonoBehaviour
     int successfulEntries = 0;
 
 
+    public CameraMultiTarget cameraMultiTarget;
+    public Vector3[] spawnPoints;
+    private void Start()
+    {
+        PlayerSpawn spawner = new PlayerSpawn(spawnPoints, cameraMultiTarget);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         successfulEntries = 0;
@@ -74,9 +81,9 @@ public class QuickButtonManager : MonoBehaviour
     }
 
     #region Input Manager Functions
-    void OnPressedNorthButton()
+    void OnPressedNorthButton() // index 0
     {
-        if (CorrectIndex(0))
+        if (CorrectIndex(0)) // If you press this button and it is the correct button to press
         {
             successfulEntries++;
 
@@ -84,18 +91,18 @@ public class QuickButtonManager : MonoBehaviour
             {
                 StartCoroutine(DisplayResult(true, false));
             }
-            else
+            else // if you've completed all of the buttons in the sequence
             {
                 EnteredAllButtons();
             }
         }
-        else
+        else // if you press this button but it's not the correct button to press
         {
             successfulEntries = 0;
             StartCoroutine(DisplayResult(false, false));
         }
     }
-    void OnPressedSouthButton()
+    void OnPressedSouthButton() // index 1
     {
         if (CorrectIndex(1))
         {

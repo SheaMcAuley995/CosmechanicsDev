@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Florp : MonoBehaviour
+public class Florp : PickUp
 {
-    public bool doFill;
+    //public bool doFill;
 
     public float fillSpeed;
 
@@ -13,69 +13,107 @@ public class Florp : MonoBehaviour
 
     Renderer innerRenderer;
 
-    float florpFillMax = 0.5f;
-    float florpFillMin = -0.5f;
+    //public float florpFillMax { 
+    //    get; 
+    //    private set; }
+
+    public float florpFillMin = -0.5f;
+    public float florpFillMax = 0.5f;
+
+
 
     public float florpFillAmount;
 
     public float amountFilled;
+    //public AudioSource fillingAudio;
     //public ParticleSystem particle;
 
-    public LayerMask interactableLayer;
+    public LayerMask FlorpFillerLayer;
+    public FlorpFiller FlorpFiller;
+
+    public FlorpReceptor florpReceptor;
 
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
         renderer.GetPropertyBlock(propertyBlock);
-        florpFillAmount = -0.5f;
+        florpFillAmount = florpFillMin;
     }
 
-
-    private void OnTriggerStay(Collider other)
+    private void Start()
     {
-        if (other.tag == "Dispenser")
-        {
-            doFill = true;
-            StartCoroutine(FlorpFill());
-        }
+        rb = GetComponent<Rigidbody>();
     }
 
-    private void OnTriggerExit(Collider other)
+    public void fillFlorp()
     {
-        if(other.tag == "Dispenser")
+        if (florpFillAmount < florpFillMax)
         {
-            doFill = false;
-        }
-    }
-
-    public IEnumerator FlorpFill()
-    {
-        Debug.Log(propertyBlock.GetFloat("_FillAmount"));
-        if (florpFillAmount < florpFillMax && doFill == true)
-        {
-            propertyBlock.SetFloat("_FillAmount",florpFillAmount);
+            //fillingAudio.Play();
+            propertyBlock.SetFloat("_FillAmount", florpFillAmount);
             renderer.SetPropertyBlock(propertyBlock);
-            florpFillAmount += (.01f * fillSpeed);
+            florpFillAmount += .25f;
 
-            amountFilled = (florpFillAmount - florpFillMin) / (florpFillMax) * 50;
+        }
+    }
 
+    public override void putMeDown()
+    {
+        base.putMeDown();
+        if (florpFillAmount <= florpFillMax)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
 
-            //Debug.Log(propertyBlock.GetFloat("_FillAmount"));
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                FlorpFiller = hitColliders[i].GetComponent<FlorpFiller>();
+                FlorpFiller.curButton.On = true;
+                FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOnMat;
+                if (hitColliders[i] != null)
+                {
+                    FlorpFiller.florp = this;
+                    rb.isKinematic = true;
+                    transform.position = FlorpFiller.holdPostion.position;
+                    transform.rotation = FlorpFiller.holdPostion.rotation;
+                    break;
+                }
+
+            }
         }
         else
         {
-            if(amountFilled > 0.5f)
-            {
-                florpFillAmount = 0.5f;
-                propertyBlock.SetFloat("_FillAmount", florpFillAmount);
-                renderer.SetPropertyBlock(propertyBlock);
-                yield return null;
-            }
+            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
 
-            Debug.Log("Hit");
-            yield return null;
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                FlorpReceptor receptor = hitColliders[i].GetComponent<FlorpReceptor>();
+                
+
+            }
+        }
+    }
+
+    public override void pickMeUp(Transform pickUpTransform)
+    {
+
+        if(FlorpFiller == null)
+        {
+            base.pickMeUp(pickUpTransform);
+        }
+        
+
+        if(FlorpFiller != null)
+        {
+            FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOffMat;
+            FlorpFiller.florp = null;
+            FlorpFiller = null;
         }
 
-        yield return new WaitForFixedUpdate();
     }
+
+
 }
+
+
+
+
