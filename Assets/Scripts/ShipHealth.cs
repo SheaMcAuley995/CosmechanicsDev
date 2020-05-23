@@ -49,7 +49,7 @@ public class ShipHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        // shipCurrenHealth = shipMaxHealth;
+        shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -139,8 +139,8 @@ public class ShipHealth : MonoBehaviour
                 if (Gizmos.color == Color.red) { Gizmos.color = Color.red; } else { Gizmos.color = Color.blue; }
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireCube(damagedObject.transform.position, new Vector3(0.8f, 0.8f, 0.8f));
-                 MeshRenderer caughtObject = damagedObject.GetComponent<MeshRenderer>();
-                 caughtObject.material.color = Color.red;
+                // MeshRenderer caughtObject = damagedObject.GetComponent<MeshRenderer>();
+                 //caughtObject.material.color = Color.red;
             }
 
         }

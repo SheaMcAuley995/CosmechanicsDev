@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     public Collider myCollider;
     public Interactable interactableObject;
     public int playerId;
+    [HideInInspector] public bool blockMovement = false;
 
     private void Awake()
     {
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
         //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
         controls.Gameplay.Interact.started += ctx => Interaction();
-        //controls.Gameplay.Interact. += ctx => endInteraction();
+        controls.Gameplay.Interact.canceled += ctx => endInteraction();
         controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
@@ -106,7 +107,7 @@ public class Player : MonoBehaviour
 
     private void ProcessInteraction()
     {
-        Move(movementVector, sprint);
+        if (!blockMovement) { Move(movementVector, sprint); }
     }
 
     public void pickUpInteraction()

@@ -57,6 +57,13 @@ public class Florp : PickUp
         }
     }
 
+
+    public override void myInteraction()
+    {
+        //playerController.blockMovement = false;
+
+    }
+
     public override void putMeDown()
     {
         base.putMeDown();
@@ -67,29 +74,31 @@ public class Florp : PickUp
             for (int i = 0; i < hitColliders.Length; i++)
             {
                 FlorpFiller = hitColliders[i].GetComponent<FlorpFiller>();
-                FlorpFiller.curButton.On = true;
-                FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOnMat;
-                if (hitColliders[i] != null)
+                if(FlorpFiller != null)
                 {
-                    FlorpFiller.florp = this;
-                    rb.isKinematic = true;
-                    transform.position = FlorpFiller.holdPostion.position;
-                    transform.rotation = FlorpFiller.holdPostion.rotation;
-                    break;
+                    FlorpFiller.curButton.On = true;
+                    FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOnMat;
+                    if (hitColliders[i] != null)
+                    {
+                        FlorpFiller.florp = this;
+                        rb.isKinematic = true;
+                        transform.position = FlorpFiller.holdPostion.position;
+                        transform.rotation = FlorpFiller.holdPostion.rotation;
+                        break;
+                    }
                 }
-
             }
         }
         else
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
-
-            for (int i = 0; i < hitColliders.Length; i++)
-            {
-                FlorpReceptor receptor = hitColliders[i].GetComponent<FlorpReceptor>();
-                
-
-            }
+            //Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
+            //
+            //for (int i = 0; i < hitColliders.Length; i++)
+            //{
+            //    FlorpReceptor receptor = hitColliders[i].GetComponent<FlorpReceptor>();
+            //    
+            //
+            //}
         }
     }
 
