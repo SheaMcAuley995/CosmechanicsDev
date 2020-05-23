@@ -57,6 +57,13 @@ public class Florp : PickUp
         }
     }
 
+
+    public override void myInteraction()
+    {
+        //playerController.blockMovement = false;
+
+    }
+
     public override void putMeDown()
     {
         base.putMeDown();

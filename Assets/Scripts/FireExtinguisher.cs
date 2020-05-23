@@ -32,11 +32,10 @@ public class FireExtinguisher : PickUp
     public override void endMyInteraction()
     {
         base.endMyInteraction();
-        if(playerController != null)
-        {
-            waterHoseEffect.Stop();
-            box.enabled = false;
-        }
+
+        waterHoseEffect.Stop();
+        box.enabled = false;
+        
     }
 }
 
