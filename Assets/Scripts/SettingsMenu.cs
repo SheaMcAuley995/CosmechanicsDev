@@ -46,10 +46,36 @@ public class SettingsMenu : MonoBehaviour
         audioMixer.SetFloat("Volume", volume);
     }
 
+    public void SetQuality(int indx)
+    {
+        QualitySettings.SetQualityLevel(indx);
+    }
+
     public void SetResolution(int resIndx)
     {
         Resolution resolution = resolutions[resIndx];
 
         Screen.SetResolution(resolution.width, resolution.height, true);
+    }
+
+    public void setFullscreen(int indx)
+    {
+        switch(indx)
+        {
+            case 0 :
+
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+
+            case 2:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+        }
+
+
     }
 }
