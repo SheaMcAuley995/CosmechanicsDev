@@ -26,6 +26,9 @@ TagManager:
   - Suit
   - GearImage
   - PointerImage
+  - PauseMenu
+  - GameOverlay
+  - OptionsMenu
   layers:
   - Default
   - TransparentFX
