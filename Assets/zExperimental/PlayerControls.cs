@@ -40,7 +40,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""ccc21c8f-89dc-4c8c-b3e3-fd727313907d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Up"",
@@ -70,6 +70,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""Right"",
                     ""type"": ""Button"",
                     ""id"": ""a7b5b350-97b9-4fdc-a87f-2c31e88c6625"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""989a8ad4-73d1-43eb-a983-7ef12e8061ec"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -227,6 +235,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1a625e7-ae98-494b-aceb-97738f47f40d"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -779,6 +798,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_Gameplay_Down = m_Gameplay.FindAction("Down", throwIfNotFound: true);
         m_Gameplay_Left = m_Gameplay.FindAction("Left", throwIfNotFound: true);
         m_Gameplay_Right = m_Gameplay.FindAction("Right", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         // MainMenu
         m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
         m_MainMenu_Movement = m_MainMenu.FindAction("Movement", throwIfNotFound: true);
@@ -853,6 +873,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Down;
     private readonly InputAction m_Gameplay_Left;
     private readonly InputAction m_Gameplay_Right;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -864,6 +885,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Down => m_Wrapper.m_Gameplay_Down;
         public InputAction @Left => m_Wrapper.m_Gameplay_Left;
         public InputAction @Right => m_Wrapper.m_Gameplay_Right;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -894,6 +916,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Right.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRight;
                 @Right.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRight;
                 @Right.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRight;
+                @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -919,6 +944,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Right.started += instance.OnRight;
                 @Right.performed += instance.OnRight;
                 @Right.canceled += instance.OnRight;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -1094,6 +1122,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnDown(InputAction.CallbackContext context);
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IMainMenuActions
     {

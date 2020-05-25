@@ -50,8 +50,6 @@ public class LevisTransitionCamera : MonoBehaviour
         }
     }
 
-
-
     public void NextTarget()
     {
         currentTarget++;

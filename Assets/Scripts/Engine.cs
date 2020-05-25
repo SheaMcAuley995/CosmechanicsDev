@@ -50,10 +50,10 @@ public class Engine : MonoBehaviour {
     private void Update()
     {
         // If the engine event can run & the game isn't paused
-        if(startEngineBehavior && (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won))
-        {
+        //if(startEngineBehavior && (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won))
+        //{
             EngineUpdate();
-        }
+        //}
     }
 
     public void EngineUpdate()
@@ -82,8 +82,8 @@ public class Engine : MonoBehaviour {
         {
             LoseGame();
         }
-        AudioEventManager.instance.PlaySound("engine");
-        alertUI.problemCurrent = engineHeat;
+        //AudioEventManager.instance.PlaySound("engine");
+        //alertUI.problemCurrent = engineHeat;
     }
 
     private void WinGame()

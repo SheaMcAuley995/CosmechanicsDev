@@ -27,7 +27,7 @@
                     "id": "ccc21c8f-89dc-4c8c-b3e3-fd727313907d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 },
                 {
                     "name": "Up",
@@ -57,6 +57,14 @@
                     "name": "Right",
                     "type": "Button",
                     "id": "a7b5b350-97b9-4fdc-a87f-2c31e88c6625",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "989a8ad4-73d1-43eb-a983-7ef12e8061ec",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -214,6 +222,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1a625e7-ae98-494b-aceb-97738f47f40d",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
