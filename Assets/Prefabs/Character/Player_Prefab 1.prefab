@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 228857624158811868}
   - component: {fileID: 7568695366728193861}
   - component: {fileID: 202609199262425763}
+  - component: {fileID: 636299824817811298}
   m_Layer: 10
   m_Name: Player_Prefab 1
   m_TagString: Char
@@ -338,6 +339,20 @@ MonoBehaviour:
   myCollider: {fileID: 228193707084305550}
   interactableObject: {fileID: 0}
   playerId: 0
+  blockMovement: 0
+--- !u!114 &636299824817811298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200728199365951240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e24edb1e0408479aabee4aab0833870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseCanvas: {fileID: 0}
 --- !u!1 &200730266903630936
 GameObject:
   m_ObjectHideFlags: 0
