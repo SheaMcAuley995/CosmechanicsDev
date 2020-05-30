@@ -4,58 +4,78 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class SettingsMenu : MonoBehaviour {
 
+public class SettingsMenu : MonoBehaviour
+{
     public AudioMixer audioMixer;
 
     public Dropdown resolutionDropdown;
 
     Resolution[] resolutions;
 
-    public void Start()
+    private void Start()
     {
         resolutions = Screen.resolutions;
 
-        //resolutionDropdown.ClearOptions();
+        resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
-        int currentResolutionIndex = 0;
+        int curResIndx = 0;
 
         for(int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
+            string option = $" {resolutions[i].width} x {resolutions[i].height}";
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if(resolutions[i].width  == Screen.currentResolution.width &&
+               resolutions[i].height == Screen.currentResolution.height)
             {
-                currentResolutionIndex = i;
+                curResIndx = i;
             }
         }
 
-        //resolutionDropdown.AddOptions(options);
-        //resolutionDropdown.value = currentResolutionIndex;
-        //resolutionDropdown.RefreshShownValue();
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = curResIndx;
+        resolutionDropdown.RefreshShownValue();
     }
 
-    public void SetVolume(float volume)
+
+    public void SetVolume (float volume)
     {
-        audioMixer.SetFloat("volume", volume);
+        audioMixer.SetFloat("Volume", volume);
     }
 
-    public void SetQuality (int qualityIndex)
+    public void SetQuality(int indx)
     {
-        QualitySettings.SetQualityLevel(qualityIndex);
+        QualitySettings.SetQualityLevel(indx);
     }
 
-    public void SetFullScreen (bool isFullScreen)
+    public void SetResolution(int resIndx)
     {
-        Screen.fullScreen = isFullScreen;
+        Resolution resolution = resolutions[resIndx];
+
+        Screen.SetResolution(resolution.width, resolution.height, true);
     }
 
-    public void SetResolution(int resolutionIndex)
+    public void setFullscreen(int indx)
     {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height,Screen.fullScreen);
+        switch(indx)
+        {
+            case 0 :
+
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+
+            case 2:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+        }
+
+
     }
 }

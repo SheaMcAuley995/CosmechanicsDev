@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     public Collider myCollider;
     public Interactable interactableObject;
     public int playerId;
+    [HideInInspector] public bool blockMovement = false;
 
     private void Awake()
     {
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
         //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
         controls.Gameplay.Interact.started += ctx => Interaction();
-        //controls.Gameplay.Interact. += ctx => endInteraction();
+        controls.Gameplay.Interact.canceled += ctx => endInteraction();
         controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
@@ -106,7 +107,7 @@ public class Player : MonoBehaviour
 
     private void ProcessInteraction()
     {
-        Move(movementVector, sprint);
+         Move(movementVector, sprint);
     }
 
     public void pickUpInteraction()
@@ -121,7 +122,6 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().myInteraction();
             }
         }
@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
-                Debug.Log("Interacting with :" + hitColliders[i].name);
+                //Debug.Log("Interacting with :" + hitColliders[i].name);
                 if (hitColliders[i].GetComponent<RepairableObject>() != null)
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                Debug.Log("TOOL INTEREACTION");
+                //Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().endMyInteraction();
             }
         }
@@ -169,9 +169,9 @@ public class Player : MonoBehaviour
 
     public void pickUpObject()
     {
-        Debug.Log("CAST");
+        //Debug.Log("CAST");
         Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
-        Debug.Log(transform.forward);
+       // Debug.Log(transform.forward);
         if (interactedObject == null)
         {
             for (int i = 0; i < hitColliders.Length; i++)
@@ -182,11 +182,6 @@ public class Player : MonoBehaviour
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
                     //hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
-
-                    //isPuu = true;
-                    //puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
-                    //box.enabled = true;
-
                     if (hitColliders[i].GetComponent<Interactable>() != false)
                     {
                         interactableObject = hitColliders[i].GetComponent<Interactable>();
@@ -197,20 +192,9 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (interactedObject.GetComponent<PickUp>() != null)
-            {
-                interactedObject.GetComponent<PickUp>().playerController = null;
-            }
             interactedObject.GetComponent<PickUp>().putMeDown();
-            //isPuu = false;
-            //Destroy(puu);
-            // box.enabled = false;
             interactedObject = null;
         }
-        //if (!isPuu)
-        //{
-        //    Destroy(puu);
-        //}
     }
 
 
@@ -275,7 +259,14 @@ public class Player : MonoBehaviour
         }
 
 
-        rb.velocity = transform.forward * currentSpeed;
+        if (!blockMovement)
+        {
+            rb.velocity = transform.forward * currentSpeed;
+        }
+        else 
+        { 
+            rb.velocity = transform.forward * Vector2.zero; 
+        }
 
     }
 

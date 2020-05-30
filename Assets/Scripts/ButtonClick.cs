@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ButtonClick : MonoBehaviour, IMoveHandler
+public class ButtonClick : MonoBehaviour, ISelectHandler
 {
     public AudioSource buttonClick;
 
-    public void OnMove(AxisEventData eventData)
-    {       
-       buttonClick.Play();  
+    public void OnSelect(BaseEventData eventData)
+    {
+        buttonClick.Play();
     }
 }

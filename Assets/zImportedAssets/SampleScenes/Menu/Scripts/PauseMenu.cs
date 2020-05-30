@@ -4,60 +4,72 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    private Toggle m_MenuToggle;
-	private float m_TimeScaleRef = 1f;
-    private float m_VolumeRef = 1f;
-    private bool m_Paused;
+    bool paused;
+    PlayerControls playerController;
+    GameObject pauseCanvas;
+    GameObject inGameCanvas;
+    GameObject optionsMenu;
 
 
-    void Awake()
+    private void Awake()
     {
-        m_MenuToggle = GetComponent <Toggle> ();
-	}
+        playerController = new PlayerControls();
 
+        pauseCanvas  = GameObject.Find("PauseMenuCanvas");
+        inGameCanvas = GameObject.Find("InGameCanvas");
+        optionsMenu  = GameObject.Find("OptionsCanvas");
 
-    private void MenuOn ()
-    {
-        m_TimeScaleRef = Time.timeScale;
-        Time.timeScale = 0f;
+        pauseCanvas = pauseCanvas.transform.GetChild(0).gameObject;
+        optionsMenu = optionsMenu.transform.GetChild(0).gameObject;
 
-        m_VolumeRef = AudioListener.volume;
-        AudioListener.volume = 0f;
-
-        m_Paused = true;
+        paused = false;
     }
 
 
-    public void MenuOff ()
+    private void OnEnable()
     {
-        Time.timeScale = m_TimeScaleRef;
-        AudioListener.volume = m_VolumeRef;
-        m_Paused = false;
+        playerController.Gameplay.Pause.performed += Pause_Performed;
+        playerController.Gameplay.Pause.Enable();
     }
 
-
-    public void OnMenuStatusChange ()
+    private void OnDisable()
     {
-        if (m_MenuToggle.isOn && !m_Paused)
+        playerController.Gameplay.Pause.performed -= Pause_Performed;
+        playerController.Gameplay.Pause.Disable();
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1f;
+        inGameCanvas.gameObject.SetActive(true);
+        pauseCanvas.gameObject.SetActive(false);
+        optionsMenu.gameObject.SetActive(false);
+        paused = true;
+    }
+
+    private void Pause_Performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Debug.Log("Start");
+
+        if (paused)
         {
-            MenuOn();
+            Time.timeScale = 0f;
+            inGameCanvas.gameObject.SetActive(paused);
+            optionsMenu.gameObject.SetActive(false);
+            paused = false;
+
+            pauseCanvas.gameObject.SetActive(paused);
         }
-        else if (!m_MenuToggle.isOn && m_Paused)
+        else
         {
-            MenuOff();
-        }
+            Time.timeScale = 1f;
+            inGameCanvas.gameObject.SetActive(paused);
+
+            paused = true;
+
+            pauseCanvas.gameObject.SetActive(paused);
+        }        
+
     }
-
-
-#if !MOBILE_INPUT
-	void Update()
-	{
-		if(Input.GetKeyUp(KeyCode.Escape))
-		{
-		    m_MenuToggle.isOn = !m_MenuToggle.isOn;
-            Cursor.visible = m_MenuToggle.isOn;//force the cursor visible if anythign had hidden it
-		}
-	}
-#endif
 
 }

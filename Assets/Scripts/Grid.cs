@@ -21,7 +21,7 @@ public class Grid : MonoBehaviour {
     public float fireStartPercentage;
     public float fireTimer;
     public LayerMask playerLayer;
-    public AlertUI alertUI;
+    //public AlertUI alertUI;
     public float fireHealth;
 
     [Header("Debug tools")]
@@ -55,13 +55,13 @@ public class Grid : MonoBehaviour {
     public void Update()
     {
         // If the game isn't paused
-        if (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won)
-        {
+       // if (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won)
+        //{
             for (int i = 0; i < fires.Count; ++i)
             {
                 onFire(fires[i]);
             }
-        }
+       // }
     }
 
 
@@ -86,11 +86,11 @@ public class Grid : MonoBehaviour {
                     grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null,new Collider[4], fireHealth);
                 }
 
-                if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
-                {
-                    alertUI.problemMax += 1;
-                    alertUI.problemCurrent += 1;
-                }
+               // if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
+               // {
+               //     alertUI.problemMax += 1;
+               //     alertUI.problemCurrent += 1;
+               // }
             }
         }
 
@@ -164,10 +164,10 @@ public class Grid : MonoBehaviour {
         {
             if (firePos.isFlamable)
             {
-                if (nullCheck<AlertUI>(alertUI))
-                {
-                    alertUI.problemCurrent -= 1;
-                }
+               //if (nullCheck<AlertUI>(alertUI))
+               //{
+               //    alertUI.problemCurrent -= 1;
+               //}
                 firePos.fireTimer = fireTimer;
                 firePos.isFlamable = false;
                 firePos.fireEffect.SetActive(true);
@@ -180,10 +180,10 @@ public class Grid : MonoBehaviour {
     {
         if (firePos.isFlamable && nullCheck<Node>(firePos))
         {
-            if(nullCheck<AlertUI>(alertUI))
-            {
-                alertUI.problemCurrent -= 1;
-            }
+           // if(nullCheck<AlertUI>(alertUI))
+           // {
+           //     alertUI.problemCurrent -= 1;
+           // }
             
             firePos.fireTimer = fireTimer;
             firePos.fireEffect.SetActive(true);
@@ -250,37 +250,37 @@ public class Grid : MonoBehaviour {
     }
 
 
-   // private void OnDrawGizmos()
-   // {
-   //     nodeDiameter = nodeRadius * 2;
-   //     gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-   //     gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-   //
-   //     if (GenerateGrid)
-   //         CreateGrid();
-   //
-   //     if (LightFire)
-   //     {
-   //         //GenerateFire();
-   //         LightFire = false;
-   //     }
-   //
-   //
-   //     if (grid != null && showGrid)
-   //     {
-   //         foreach (Node n in grid)
-   //         {
-   //             Gizmos.color = (n.isFlamable) ? Color.white : Color.red;
-   //             //Gizmos.color = ((woooo % 2) != 1) ? Color.white : Color.red;
-   //             Gizmos.DrawWireCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-   //             //woooo = (int)Mathf.Sin(woooo++ * Time.time * 10);
-   //         }
-   //         foreach (Node fire in fires)
-   //         {
-   //             Gizmos.color = Color.green;
-   //             Gizmos.DrawSphere(fire.worldPosition, 1);
-   //         }
-   //     }
-   //
-   // }
+    private void OnDrawGizmos()
+    {
+        nodeDiameter = nodeRadius * 2;
+        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+   
+        if (GenerateGrid)
+            CreateGrid();
+   
+        if (LightFire)
+        {
+            //GenerateFire();
+            LightFire = false;
+        }
+   
+   
+        if (grid != null && showGrid)
+        {
+            foreach (Node n in grid)
+            {
+                Gizmos.color = (n.isFlamable) ? Color.white : Color.red;
+                //Gizmos.color = ((woooo % 2) != 1) ? Color.white : Color.red;
+                Gizmos.DrawWireCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+                //woooo = (int)Mathf.Sin(woooo++ * Time.time * 10);
+            }
+            foreach (Node fire in fires)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(fire.worldPosition, 1);
+            }
+        }
+   
+    }
 }

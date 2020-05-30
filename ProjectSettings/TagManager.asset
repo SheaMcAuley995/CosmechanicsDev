@@ -26,6 +26,9 @@ TagManager:
   - Suit
   - GearImage
   - PointerImage
+  - PauseMenu
+  - GameOverlay
+  - OptionsMenu
   layers:
   - Default
   - TransparentFX
@@ -46,7 +49,7 @@ TagManager:
   - Head
   - Extinguisher
   - Force Field
-  - 
+  - FlorpFiller
   - 
   - 
   - 

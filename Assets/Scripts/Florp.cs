@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Florp : MonoBehaviour
+public class Florp : PickUp
 {
-    public bool doFill;
+    //public bool doFill;
 
     public float fillSpeed;
 
@@ -13,81 +13,156 @@ public class Florp : MonoBehaviour
 
     Renderer innerRenderer;
 
-    float florpFillMax = 0.5f;
-    float florpFillMin = -0.5f;
+    //public float florpFillMax { 
+    //    get; 
+    //    private set; }
+
+    public float florpFillMin = 0;
+    public float florpFillMax = 4;
+
+
 
     public float florpFillAmount;
 
     public float amountFilled;
-
-    public AudioSource fillingAudio;
+    //public AudioSource fillingAudio;
     //public ParticleSystem particle;
 
-    public LayerMask interactableLayer;
+    public LayerMask FlorpFillerLayer;
+    public FlorpFiller FlorpFiller;
+
+    public LayerMask florpReceptorLayer;
+    public FlorpReceptor florpReceptor;
+    
 
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
-        renderer.GetPropertyBlock(propertyBlock);
-        florpFillAmount = -0.5f;
+        //renderer.GetPropertyBlock(propertyBlock);
+        florpFillAmount = florpFillMin;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if(other.tag == "Dispenser" && florpFillAmount < florpFillMax)
+        rb = GetComponent<Rigidbody>();
+
+    }
+
+    public void fillFlorp()
+    {
+        if (florpFillAmount < florpFillMax)
         {
-            fillingAudio.Play();
+            //fillingAudio.Play();
+            //propertyBlock.SetFloat("_FillAmount", florpFillAmount);
+            //renderer.SetPropertyBlock(propertyBlock);
+            florpFillAmount += 1;
+
         }
     }
 
-    private void OnTriggerStay(Collider other)
+
+    public override void myInteraction()
     {
-        if (other.tag == "Dispenser" && florpFillAmount < florpFillMax)
+        base.myInteraction();
+
+        float timer = Time.time;
+
+        if (florpFillAmount <= florpFillMax)
         {
-            doFill = true;
-            StartCoroutine(FlorpFill());
+            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, florpReceptorLayer);
+
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                florpReceptor = hitColliders[i].GetComponent<FlorpReceptor>();
+            }
+        }
+
+        if(florpReceptor != null)
+        {
+            StartCoroutine(fillingFlorp());
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public override void endMyInteraction()
     {
-        if(other.tag == "Dispenser")
-        {
-            doFill = false;
-            fillingAudio.Stop();
-        }
+        base.endMyInteraction();
     }
 
-    public IEnumerator FlorpFill()
+    public override void putMeDown()
     {
-        Debug.Log(propertyBlock.GetFloat("_FillAmount"));
-        if (florpFillAmount < florpFillMax && doFill == true)
+        endMyInteraction();
+        base.putMeDown();
+        if (florpFillAmount <= florpFillMax)
         {
-            propertyBlock.SetFloat("_FillAmount",florpFillAmount);
-            renderer.SetPropertyBlock(propertyBlock);
-            florpFillAmount += (.01f * fillSpeed);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
 
-            amountFilled = (florpFillAmount - florpFillMin) / (florpFillMax) * 50;
-
-
-            //Debug.Log(propertyBlock.GetFloat("_FillAmount"));
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                FlorpFiller = hitColliders[i].GetComponent<FlorpFiller>();
+                if(FlorpFiller != null)
+                {
+                    FlorpFiller.curButton.On = true;
+                    FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOnMat;
+                    if (hitColliders[i] != null)
+                    {
+                        FlorpFiller.florp = this;
+                        rb.isKinematic = true;
+                        transform.position = FlorpFiller.holdPostion.position;
+                        transform.rotation = FlorpFiller.holdPostion.rotation;
+                        break;
+                    }
+                }
+            }
         }
         else
         {
-            if(amountFilled > 0.5f)
-            {
-                florpFillAmount = 0.5f;
-                propertyBlock.SetFloat("_FillAmount", florpFillAmount);
-                renderer.SetPropertyBlock(propertyBlock);
-                yield return null;
-            }
+            //Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
+            //
+            //for (int i = 0; i < hitColliders.Length; i++)
+            //{
+            //    FlorpReceptor receptor = hitColliders[i].GetComponent<FlorpReceptor>();
+            //    
+            //
+            //}
+        }
+    }
 
-            fillingAudio.Stop();
+    public override void pickMeUp(Transform pickUpTransform)
+    {
 
-            Debug.Log("Hit");
-            yield return null;
+        if(FlorpFiller == null)
+        {
+            base.pickMeUp(pickUpTransform);
+        }
+        
+
+        if(FlorpFiller != null)
+        {
+            FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOffMat;
+            FlorpFiller.florp = null;
+            FlorpFiller = null;
         }
 
-        yield return new WaitForFixedUpdate();
+    }
+
+    IEnumerator fillingFlorp()
+    {
+        while((florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
+        {
+            florpReceptor.fillFlorp(1);
+            florpFillAmount--;
+            yield return new WaitForSeconds(0.5f);
+        }
+        if(florpReceptor.CR_Running == false)
+        {
+            florpReceptor.CR_Running = true;
+            florpReceptor.StartCoroutine(florpReceptor.burnFlorp());
+        }
+
+        endMyInteraction();
     }
 }
+
+
+
+

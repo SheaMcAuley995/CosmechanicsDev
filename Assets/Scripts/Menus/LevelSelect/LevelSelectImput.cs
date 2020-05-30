@@ -114,7 +114,7 @@ public class @LevelSelectImput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""ef338f38-3a90-4fe1-a70e-b3873f583666"",
                     ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": ""Press(behavior=2)"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Select"",

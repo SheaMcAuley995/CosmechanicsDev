@@ -35,19 +35,20 @@ public class PickUp : MonoBehaviour {
 
     public virtual void myInteraction()
     {
-        
+        if (playerController != null) { playerController.blockMovement = true; }
     }
 
     public virtual void endMyInteraction()
     {
-
+        if (playerController != null) { playerController.blockMovement = false; }
     }
    
-    public void putMeDown()
+    public virtual void putMeDown()
     {
-        endMyInteraction();
+        playerController = null;
         myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;
+        endMyInteraction();
     }
 }
