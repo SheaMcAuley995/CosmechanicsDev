@@ -136,8 +136,12 @@ public class Player : MonoBehaviour
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
-                        animators[0].SetTrigger("PipeFix");
-                        animators[1].SetTrigger("PipeFix");
+                        foreach (Animator animator in animators)
+                        {
+                            if (animator != null) { animator.SetTrigger("PipeFix"); }
+                        }
+                        //animators[0].SetTrigger("PipeFix");
+                        //animators[1].SetTrigger("PipeFix");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         break;
                     }
@@ -214,8 +218,12 @@ public class Player : MonoBehaviour
     {
         if (!onFire)
         {
-            animators[0].SetBool("OnFire", false);
-            animators[1].SetBool("OnFire", false);
+            foreach (Animator animator in animators)
+            {
+                if (animator != null) { animator.SetBool("OnFire", false); }
+            }
+            //animators[0].SetBool("OnFire", false);
+            //animators[1].SetBool("OnFire", false);
             if (inputDir != Vector2.zero)
             {
                 float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
@@ -227,21 +235,33 @@ public class Player : MonoBehaviour
 
             if (targetSpeed > 0)
             {
-                animators[0].SetBool("Move", true);
-                animators[1].SetBool("Move", true);
+                foreach (Animator animator in animators)
+                {
+                    if (animator != null) { animator.SetBool("Move", true); }
+                }
+                //animators[0].SetBool("Move", true);
+                //animators[1].SetBool("Move", true);
             }
             else
             {
-                animators[0].SetBool("Move", false);
-                animators[1].SetBool("Move", false);
+                foreach (Animator animator in animators)
+                {
+                    if (animator != null) { animator.SetBool("Move", false); }
+                }
+                //animators[0].SetBool("Move", false);
+                //animators[1].SetBool("Move", false);
             }
 
         }
 
         if (onFire)
         {
-            animators[0].SetBool("OnFire", true);
-            animators[1].SetBool("OnFire", true);
+            foreach (Animator animator in animators)
+            {
+                if (animator != null) { animator.SetBool("OnFire", true); }
+            }
+            //animators[0].SetBool("OnFire", true);
+            //animators[1].SetBool("OnFire", true);
             onFireEffect.SetActive(true);
 
             if (inputDir != Vector2.zero)

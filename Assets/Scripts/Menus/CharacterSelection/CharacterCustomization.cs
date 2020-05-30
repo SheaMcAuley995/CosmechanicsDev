@@ -126,12 +126,12 @@ public class CharacterCustomization : MonoBehaviour
             //FileStream file;
 
             // Creates a temporary prefab of this player which can then be assigned as a spawnable Game Object in the spawner script
-            GameObject selectedCharPrefab = PrefabUtility.CreatePrefab("Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab", player.gameObject, ReplacePrefabOptions.ReplaceNameBased);
+            //GameObject selectedCharPrefab = PrefabUtility.CreatePrefab("Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab", player.gameObject, ReplacePrefabOptions.ReplaceNameBased);
             //GameObject selectedCharPrefab = PrefabUtility.SaveAsPrefabAsset(player.gameObject, "Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab");
-            selectedCharPrefab.GetComponent<CharacterCustomization>().enabled = false;
+            //selectedCharPrefab.GetComponent<CharacterCustomization>().enabled = false;
 
             // Sets this player's created prefab to its respective position in the spawner's array of game objects to spawn
-            PlayerSpawn.playerPrefabs[player.playerIndex] = selectedCharPrefab;
+            //PlayerSpawn.playerPrefabs[player.playerIndex] = selectedCharPrefab;
         }
     }
     void OnCancel()
