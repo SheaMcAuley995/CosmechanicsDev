@@ -1,19 +1,23 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShipHealth : MonoBehaviour
+public class GameplayLoopManager : MonoBehaviour
 {
 
-    public static ShipHealth instance;
+    public static GameplayLoopManager instance;
 
-    public delegate void DamageAction();
-    public static event DamageAction onDamagedAction;
+
+    public delegate void NextTickEvent();
+    public static event NextTickEvent onNextTickEvent;
+
+
+    public static float TimeBetweenEvents { get; private set; }
 
     [Header("Event System")]
-    [SerializeField] float timeBetweenNEvents;
+    [SerializeField] private float timeBetweenEvents;
 
     // TODO: Have pipes in scene add to a ship integrity value 
     [Header("Ship Statistics")]
@@ -23,7 +27,7 @@ public class ShipHealth : MonoBehaviour
     [Header("Ship Blast Attributes")]
     [SerializeField] GameObject blastEffectPrefab;
     [SerializeField] float explosionRadius;
-    [SerializeField] int explosionDamage;
+    [SerializeField] public int explosionDamage;
     [SerializeField] LayerMask interactableLayerMask;
     [Space]
     [SerializeField] Vector3[] possibleAttackPositions;
@@ -33,14 +37,15 @@ public class ShipHealth : MonoBehaviour
     [HideInInspector] public bool gotHit;
 
     [Header("UI Elements")]
-    public Image healthBar;
-    public TextMeshProUGUI healthText;
+    public GameObject[] HealthBars;
     public GameObject loseGameScreen;
 
 
 
     private void Start()
     {
+        TimeBetweenEvents = timeBetweenEvents;
+
         if (instance == null)
         {
             instance = this;
@@ -50,6 +55,7 @@ public class ShipHealth : MonoBehaviour
             Destroy(gameObject);
         }
         shipCurrenHealth = shipMaxHealth;
+
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -58,7 +64,8 @@ public class ShipHealth : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(timeBetweenNEvents);
+            yield return new WaitForSeconds(TimeBetweenEvents);
+            onNextTickEvent();
             StartCoroutine("shipBlast");
         }
     }
@@ -90,7 +97,7 @@ public class ShipHealth : MonoBehaviour
         {
             IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
             shipCurrenHealth -= explosionDamage;
-            if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
+            if (caughtObject != null) caughtObject.TakeDamage(1);
         }
 
         AudioEventManager.instance.PlaySound("bang", .8f, Random.Range(.2f, 1f), 0);
@@ -110,9 +117,19 @@ public class ShipHealth : MonoBehaviour
 
     void AdjustUI()
     {
-        //Debug.Log(shipCurrenHealth / shipMaxHealth);
-        healthBar.fillAmount = (float)shipCurrenHealth / shipMaxHealth;
-        //healthText.text = shipCurrenHealth.ToString();
+        for (int i = 0; i < HealthBars.Length; i++)
+        {
+            if(shipCurrenHealth >= i)
+            {
+                HealthBars[i].SetActive(true);
+            }
+            else
+            {
+                HealthBars[i].SetActive(false);
+            }
+
+            
+        }
     }
 
     void LoseGame()

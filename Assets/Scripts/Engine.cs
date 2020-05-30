@@ -14,6 +14,7 @@ public class Engine : MonoBehaviour {
     [Range(0, 1)] public float florpCoolingPercentage;
 
     [HideInInspector] public bool startEngineBehavior = false;
+     public bool isFuled = false;
 
     [Header("Win Condition")]
     public JumpToHyperSpace jumpScript;
@@ -42,7 +43,8 @@ public class Engine : MonoBehaviour {
     }
     public void Start()
     {
-        engineHeat = maxHeat * 0.75f;
+        GameplayLoopManager.onNextTickEvent += EngineUpdate;
+        //engineHeat = maxHeat * 0.75f;
         currentProgress = winConditionLimit / 25;
         //alertUI.problemMax = maxHeat;
     }
@@ -52,23 +54,27 @@ public class Engine : MonoBehaviour {
         // If the engine event can run & the game isn't paused
         //if(startEngineBehavior && (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won))
         //{
-            EngineUpdate();
+
         //}
     }
 
     public void EngineUpdate()
     {
-        
-        engineHeat -= Time.deltaTime * engineCoolingAmount;
-        
-        if(testInputFlorp)
+
+        //engineHeat -= Time.deltaTime * engineCoolingAmount;
+
+        if (testInputFlorp)
         {
             InsertFlorp();
             testInputFlorp = false;
         }
 
-        currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
-        enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
+        
+        if(isFuled) { currentProgress += 2; }
+        enemyProgress += 1;
+
+        //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
+        //enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
         ShipProgressSlider.value = currentProgress / winConditionLimit;
         enemyShipProgressSlider.value = enemyProgress / winConditionLimit;
         engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
