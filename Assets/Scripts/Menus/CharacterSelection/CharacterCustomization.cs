@@ -22,6 +22,9 @@ public class CharacterCustomization : MonoBehaviour
     [SerializeField] Image readyBar; // Not implemented yet. Frankly I might just wait for Unity to update the input system more to make holding buttons easier. 
     bool ready = false;
 
+    //Materialize materializeEffect;
+    //bool materializing = false;
+
 
     void Awake()
     {
@@ -195,6 +198,12 @@ public class CharacterCustomization : MonoBehaviour
                 Color emissColor = CharacterSelect.instance.colorOptions[currentColor].GetColor("_EmissionColor");
                 coloredImages[i].GetComponent<Image>().color = emissColor;
             }
+
+            // TODO: Finish materialization effect
+            //suitTransform.GetComponent<Renderer>().material.shader = Shader.Find("Custom/Materialization");
+            //materializeEffect = suitTransform.gameObject.AddComponent<Materialize>();
+            //materializeEffect.lerpAmount = 1.1f;
+            //materializing = true;
         }
     }
 
@@ -239,4 +248,18 @@ public class CharacterCustomization : MonoBehaviour
             playerMovement.animators[1] = headAnimator;
         }
     }
+
+    // TODO: Finish materialization effect
+    //void Update()
+    //{
+    //    if (materializing)
+    //    {
+    //        materializeEffect.lerpAmount -= 0.2f * Time.deltaTime;
+
+    //        if (materializeEffect.lerpAmount >= 1.0f)
+    //        {
+    //            suitTransform.GetComponent<Renderer>().material.shader = Shader.Find("Autodesk Interactive");
+    //        }
+    //    }
+    //}
 }
