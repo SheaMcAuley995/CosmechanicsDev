@@ -204,8 +204,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.6509804, b: 0, a: 1}
-      maxColor: {r: 1, g: 0.35686275, b: 0, a: 1}
+      minColor: {r: 0.9811321, g: 0.8265959, b: 0.19900322, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 0, b: 0, a: 1}
@@ -1277,8 +1277,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.4627451, b: 0, a: 1}
-        key1: {r: 1, g: 0.13477108, b: 0, a: 1}
+        key0: {r: 1, g: 0.89767873, b: 0, a: 1}
+        key1: {r: 1, g: 0.13477108, b: 0, a: 0.75686276}
         key2: {r: 1, g: 0.13477108, b: 0, a: 0.6313726}
         key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1450,17 +1450,13 @@ ParticleSystem:
     tilesY: 2
     animationType: 0
     rowIndex: 0
-    cycles: 1
+    cycles: 0.0001
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300008, guid: da76ad892ab16d2409b7b7401cc5da6b, type: 3}
-    - sprite: {fileID: 21300010, guid: da76ad892ab16d2409b7b7401cc5da6b, type: 3}
-    - sprite: {fileID: 21300012, guid: da76ad892ab16d2409b7b7401cc5da6b, type: 3}
-    - sprite: {fileID: 21300000, guid: da76ad892ab16d2409b7b7401cc5da6b, type: 3}
-    - sprite: {fileID: 21300002, guid: da76ad892ab16d2409b7b7401cc5da6b, type: 3}
-    - sprite: {fileID: 21300004, guid: da76ad892ab16d2409b7b7401cc5da6b, type: 3}
-    - sprite: {fileID: 21300006, guid: da76ad892ab16d2409b7b7401cc5da6b, type: 3}
+    - sprite: {fileID: 21300000, guid: c962edde1378acf4480d4bc1bdc04a54, type: 3}
+    - sprite: {fileID: 21300000, guid: 6262f5f273c51c742b76c70e5604992a, type: 3}
+    - sprite: {fileID: 21300000, guid: 5e14f29f35c70874da0ddd2d29ef97d0, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4631,10 +4627,11 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f87f61d8b0c32fb409c66f8f90045549, type: 2}
+  - {fileID: 2100000, guid: 3e8d9fd69e6b97b4096393fe7917c934, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4674,7 +4671,7 @@ ParticleSystemRenderer:
   m_ApplyActiveColorSpace: 0
   m_AllowRoll: 1
   m_VertexStreams: 0001030405
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
@@ -4687,8 +4684,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1815486257320998}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 2
+  m_Shape: 0
   m_Color: {r: 1, g: 0.42438906, b: 0, a: 1}
   m_Intensity: 2
   m_Range: 15

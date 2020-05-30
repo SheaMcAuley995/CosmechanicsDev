@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
 
     private void ProcessInteraction()
     {
-        if (!blockMovement) { Move(movementVector, sprint); }
+         Move(movementVector, sprint);
     }
 
     public void pickUpInteraction()
@@ -122,7 +122,6 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().myInteraction();
             }
         }
@@ -132,7 +131,7 @@ public class Player : MonoBehaviour
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
-                Debug.Log("Interacting with :" + hitColliders[i].name);
+                //Debug.Log("Interacting with :" + hitColliders[i].name);
                 if (hitColliders[i].GetComponent<RepairableObject>() != null)
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
@@ -162,7 +161,7 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                Debug.Log("TOOL INTEREACTION");
+                //Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().endMyInteraction();
             }
         }
@@ -183,11 +182,6 @@ public class Player : MonoBehaviour
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
                     //hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
-
-                    //isPuu = true;
-                    //puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
-                    //box.enabled = true;
-
                     if (hitColliders[i].GetComponent<Interactable>() != false)
                     {
                         interactableObject = hitColliders[i].GetComponent<Interactable>();
@@ -198,20 +192,9 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (interactedObject.GetComponent<PickUp>() != null)
-            {
-                interactedObject.GetComponent<PickUp>().playerController = null;
-            }
             interactedObject.GetComponent<PickUp>().putMeDown();
-            //isPuu = false;
-            //Destroy(puu);
-            // box.enabled = false;
             interactedObject = null;
         }
-        //if (!isPuu)
-        //{
-        //    Destroy(puu);
-        //}
     }
 
 
@@ -276,7 +259,14 @@ public class Player : MonoBehaviour
         }
 
 
-        rb.velocity = transform.forward * currentSpeed;
+        if (!blockMovement)
+        {
+            rb.velocity = transform.forward * currentSpeed;
+        }
+        else 
+        { 
+            rb.velocity = transform.forward * Vector2.zero; 
+        }
 
     }
 

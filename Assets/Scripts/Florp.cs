@@ -17,8 +17,8 @@ public class Florp : PickUp
     //    get; 
     //    private set; }
 
-    public float florpFillMin = -0.5f;
-    public float florpFillMax = 0.5f;
+    public float florpFillMin = 0;
+    public float florpFillMax = 4;
 
 
 
@@ -31,18 +31,21 @@ public class Florp : PickUp
     public LayerMask FlorpFillerLayer;
     public FlorpFiller FlorpFiller;
 
+    public LayerMask florpReceptorLayer;
     public FlorpReceptor florpReceptor;
+    
 
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
-        renderer.GetPropertyBlock(propertyBlock);
+        //renderer.GetPropertyBlock(propertyBlock);
         florpFillAmount = florpFillMin;
     }
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
     }
 
     public void fillFlorp()
@@ -50,9 +53,9 @@ public class Florp : PickUp
         if (florpFillAmount < florpFillMax)
         {
             //fillingAudio.Play();
-            propertyBlock.SetFloat("_FillAmount", florpFillAmount);
-            renderer.SetPropertyBlock(propertyBlock);
-            florpFillAmount += .25f;
+            //propertyBlock.SetFloat("_FillAmount", florpFillAmount);
+            //renderer.SetPropertyBlock(propertyBlock);
+            florpFillAmount += 1;
 
         }
     }
@@ -60,12 +63,34 @@ public class Florp : PickUp
 
     public override void myInteraction()
     {
-        //playerController.blockMovement = false;
+        base.myInteraction();
 
+        float timer = Time.time;
+
+        if (florpFillAmount <= florpFillMax)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, florpReceptorLayer);
+
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                florpReceptor = hitColliders[i].GetComponent<FlorpReceptor>();
+            }
+        }
+
+        if(florpReceptor != null)
+        {
+            StartCoroutine(fillingFlorp());
+        }
+    }
+
+    public override void endMyInteraction()
+    {
+        base.endMyInteraction();
     }
 
     public override void putMeDown()
     {
+        endMyInteraction();
         base.putMeDown();
         if (florpFillAmount <= florpFillMax)
         {
@@ -120,7 +145,22 @@ public class Florp : PickUp
 
     }
 
+    IEnumerator fillingFlorp()
+    {
+        while((florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
+        {
+            florpReceptor.fillFlorp(1);
+            florpFillAmount--;
+            yield return new WaitForSeconds(0.5f);
+        }
+        if(florpReceptor.CR_Running == false)
+        {
+            florpReceptor.CR_Running = true;
+            florpReceptor.StartCoroutine(florpReceptor.burnFlorp());
+        }
 
+        endMyInteraction();
+    }
 }
 
 
