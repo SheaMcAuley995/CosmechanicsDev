@@ -39,6 +39,8 @@ public class PlayerSpawn : MonoBehaviour
                 newPlayer.GetComponent<Player>().cameraTrans = camera.GetComponent<Camera>().transform;
 
                 GetHeadAndColorFromPlayerPrefs(newPlayer);
+
+                newPlayer.gameObject.name = $"Player {newPlayer.GetComponent<PlayerInput>().playerIndex.ToString()}";
             }
         }
         else
