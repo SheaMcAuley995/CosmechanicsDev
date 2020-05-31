@@ -31,10 +31,10 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         if(filter == null) { filter = GetComponent<MeshFilter>(); }
         if(mesh == null) { mesh = GetComponent<MeshRenderer>(); }
         
-        if(Old_GameplayEvents.instance != null)
+        if(GameplayLoopManager.instance != null)
         {
-            Old_GameplayEvents.instance.shipMaxHealth += healthMax;
-            Old_GameplayEvents.instance.shipCurrenHealth += health;
+            //GameplayLoopManager.instance.shipMaxHealth += healthMax;
+            //GameplayLoopManager.instance.shipCurrenHealth += health;
         }
 
         
@@ -83,6 +83,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public void repairObject(int repairAmount)
     {
+        GameplayLoopManager.instance.explosionDamage -= repairAmount;
         pipeSound.pitch = Random.Range(1.6f, 2.2f);
         pipeSound.Play();
         currentMesh -= 1;
@@ -105,16 +106,17 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     {
         if (health > 0)
         {
+            GameplayLoopManager.instance.explosionDamage += damageTaken;
             health -= damageTaken;
             currentMesh += 1;
             filter.mesh = meshes[currentMesh];
             mesh.material.color += Color.red;
-            if (alertUI != null) { alertUI.problemCurrent -= damageTaken; }
-            if(Old_GameplayEvents.instance != null)
-            {
-                Old_GameplayEvents.instance.shipCurrenHealth -= damageTaken;
-                Old_GameplayEvents.instance.AdjustUI();
-            }
+            //if (alertUI != null) { alertUI.problemCurrent -= damageTaken; }
+            //if(Old_GameplayEvents.instance != null)
+            //{
+            //    Old_GameplayEvents.instance.shipCurrenHealth -= damageTaken;
+            //    Old_GameplayEvents.instance.AdjustUI();
+            //}
             //Debug.Log("Health Points : " + health);
             if (AudioEventManager.instance != null)
             {

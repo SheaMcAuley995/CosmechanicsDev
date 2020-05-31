@@ -13,7 +13,6 @@ public class FlorpButton : MonoBehaviour, IInteractable
     {
         if(On)
         {
-            Debug.Log("Interacted I guess");
             florpFiller.fillFlorp();
         }
 
