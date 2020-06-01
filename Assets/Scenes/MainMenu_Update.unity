@@ -6154,7 +6154,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: CharacterSelection_Update
+          m_StringArgument: CharacterSelect_New
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1079835432
@@ -8051,6 +8051,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5566264932574856318, guid: 4334d90123153534db1994a242606386,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 514ddea632c9e974e85a5725cc6dee46, type: 3}
     - target: {fileID: 5566264932574856319, guid: 4334d90123153534db1994a242606386,
         type: 3}
       propertyPath: m_Name
