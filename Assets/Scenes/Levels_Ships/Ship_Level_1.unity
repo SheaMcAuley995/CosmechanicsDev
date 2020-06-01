@@ -224,6 +224,8 @@ MonoBehaviour:
   enemyShipProgressSlider: {fileID: 1567330707}
   alertUI: {fileID: 0}
   testInputFlorp: 0
+  loseGameScreen: {fileID: 2007860635}
+  winGameScreen: {fileID: 454640197}
 --- !u!4 &5176230
 Transform:
   m_ObjectHideFlags: 0
@@ -7391,6 +7393,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55456bf3a90a3694f818b483b4b90029, type: 3}
+--- !u!1 &454640197 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1328919480607762, guid: 55456bf3a90a3694f818b483b4b90029,
+    type: 3}
+  m_PrefabInstance: {fileID: 454640196}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &455809886
 PrefabInstance:
   m_ObjectHideFlags: 0
