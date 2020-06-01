@@ -22,6 +22,9 @@ public class CharacterCustomization : MonoBehaviour
     [SerializeField] Image readyBar; // Not implemented yet. Frankly I might just wait for Unity to update the input system more to make holding buttons easier. 
     bool ready = false;
 
+    //Materialize materializeEffect;
+    //bool materializing = false;
+
 
     void Awake()
     {
@@ -123,12 +126,12 @@ public class CharacterCustomization : MonoBehaviour
             //FileStream file;
 
             // Creates a temporary prefab of this player which can then be assigned as a spawnable Game Object in the spawner script
-            GameObject selectedCharPrefab = PrefabUtility.CreatePrefab("Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab", player.gameObject, ReplacePrefabOptions.ReplaceNameBased);
+            //GameObject selectedCharPrefab = PrefabUtility.CreatePrefab("Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab", player.gameObject, ReplacePrefabOptions.ReplaceNameBased);
             //GameObject selectedCharPrefab = PrefabUtility.SaveAsPrefabAsset(player.gameObject, "Assets/Prefabs/Zach/CharSelect" + player.gameObject.name + player.playerIndex + ".prefab");
-            selectedCharPrefab.GetComponent<CharacterCustomization>().enabled = false;
+            //selectedCharPrefab.GetComponent<CharacterCustomization>().enabled = false;
 
             // Sets this player's created prefab to its respective position in the spawner's array of game objects to spawn
-            PlayerSpawn.playerPrefabs[player.playerIndex] = selectedCharPrefab;
+            //PlayerSpawn.playerPrefabs[player.playerIndex] = selectedCharPrefab;
         }
     }
     void OnCancel()
@@ -195,6 +198,12 @@ public class CharacterCustomization : MonoBehaviour
                 Color emissColor = CharacterSelect.instance.colorOptions[currentColor].GetColor("_EmissionColor");
                 coloredImages[i].GetComponent<Image>().color = emissColor;
             }
+
+            // TODO: Finish materialization effect
+            //suitTransform.GetComponent<Renderer>().material.shader = Shader.Find("Custom/Materialization");
+            //materializeEffect = suitTransform.gameObject.AddComponent<Materialize>();
+            //materializeEffect.lerpAmount = 1.1f;
+            //materializing = true;
         }
     }
 
@@ -239,4 +248,18 @@ public class CharacterCustomization : MonoBehaviour
             playerMovement.animators[1] = headAnimator;
         }
     }
+
+    // TODO: Finish materialization effect
+    //void Update()
+    //{
+    //    if (materializing)
+    //    {
+    //        materializeEffect.lerpAmount -= 0.2f * Time.deltaTime;
+
+    //        if (materializeEffect.lerpAmount >= 1.0f)
+    //        {
+    //            suitTransform.GetComponent<Renderer>().material.shader = Shader.Find("Autodesk Interactive");
+    //        }
+    //    }
+    //}
 }
