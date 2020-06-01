@@ -136,6 +136,7 @@ public class GameplayLoopManager : MonoBehaviour
     {
         // TODO: Make UI prettier and animate
         loseGameScreen.SetActive(true);
+        GameStateManager.instance.SetGameState(GameState.LostByDamage);
         //Time.timeScale = Mathf.Lerp(1f, 0.2f, 2f);
     }
 

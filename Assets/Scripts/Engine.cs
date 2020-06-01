@@ -30,6 +30,10 @@ public class Engine : MonoBehaviour {
 
     [Header("Debug Tools")]
     public bool testInputFlorp = false;
+
+    public GameObject loseGameScreen;
+    public GameObject winGameScreen;
+
     private void Awake()
     {
         if (instance != null)
@@ -94,13 +98,15 @@ public class Engine : MonoBehaviour {
 
     private void WinGame()
     {
+        winGameScreen.SetActive(true);
         GameStateManager.instance.SetGameState(GameState.Won);
-        StartCoroutine(jumpScript.HyperspaceJump());
+        //StartCoroutine(jumpScript.HyperspaceJump());
     }
 
     private void LoseGame()
     {
-        SceneFader.instance.FadeTo("LoseScene");
+        //SceneFader.instance.FadeTo("LoseScene");
+        loseGameScreen.SetActive(true);
         GameStateManager.instance.SetGameState(GameState.LostByFlorp);
         //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
