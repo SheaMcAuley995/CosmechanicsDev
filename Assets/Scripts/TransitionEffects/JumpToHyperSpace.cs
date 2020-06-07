@@ -60,22 +60,24 @@ public class JumpToHyperSpace : MonoBehaviour
         // but jumps upward on levels 1 & 3 because they're aligned on the z axis, or when the ship appears to jump backwards
         // in the tutorial because it's facing the opposite direction. This is my quick fix. When we have more consistently
         // aligned levels I will remove this switch statement and just have the one camEndPos possibility (and it won't be hardcoded).
-        // Thank you for your understanding during this trying time. ;) 
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "Ship_Level_Tutorial NEW":
-                camEndPos = new Vector3(camStartPos.x + 35f, camStartPos.y, camStartPos.z);
-                break;
-            case "Ship_Level_1Final":
-                camEndPos = new Vector3(camStartPos.x, camStartPos.y, camStartPos.z + 35f);
-                break;
-            case "BetaMichaelTest":
-                camEndPos = new Vector3(camStartPos.x + 35f, camStartPos.y, camStartPos.z);
-                break;
-            case "Ship_Level_3":
-                camEndPos = new Vector3(camStartPos.x, camStartPos.y, camStartPos.z + 35f);
-                break;
-        }
+        // Thank you for your understanding during this trying time.
+        //switch (SceneManager.GetActiveScene().name)
+        //{
+        //    case "Ship_Level_Tutorial NEW":
+        //        camEndPos = new Vector3(camStartPos.x + 35f, camStartPos.y, camStartPos.z);
+        //        break;
+        //    case "Ship_Level_1Final":
+        //        camEndPos = new Vector3(camStartPos.x, camStartPos.y, camStartPos.z + 35f);
+        //        break;
+        //    case "BetaMichaelTest":
+        //        camEndPos = new Vector3(camStartPos.x + 35f, camStartPos.y, camStartPos.z);
+        //        break;
+        //    case "Ship_Level_3":
+        //        camEndPos = new Vector3(camStartPos.x, camStartPos.y, camStartPos.z + 35f);
+        //        break;
+        //}
+
+        camEndPos = new Vector3(camStartPos.x, camStartPos.y, camStartPos.z + 35f);
     }
 
     // This is for testing please remove when done testing thanks
