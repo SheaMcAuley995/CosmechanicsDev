@@ -103,7 +103,7 @@ public class @LevelSelectImput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""818874a1-f1ad-41cd-a789-585c0dfe145d"",
                     ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": ""Hold(duration=0.2,pressPoint=0.5)"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
