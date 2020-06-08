@@ -190,7 +190,10 @@ public class Player : MonoBehaviour
                     {
                         interactableObject = hitColliders[i].GetComponent<Interactable>();
                     }
-                    break;
+                    if(hitColliders[i].GetComponent<PickUp>().playerController != null)
+                    {
+                        break;
+                    }
                 }
             }
         }

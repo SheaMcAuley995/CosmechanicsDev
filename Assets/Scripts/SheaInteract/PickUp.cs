@@ -8,6 +8,7 @@ public class PickUp : MonoBehaviour {
     public Rigidbody rb;
     public Player playerController;
     public Collider myCollider;
+    public Transform holdPosition;
 
     private void Start()
     {
