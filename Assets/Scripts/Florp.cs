@@ -34,13 +34,13 @@ public class Florp : PickUp
     public LayerMask florpReceptorLayer;
     public FlorpReceptor florpReceptor;
 
-    bool breakCorutineTest;
+    bool runFillLoop;
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
         //renderer.GetPropertyBlock(propertyBlock);
         florpFillAmount = florpFillMin;
-        breakCorutineTest = true;
+        runFillLoop = true;
     }
 
     private void Start()
@@ -80,13 +80,14 @@ public class Florp : PickUp
 
         if(florpReceptor != null)
         {
+            runFillLoop = true;
             StartCoroutine(fillingFlorp());
         }
     }
 
     public override void endMyInteraction()
     {
-        breakCorutineTest = false;
+        runFillLoop = false;
         StopCoroutine(fillingFlorp());
         base.endMyInteraction();
     }
@@ -152,11 +153,12 @@ public class Florp : PickUp
 
     IEnumerator fillingFlorp()
     {
-        while(true && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
+        while(runFillLoop && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
         {
-           florpReceptor.fillFlorp(1);
-           florpFillAmount--;
-           yield return new WaitForSeconds(0.5f);
+            florpReceptor.fillFlorp(1);
+            florpFillAmount--;
+            Debug.Log("Glub");
+            yield return new WaitForSeconds(0.5f);
         }
         if(florpReceptor.CR_Running == false)
         {
