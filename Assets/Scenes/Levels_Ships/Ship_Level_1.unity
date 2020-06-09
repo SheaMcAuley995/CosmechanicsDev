@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc2c5229ba34dbb40a4283a621476e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shake: {fileID: 0}
   timeBetweenEvents: 15
   shipCurrenHealth: 0
   shipMaxHealth: 12
@@ -15160,7 +15161,7 @@ PrefabInstance:
     - target: {fileID: 4715436552075922918, guid: b5f23d1c30ee137459536231d56add17,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4715436552100899156, guid: b5f23d1c30ee137459536231d56add17,
         type: 3}
@@ -28167,7 +28168,7 @@ PrefabInstance:
     - target: {fileID: 1137177216343493981, guid: cfca05362f3aa39478c759397ba620f3,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1137177216351436178, guid: cfca05362f3aa39478c759397ba620f3,
         type: 3}
