@@ -39,6 +39,7 @@ public class FlorpReceptor : MonoBehaviour
         
         if(florpTotal < florpMax)
         {
+            Debug.Log("GLUB 2");
             florpTotal += amount;
             FlorpFillUI[(int)florpTotal - 1].SetActive(true);
         }
