@@ -6878,7 +6878,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Gameplay Programmers
+  m_text: GamePlay Programmers
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b9611a54fed24e42916a91a568c90e6, type: 2}
   m_sharedMaterial: {fileID: 21332980436088436, guid: 1b9611a54fed24e42916a91a568c90e6,
@@ -11119,7 +11119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Environment Artist
+  m_text: Enviornment Artist
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b9611a54fed24e42916a91a568c90e6, type: 2}
   m_sharedMaterial: {fileID: 21332980436088436, guid: 1b9611a54fed24e42916a91a568c90e6,
