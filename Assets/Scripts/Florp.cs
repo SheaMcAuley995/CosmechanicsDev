@@ -33,13 +33,14 @@ public class Florp : PickUp
 
     public LayerMask florpReceptorLayer;
     public FlorpReceptor florpReceptor;
-    
 
+    bool runFillLoop;
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
         //renderer.GetPropertyBlock(propertyBlock);
         florpFillAmount = florpFillMin;
+        runFillLoop = true;
     }
 
     private void Start()
@@ -79,12 +80,15 @@ public class Florp : PickUp
 
         if(florpReceptor != null)
         {
+            runFillLoop = true;
             StartCoroutine(fillingFlorp());
         }
     }
 
     public override void endMyInteraction()
     {
+        runFillLoop = false;
+        StopCoroutine(fillingFlorp());
         base.endMyInteraction();
     }
 
@@ -139,18 +143,21 @@ public class Florp : PickUp
         if(FlorpFiller != null)
         {
             FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOffMat;
+            FlorpFiller.curButton.On = false;
             FlorpFiller.florp = null;
             FlorpFiller = null;
+            base.pickMeUp(pickUpTransform);
         }
 
     }
 
     IEnumerator fillingFlorp()
     {
-        while((florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
+        while(runFillLoop && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
         {
             florpReceptor.fillFlorp(1);
             florpFillAmount--;
+            Debug.Log("Glub");
             yield return new WaitForSeconds(0.5f);
         }
         if(florpReceptor.CR_Running == false)

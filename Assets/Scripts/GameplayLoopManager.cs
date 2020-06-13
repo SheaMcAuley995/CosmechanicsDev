@@ -8,8 +8,7 @@ public class GameplayLoopManager : MonoBehaviour
 {
 
     public static GameplayLoopManager instance;
-
-
+    public cameraShake shake;
     public delegate void NextTickEvent();
     public static event NextTickEvent onNextTickEvent;
 
@@ -30,7 +29,7 @@ public class GameplayLoopManager : MonoBehaviour
     [SerializeField] public int explosionDamage;
     [SerializeField] LayerMask interactableLayerMask;
     [Space]
-    [SerializeField] Vector3[] possibleAttackPositions;
+    [SerializeField] AttackLocation[] possibleAttackPositions;
 
     [HideInInspector] public Vector3 attackLocation;
     Vector3 lastHitLocaton;
@@ -39,9 +38,9 @@ public class GameplayLoopManager : MonoBehaviour
     [Header("UI Elements")]
     public GameObject[] HealthBars;
     public GameObject loseGameScreen;
+    int locationIndex;
 
-
-
+    int index;
     private void Start()
     {
         TimeBetweenEvents = timeBetweenEvents;
@@ -54,6 +53,28 @@ public class GameplayLoopManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        for (int i = 0; i < possibleAttackPositions.Length; i++)
+        {
+            //Debug.Log("I :" + i);
+            for (int j = 0; j < Grid.instance.gridSizeX; j++)
+            {
+                //Debug.Log("J :" +j);
+                for (int k = 0; k < Grid.instance.gridSizeY; k++)
+                {
+                    //Debug.Log("K :" +k);
+                    if ((Vector3.Distance(Grid.instance.grid[j, k].worldPosition, possibleAttackPositions[i].worldPositon) <= explosionRadius))
+                    {
+                        if (Grid.instance.grid[j, k].isFlamable)
+                        {
+
+                            possibleAttackPositions[i].nodes.Add(Grid.instance.grid[j, k]);
+                        }
+                    }
+                }
+            }
+        }
+
         shipCurrenHealth = shipMaxHealth;
 
         StartCoroutine("eventSystem");
@@ -77,12 +98,13 @@ public class GameplayLoopManager : MonoBehaviour
         {
             while (attackLocation == lastHitLocaton)
             {
-                attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)];
+                locationIndex = Random.Range(0, possibleAttackPositions.Length);
+                attackLocation = possibleAttackPositions[locationIndex].worldPositon;
             }
         }
         else
         {
-            attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)];
+            attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
         }
 
         lastHitLocaton = attackLocation;
@@ -90,13 +112,16 @@ public class GameplayLoopManager : MonoBehaviour
         yield return new WaitForSeconds(.5f);     //delay in travel time of laser
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
-
         Collider[] damagedObjects = Physics.OverlapSphere(attackLocation, explosionRadius, interactableLayerMask);
+        StartCoroutine(shake.Shake(0.15f, 0.2f));
+        index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
+        Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
+
+        shipCurrenHealth -= explosionDamage;
 
         foreach (Collider damagedObject in damagedObjects)
         {
             IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
-            shipCurrenHealth -= explosionDamage;
             if (caughtObject != null) caughtObject.TakeDamage(1);
         }
 
@@ -142,14 +167,14 @@ public class GameplayLoopManager : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        foreach (Vector3 attackPosition in possibleAttackPositions)
+        foreach (AttackLocation attackPosition in possibleAttackPositions)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackPosition, explosionRadius);
+            Gizmos.DrawWireSphere(attackPosition.worldPositon, explosionRadius);
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(attackPosition, 0.5f);
+            Gizmos.DrawWireSphere(attackPosition.worldPositon, 0.5f);
 
-            Collider[] damagedObjects = Physics.OverlapSphere(attackPosition, explosionRadius, interactableLayerMask);
+            Collider[] damagedObjects = Physics.OverlapSphere(attackPosition.worldPositon, explosionRadius, interactableLayerMask);
 
             foreach (Collider damagedObject in damagedObjects)
             {
