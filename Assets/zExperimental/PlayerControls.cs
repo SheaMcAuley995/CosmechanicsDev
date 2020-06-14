@@ -616,9 +616,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""9628192f-be27-4b04-9d9c-ec377c2ba79c"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=1)""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Confirm"",
@@ -626,7 +626,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""2dd7f641-81f7-4032-8f58-7dfb81f0d56f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=1)""
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [

@@ -6,80 +6,34 @@
             "id": "f87dc0f7-6f31-4bca-b416-3aa2a599a31a",
             "actions": [
                 {
-                    "name": "SwapHead",
-                    "type": "Value",
-                    "id": "4b94ed22-2069-4f91-94b1-6b68e54186af",
-                    "expectedControlType": "Stick",
+                    "name": "BackToMenu",
+                    "type": "Button",
+                    "id": "a29da606-78b0-4109-b1ae-eca1985d7ded",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "ReadyUp",
-                    "type": "Button",
-                    "id": "04c87bf2-c92e-46b7-95e7-8c3b0bb6699c",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold(duration=0.5)"
-                },
-                {
-                    "name": "UnReady",
-                    "type": "Button",
-                    "id": "eb229b09-b8dc-4cd2-a079-95c90ea5c328",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold(duration=0.5)"
-                },
-                {
-                    "name": "GoBack",
-                    "type": "Button",
-                    "id": "7d1290ee-f0e6-4df7-83f9-a5785f2624f7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold(duration=2)"
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "de857d1d-e7b5-4b52-9da2-e154e4b7cae3",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SwapHead",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "55d99805-0723-4c25-9d03-ed98abe13193",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ReadyUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8e6afe9f-6caf-4054-8b5c-48602f9a9d5d",
+                    "id": "281bdfe1-dcdc-4a54-9617-8f9f910d3509",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UnReady",
+                    "action": "BackToMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "76ea7a10-8510-4fe9-8d28-7dd4c9ff35ce",
-                    "path": "<Gamepad>/buttonEast",
+                    "id": "d85395a8-0a93-48a6-90d7-a6ccfd2c04d1",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GoBack",
+                    "action": "BackToMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
