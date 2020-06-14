@@ -38,7 +38,7 @@ public class PlayerSpawn : MonoBehaviour
 
                 newPlayer.GetComponent<Player>().cameraTrans = camera.GetComponent<Camera>().transform;
 
-                GetHeadAndColorFromPlayerPrefs(newPlayer);
+                GetHeadAndColorFromPlayerPrefs(newPlayer, i);
 
                 newPlayer.gameObject.name = $"Player {newPlayer.GetComponent<PlayerInput>().playerIndex.ToString()}";
             }
@@ -59,17 +59,21 @@ public class PlayerSpawn : MonoBehaviour
     }
 
     // FIX FOR BUILD, ASK ZACH FOR CLARIFICATION
-    void GetHeadAndColorFromPlayerPrefs(GameObject newPlayer)
+    void GetHeadAndColorFromPlayerPrefs(GameObject newPlayer, int index)
     {
+        PlayerInput playerInput = newPlayer.GetComponent<PlayerInput>();
         Transform headToReplace = newPlayer.FindComponentInChildWithTag<Transform>("Head");
-        GameObject newHead = Instantiate(ExampleGameController.instance.headOptions[PlayerPrefs.GetInt("Player " + newPlayer.GetComponent<PlayerInput>().playerIndex.ToString() + " Head")], headToReplace.position, headToReplace.rotation, headToReplace.parent);
-        Destroy(headToReplace.gameObject);
 
+        GameObject newHead = Instantiate(ExampleGameController.instance.headOptions[PlayerPrefs.GetInt("Player " + index + " Head")], headToReplace.position, headToReplace.rotation, headToReplace.parent);
+        Debug.Log(PlayerPrefs.GetInt("Player " + index + " Head"));
+        Destroy(headToReplace.gameObject);
+        
         Image[] coloredImages = new Image[2];
         Transform suitTransform = newPlayer.FindComponentInChildWithTag<Transform>("Suit").transform;
         coloredImages = newPlayer.GetComponentsInChildren<Image>();
 
-        suitTransform.GetComponent<Renderer>().material = ExampleGameController.instance.colorOptions[PlayerPrefs.GetInt("Player " + newPlayer.GetComponent<PlayerInput>().playerIndex.ToString() + " Color")];
+        suitTransform.GetComponent<Renderer>().material = ExampleGameController.instance.colorOptions[PlayerPrefs.GetInt("Player " + index + " Color")];
+        
         for (int j = 0; j < coloredImages.Length; j++)
         {
             Color emissColor = suitTransform.GetComponent<Renderer>().material.GetColor("_EmissionColor");
