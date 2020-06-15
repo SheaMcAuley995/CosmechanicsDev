@@ -325,7 +325,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""e773ceb5-30e9-4aff-bf7e-5225b2272c96"",
                     ""path"": ""<XInputController>/leftStick"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
