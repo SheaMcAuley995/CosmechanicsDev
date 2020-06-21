@@ -20,6 +20,8 @@ public class OrbiterScript : MonoBehaviour
 
     float flightSpeed = .2f;
 
+    public float rotationSpeed;
+
     Vector3 velocity = Vector3.zero;
 
     private void Start()
@@ -57,5 +59,7 @@ public class OrbiterScript : MonoBehaviour
         {
             transform.localPosition = Vector3.SmoothDamp(transform.localPosition, selectionPos, ref velocity, flightSpeed);
         }
+
+        transform.Rotate(new Vector3(0, Time.deltaTime * rotationSpeed, 0));
     }
 }

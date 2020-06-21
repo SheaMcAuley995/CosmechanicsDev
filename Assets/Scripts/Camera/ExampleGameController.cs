@@ -17,6 +17,9 @@ public class ExampleGameController : MonoBehaviour
     [HideInInspector] public Vector3[] spawnPoints;
     public List<string> spawnableScenes;
 
+    public Material[] colorOptions = new Material[4];
+    public GameObject[] headOptions = new GameObject[4];
+
     private void Awake()
     {
         if(GameStateManager.instance == null)
@@ -35,7 +38,6 @@ public class ExampleGameController : MonoBehaviour
         {
             //Destroy(gameObject);
         }
-
     }
 
     private void Start()

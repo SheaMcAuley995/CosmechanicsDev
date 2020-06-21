@@ -8,6 +8,7 @@ public class PickUp : MonoBehaviour {
     public Rigidbody rb;
     public Player playerController;
     public Collider myCollider;
+    public Transform holdPosition;
 
     private void Start()
     {
@@ -35,19 +36,20 @@ public class PickUp : MonoBehaviour {
 
     public virtual void myInteraction()
     {
-        
+        if (playerController != null) { playerController.blockMovement = true; }
     }
 
     public virtual void endMyInteraction()
     {
-
+        if (playerController != null) { playerController.blockMovement = false; }
     }
    
     public virtual void putMeDown()
     {
-        endMyInteraction();
+        playerController = null;
         myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;
+        endMyInteraction();
     }
 }

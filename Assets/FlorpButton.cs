@@ -7,13 +7,12 @@ public class FlorpButton : MonoBehaviour, IInteractable
 
     public FlorpFiller florpFiller;
     public MeshRenderer meshRenderer;
-    public bool On;
+    public bool On = false;
 
     public void InteractWith()
     {
         if(On)
         {
-            Debug.Log("Interacted I guess");
             florpFiller.fillFlorp();
         }
 

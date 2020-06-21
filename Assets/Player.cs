@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
 
     private void ProcessInteraction()
     {
-        if (!blockMovement) { Move(movementVector, sprint); }
+         Move(movementVector, sprint);
     }
 
     public void pickUpInteraction()
@@ -122,7 +122,6 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().myInteraction();
             }
         }
@@ -132,13 +131,17 @@ public class Player : MonoBehaviour
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
-                Debug.Log("Interacting with :" + hitColliders[i].name);
+                //Debug.Log("Interacting with :" + hitColliders[i].name);
                 if (hitColliders[i].GetComponent<RepairableObject>() != null)
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
-                        animators[0].SetTrigger("PipeFix");
-                        animators[1].SetTrigger("PipeFix");
+                        foreach (Animator animator in animators)
+                        {
+                            if (animator != null) { animator.SetTrigger("PipeFix"); }
+                        }
+                        //animators[0].SetTrigger("PipeFix");
+                        //animators[1].SetTrigger("PipeFix");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         break;
                     }
@@ -162,7 +165,7 @@ public class Player : MonoBehaviour
         {
             if (interactedObject.GetComponent<PickUp>() != null)
             {
-                Debug.Log("TOOL INTEREACTION");
+                //Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().endMyInteraction();
             }
         }
@@ -183,35 +186,22 @@ public class Player : MonoBehaviour
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
                     //hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
-
-                    //isPuu = true;
-                    //puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
-                    //box.enabled = true;
-
                     if (hitColliders[i].GetComponent<Interactable>() != false)
                     {
                         interactableObject = hitColliders[i].GetComponent<Interactable>();
                     }
-                    break;
+                    if(hitColliders[i].GetComponent<PickUp>().playerController != null)
+                    {
+                        break;
+                    }
                 }
             }
         }
         else
         {
-            if (interactedObject.GetComponent<PickUp>() != null)
-            {
-                interactedObject.GetComponent<PickUp>().playerController = null;
-            }
             interactedObject.GetComponent<PickUp>().putMeDown();
-            //isPuu = false;
-            //Destroy(puu);
-            // box.enabled = false;
             interactedObject = null;
         }
-        //if (!isPuu)
-        //{
-        //    Destroy(puu);
-        //}
     }
 
 
@@ -231,8 +221,12 @@ public class Player : MonoBehaviour
     {
         if (!onFire)
         {
-            animators[0].SetBool("OnFire", false);
-            animators[1].SetBool("OnFire", false);
+            foreach (Animator animator in animators)
+            {
+                if (animator != null) { animator.SetBool("OnFire", false); }
+            }
+            //animators[0].SetBool("OnFire", false);
+            //animators[1].SetBool("OnFire", false);
             if (inputDir != Vector2.zero)
             {
                 float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
@@ -244,21 +238,33 @@ public class Player : MonoBehaviour
 
             if (targetSpeed > 0)
             {
-                animators[0].SetBool("Move", true);
-                animators[1].SetBool("Move", true);
+                foreach (Animator animator in animators)
+                {
+                    if (animator != null) { animator.SetBool("Move", true); }
+                }
+                //animators[0].SetBool("Move", true);
+                //animators[1].SetBool("Move", true);
             }
             else
             {
-                animators[0].SetBool("Move", false);
-                animators[1].SetBool("Move", false);
+                foreach (Animator animator in animators)
+                {
+                    if (animator != null) { animator.SetBool("Move", false); }
+                }
+                //animators[0].SetBool("Move", false);
+                //animators[1].SetBool("Move", false);
             }
 
         }
 
         if (onFire)
         {
-            animators[0].SetBool("OnFire", true);
-            animators[1].SetBool("OnFire", true);
+            foreach (Animator animator in animators)
+            {
+                if (animator != null) { animator.SetBool("OnFire", true); }
+            }
+            //animators[0].SetBool("OnFire", true);
+            //animators[1].SetBool("OnFire", true);
             onFireEffect.SetActive(true);
 
             if (inputDir != Vector2.zero)
@@ -276,7 +282,14 @@ public class Player : MonoBehaviour
         }
 
 
-        rb.velocity = transform.forward * currentSpeed;
+        if (!blockMovement)
+        {
+            rb.velocity = transform.forward * currentSpeed;
+        }
+        else 
+        { 
+            rb.velocity = transform.forward * Vector2.zero; 
+        }
 
     }
 

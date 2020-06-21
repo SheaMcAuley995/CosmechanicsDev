@@ -23,19 +23,24 @@ public class PlayerSpawn : MonoBehaviour
         {
             spawnPositions[i] = spawnPoints[i];
         }
-
+        
         if (numPlayers > 0)
         {
             // Spawn players
             for (int i = 0; i < numPlayers; i++)
             {
-                GameObject newPlayer = Instantiate(playerPrefabs[i], spawnPoints[i], Quaternion.Euler(Vector3.zero));
+                //GameObject newPlayer = Instantiate(playerPrefabs[i], spawnPoints[i], Quaternion.Euler(Vector3.zero));
+                GameObject newPlayer = Instantiate(ExampleGameController.instance.playerPrefab, spawnPositions[i], Quaternion.Euler(Vector3.zero));
                 newPlayer.GetComponent<PlayerInput>().actions = (InputActionAsset)Resources.Load("Assets/zExperimental/PlayerControls.inputactions");
                 //newPlayer.GetComponent<PlayerInput>().SwitchCurrentActionMap("Gameplay");
 
                 spawnedPlayers.Add(newPlayer);
 
                 newPlayer.GetComponent<Player>().cameraTrans = camera.GetComponent<Camera>().transform;
+
+                GetHeadAndColorFromPlayerPrefs(newPlayer, i);
+
+                newPlayer.gameObject.name = $"Player {newPlayer.GetComponent<PlayerInput>().playerIndex.ToString()}";
             }
         }
         else
@@ -48,8 +53,32 @@ public class PlayerSpawn : MonoBehaviour
 
             newPlayer.GetComponent<Player>().cameraTrans = camera.GetComponent<Camera>().transform;
         }
+
         // Set camera targets
         camera.SetTargets(spawnedPlayers.ToArray());
+    }
+
+    // FIX FOR BUILD, ASK ZACH FOR CLARIFICATION
+    void GetHeadAndColorFromPlayerPrefs(GameObject newPlayer, int index)
+    {
+        PlayerInput playerInput = newPlayer.GetComponent<PlayerInput>();
+        Transform headToReplace = newPlayer.FindComponentInChildWithTag<Transform>("Head");
+
+        GameObject newHead = Instantiate(ExampleGameController.instance.headOptions[PlayerPrefs.GetInt("Player " + index + " Head")], headToReplace.position, headToReplace.rotation, headToReplace.parent);
+        Debug.Log(PlayerPrefs.GetInt("Player " + index + " Head"));
+        Destroy(headToReplace.gameObject);
+        
+        Image[] coloredImages = new Image[2];
+        Transform suitTransform = newPlayer.FindComponentInChildWithTag<Transform>("Suit").transform;
+        coloredImages = newPlayer.GetComponentsInChildren<Image>();
+
+        suitTransform.GetComponent<Renderer>().material = ExampleGameController.instance.colorOptions[PlayerPrefs.GetInt("Player " + index + " Color")];
+        
+        for (int j = 0; j < coloredImages.Length; j++)
+        {
+            Color emissColor = suitTransform.GetComponent<Renderer>().material.GetColor("_EmissionColor");
+            coloredImages[j].GetComponent<Image>().color = emissColor;
+        }
     }
 
 

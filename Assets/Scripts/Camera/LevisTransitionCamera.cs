@@ -167,7 +167,7 @@ public class LevisTransitionCamera : MonoBehaviour
     private void Select_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         //throw new System.NotImplementedException();
-        Debug.Log("Select");
+        //Debug.Log("Select");
 
         if (!worldSelected)
         {
@@ -180,7 +180,7 @@ public class LevisTransitionCamera : MonoBehaviour
     {
         //throw new System.NotImplementedException();
         moveAxis = obj.ReadValue<Vector2>();
-        Debug.Log($"Move Axis {moveAxis}");
+        //Debug.Log($"Move Axis {moveAxis}");
         menuAudio.Play();
 
         switch (moveAxis.x > 0.5f)

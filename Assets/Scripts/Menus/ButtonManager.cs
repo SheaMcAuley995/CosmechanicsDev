@@ -5,15 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    // BUILD INDEX KEY:
-    // 0 = MainMenu_Updated
-    // 1 = CharacterSelection_Update
-    // 2 = CacieOverWorld
-    // 3 = BetaMichaelTest
-    // 4 = Ship_Level_1Final
-    // 5 = LoseScene
-    // 6 = WinScene
-
     PlayerController[] controllers;
     SelectedPlayer[] players;
     CharToDestroy[] oldPlayers;
@@ -33,12 +24,12 @@ public class ButtonManager : MonoBehaviour
     // Fades to character selection
     public void StartGame()
     {
-        oldPlayers = FindObjectsOfType<CharToDestroy>();
+        //oldPlayers = FindObjectsOfType<CharToDestroy>();
         SceneFader.instance.FadeTo("CharacterSelect_New");
-        foreach (CharToDestroy player in oldPlayers)
-        {
-            Destroy(player.gameObject);
-        }
+        //foreach (CharToDestroy player in oldPlayers)
+        //{
+        //    Destroy(player.gameObject);
+        //}
     }
 
     // Fades to quit
@@ -50,72 +41,81 @@ public class ButtonManager : MonoBehaviour
     //Fades to main menu
     public void ReturnToMenu()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
+        //players = FindObjectsOfType<SelectedPlayer>();
+        //pickups = FindObjectsOfType<PickUp>();
 
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
+        //for (int i = 0; i < pickups.Length; i++)
+        //{
+        //    Destroy(pickups[i].gameObject);
+        //}
 
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
+        //SceneFader.instance.FadeTo("MainMenu_Update");
+        //GameStateManager.instance.SetGameState(GameState.Playing);
+
+        //foreach (SelectedPlayer player in players)
+        //{
+        //    player.gameObject.AddComponent<CharToDestroy>();
+        //    Destroy(player);
+        //}
+
         SceneFader.instance.FadeTo("MainMenu_Update");
         GameStateManager.instance.SetGameState(GameState.Playing);
-
-        foreach (SelectedPlayer player in players)
-        {
-            player.gameObject.AddComponent<CharToDestroy>();
-            Destroy(player);
-        }
     }
 
     // Fades to last level attempted
     public void RetryLevel()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
+        //players = FindObjectsOfType<SelectedPlayer>();
+        //pickups = FindObjectsOfType<PickUp>();
 
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
+        //for (int i = 0; i < pickups.Length; i++)
+        //{
+        //    Destroy(pickups[i].gameObject);
+        //}
 
-        SceneFader.instance.FadeTo(players[0].currentScene);
+        //SceneFader.instance.FadeTo(players[0].currentScene);
+        //GameStateManager.instance.SetGameState(GameState.Playing);
+        //Time.timeScale = 1f;
+
+        //for (int i = 0; i < players.Length; i++)
+        //{
+        //    players[i].transform.position = ExampleGameController.instance.spawnPoints[i];
+        //}
+
+        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
         GameStateManager.instance.SetGameState(GameState.Playing);
-        Time.timeScale = 1f;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.position = ExampleGameController.instance.spawnPoints[i];
-        }
     }
 
     // Fades to overworld
     public void ContinueGame()
     {
+        //GameStateManager.instance.SetGameState(GameState.Playing);
+
+        //players = FindObjectsOfType<SelectedPlayer>();
+        //pickups = FindObjectsOfType<PickUp>();
+
+        //for (int i = 0; i < pickups.Length; i++)
+        //{
+        //    Destroy(pickups[i].gameObject);
+        //}
+
+        //SceneFader.instance.FadeTo("CacieOverworld");
+        //Time.timeScale = 1f;
+
+        //foreach (SelectedPlayer player in players)
+        //{
+        //    Animator[] animators = player.GetComponentsInChildren<Animator>();
+        //    foreach (Animator animator in animators)
+        //    {
+        //        animator.Play("Idle", -1, 0);
+        //    }
+
+        //    player.transform.Rotate(0f, 0f, 0f);
+        //    player.transform.localScale = new Vector3(0f, 0f, 0f);
+        //}
+
+        SceneFader.instance.FadeTo("LevelSelectUpdated");
         GameStateManager.instance.SetGameState(GameState.Playing);
-
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
-
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
-
-        SceneFader.instance.FadeTo("CacieOverworld");
-        Time.timeScale = 1f;
-
-        foreach (SelectedPlayer player in players)
-        {
-            Animator[] animators = player.GetComponentsInChildren<Animator>();
-            foreach (Animator animator in animators)
-            {
-                animator.Play("Idle", -1, 0);
-            }
-
-            player.transform.Rotate(0f, 0f, 0f);
-            player.transform.localScale = new Vector3(0f, 0f, 0f);
-        }
     }
 }

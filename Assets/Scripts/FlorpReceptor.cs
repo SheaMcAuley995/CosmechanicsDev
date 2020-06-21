@@ -8,8 +8,8 @@ public class FlorpReceptor : MonoBehaviour
 
     AudioSource emptySound;
 
-    float florpMax;
-    float florpMin = -0.5f;
+    public float florpMax = 8;
+    public float florpMin = 0;
     //float currentFill;
     float amountDeposited;
     float emptyTotal;
@@ -19,6 +19,8 @@ public class FlorpReceptor : MonoBehaviour
     Renderer florpRenderer;
     MaterialPropertyBlock propertyBlock;
 
+    public GameObject[] FlorpFillUI;
+    public bool CR_Running;
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
@@ -27,95 +29,35 @@ public class FlorpReceptor : MonoBehaviour
         //florpRenderer.GetPropertyBlock(propertyBlock);
     }
 
-
-  //  private void OnTriggerEnter(Collider other)
-  //  {
-  //      currentContainer = other.GetComponent<Florp>();
-  //      //florpRenderer = currentContainer.renderer;
-  //      currentFill = currentContainer.florpFillAmount;
-  //
-  //      if (currentFill > florpMin)
-  //      {
-  //       //   emptySound.Play();
-  //      }
-  //
-  //      amountDeposited = florpMin;
-  //      florpMax = currentContainer.florpFillAmount;
-  //  }
-  //
-  //  private void OnTriggerExit(Collider other)
-  //  {
-  //      currentContainer.florpFillAmount = currentFill;
-  //
-  //     // emptySound.Stop();
-  //  }
-  //
-  //  private void OnTriggerStay(Collider other)
-  //  {
-  //      if (other.tag == "Florp")
-  //      {
-  //          StartCoroutine(FlorpEmpty());
-  //      }
-  //
-  //      if (florpTotal > 500)
-  //      {
-  //          florpTotal = 500;
-  //      }
-  //
-  //  }
-
-    
-    public void fillFlorp(float currentFill)
+    private void Start()
     {
-        //currentContainer = other.GetComponent<Florp>();
-        //florpRenderer = currentContainer.renderer;
-        currentFill = currentContainer.florpFillAmount;
-        if (currentFill > florpMin)
-        {
-         //   emptySound.Play();
-        }
-  
-        amountDeposited = florpMin;
-        florpMax = currentContainer.florpFillAmount;
+        StartCoroutine(burnFlorp());
     }
 
-    //IEnumerator FlorpEmpty()
-    //{
-    //    float buffer;
-    //    
-    //    if (currentFill > -0.5f )
-    //    {
-    //
-    //        propertyBlock.SetFloat("_FillAmount", currentFill);
-    //       // florpRenderer.SetPropertyBlock(propertyBlock);
-    //
-    //        currentFill -= (.01f * currentContainer.fillSpeed);
-    //        amountDeposited += (.01f * currentContainer.fillSpeed);
-    //
-    //        currentContainer.florpFillAmount = propertyBlock.GetFloat("_FillAmount");
-    //        currentContainer.amountFilled = ((currentFill - florpMin) / (florpMax) * 50);
-    //
-    //        buffer = -((currentFill + florpMin) / (florpMax) * 50);
-    //        florpTotal += (buffer - (buffer - 1))/4;
-    //    }
-    //    else
-    //    {
-    //        if (currentFill <= -0.5f)
-    //        {
-    //            currentFill = -0.5f;
-    //
-    //            propertyBlock.SetFloat("_FillAmount", currentFill);
-    //            florpRenderer.SetPropertyBlock(propertyBlock);
-    //
-    //            Debug.Log(propertyBlock.GetFloat("_FillAmount"));
-    //        }
-    //        emptySound.Stop();
-    //
-    //        Debug.Log("Hit");
-    //        yield return null;
-    //    }
-    //    yield return new WaitForFixedUpdate();
-    //
-    //}
-    
+    public void fillFlorp(float amount)
+    {
+        
+        if(florpTotal < florpMax)
+        {
+            Debug.Log("GLUB 2");
+            florpTotal += amount;
+            FlorpFillUI[(int)florpTotal - 1].SetActive(true);
+        }
+    }
+
+
+    public IEnumerator burnFlorp()
+    {
+        while(florpTotal > florpMin)
+        {
+            Engine.instance.isFuled = true;
+            FlorpFillUI[(int)florpTotal - 1].SetActive(false);
+            florpTotal--;
+            yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
+        }
+
+        Engine.instance.isFuled = false;
+        CR_Running = false;
+    }
+
 }
