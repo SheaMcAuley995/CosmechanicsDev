@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager _instance;
 
-    public delegate void InitializeScene();
-    InitializeScene initializeScene;
-
+    public UnityEvent sceneInitialize;
+    //public UnityEvent sceneGameTick;
     public static GameManager Instance
     {
         get
@@ -24,26 +25,24 @@ public class GameManager : MonoBehaviour {
             return _instance;
         }
     }
-
     private void Awake()
     {
         _instance = this;
 
-        initializeScene += debugVoid();
+        DontDestroyOnLoad(this.gameObject);
+        //sceneInitialize += debugVoid();
     }
 
-    private InitializeScene debugVoid()
+
+
+
+    public void LoadScene(string sceneIndex)
     {
-        Debug.Log("Scene Inialized");
-
-        throw new NotImplementedException();
+        SceneManager.LoadScene(sceneIndex);
     }
-
-    public void Initialize()
+    public void QuitGame()
     {
-        initializeScene();
+        Application.Quit();
     }
-
 
 }
-

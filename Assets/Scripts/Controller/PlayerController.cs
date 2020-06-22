@@ -90,8 +90,10 @@ public class PlayerController : MonoBehaviour
         //interact.controller = this;
     }
 
-    private void Move_performed(InputAction.CallbackContext obj)
+    private void Move_performed(InputAction.CallbackContext context)
     {
+        
+
         Debug.LogError("MOVEMENT NOT IMPLIMENTED");
         throw new System.NotImplementedException();
     }

@@ -70,12 +70,12 @@ public class Player : MonoBehaviour
 
         //CameraMultiTarget.instance.SetTargets(players);
 
-        controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
+        //controls.Gameplay.Move.performed += ctx => movementVector = ctx.ReadValue<Vector2>();
+        //controls.Gameplay.Move.canceled += ctx => movementVector = Vector2.zero;
         //controls.Gameplay.Interact.performed += ctx => InteractWithObject();
-        controls.Gameplay.Interact.started += ctx => Interaction();
-        controls.Gameplay.Interact.canceled += ctx => endInteraction();
-        controls.Gameplay.PickUp.started += ctx => pickUpObject();
+        //controls.Gameplay.Interact.started += ctx => Interaction();
+        //controls.Gameplay.Interact.canceled += ctx => endInteraction();
+        //controls.Gameplay.PickUp.started += ctx => pickUpObject();
         //controls.Gameplay.PickUp.performed += ctx => pickUp;
 
     }
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
 
     private void ProcessInteraction()
     {
-         Move(movementVector, sprint);
+         Move(movementVector);
     }
 
     public void pickUpInteraction()
@@ -217,7 +217,7 @@ public class Player : MonoBehaviour
         interactableObject = null;
     }
 
-    void Move(Vector2 inputDir, bool running)
+    void Move(Vector2 inputDir)
     {
         if (!onFire)
         {
@@ -233,7 +233,7 @@ public class Player : MonoBehaviour
                 transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
             }
 
-            float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
+            float targetSpeed =  walkSpeed * inputDir.magnitude;
             currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
             if (targetSpeed > 0)

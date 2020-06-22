@@ -5,13 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    public void LoadScene(string sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
-    }
 
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
+
+
 }
