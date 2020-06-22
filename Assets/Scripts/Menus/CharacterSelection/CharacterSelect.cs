@@ -10,7 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class CharacterSelect : MonoBehaviour
 {
     public static CharacterSelect instance;
-    
+
     public PlayerInput[] playerInputs;
     [Space]
     public Transform[] spawnPositions;
@@ -28,12 +28,15 @@ public class CharacterSelect : MonoBehaviour
     [HideInInspector] public int numPlayersReady = 0;
     int numActivePlayers = 0;
     [SerializeField] string levelSelectScene;
+    [SerializeField] string mainMenuScene;
+    [HideInInspector] public bool transitioning;
 
 
     private void Awake()
     {
         instance = this;
         playerInputs = new PlayerInput[GetComponent<PlayerInputManager>().maxPlayerCount];
+        transitioning = false;
     }
 
     public void onPlayerSpawned(PlayerInput player)
@@ -53,6 +56,8 @@ public class CharacterSelect : MonoBehaviour
                 break;
             }
         }
+
+        player.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public void onResetPlayer(PlayerInput player)
@@ -72,15 +77,18 @@ public class CharacterSelect : MonoBehaviour
             }
         }
         playerInputs[player.playerIndex] = null;
+
+        CheckIfAllReady();
     }
 
     public void CheckIfAllReady()
     {
-        if (numPlayersReady == numActivePlayers)
+        if (numPlayersReady == numActivePlayers && numActivePlayers > 0)
         {
             PlayerPrefs.SetInt("Total Players", numActivePlayers);
             PlayerSpawn.numPlayers = numActivePlayers;
 
+            transitioning = true;
             SceneFader.instance.FadeTo(levelSelectScene);
         }
     }

@@ -35,10 +35,10 @@ RectTransform:
   - {fileID: 1137177216014611435}
   - {fileID: 1137177217444799308}
   - {fileID: 1137177217234799756}
-  - {fileID: 1137177215832423444}
-  - {fileID: 1137177217492825336}
-  - {fileID: 1137177217030367897}
   - {fileID: 1137177215505378482}
+  - {fileID: 1137177217030367897}
+  - {fileID: 1137177217492825336}
+  - {fileID: 1137177215832423444}
   m_Father: {fileID: 1137177216343493977}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -429,6 +429,7 @@ GameObject:
   - component: {fileID: 1137177215505378495}
   - component: {fileID: 1137177215505378492}
   - component: {fileID: 1137177215505378493}
+  - component: {fileID: 1402933228233304124}
   m_Layer: 5
   m_Name: GraphicsDropdown
   m_TagString: Untagged
@@ -451,7 +452,7 @@ RectTransform:
   - {fileID: 1137177215373836293}
   - {fileID: 1137177216139618572}
   m_Father: {fileID: 2607210461714899670}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.69875, y: 0.67825}
   m_AnchorMax: {x: 0.69875, y: 0.67825}
@@ -579,6 +580,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonClick: {fileID: 1137177216343493979}
+--- !u!114 &1402933228233304124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137177215505378483}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f256d961c0aa66a4095968fcd71fe4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentPanel: {fileID: 1137177215694238834}
+  scrollRect: {fileID: 1137177215373836292}
 --- !u!1 &1137177215583942735
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +897,7 @@ RectTransform:
   - {fileID: 1137177216891423900}
   - {fileID: 1137177216503980519}
   m_Father: {fileID: 2607210461714899670}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.69875, y: 0.27025002}
   m_AnchorMax: {x: 0.69875, y: 0.27025002}
@@ -3646,6 +3661,7 @@ GameObject:
   - component: {fileID: 1137177217030367898}
   - component: {fileID: 1137177217030367899}
   - component: {fileID: 1137177217030367896}
+  - component: {fileID: 1755201465817515609}
   m_Layer: 5
   m_Name: ScreenDropdown
   m_TagString: Untagged
@@ -3668,7 +3684,7 @@ RectTransform:
   - {fileID: 1137177217043828435}
   - {fileID: 1137177216842693643}
   m_Father: {fileID: 2607210461714899670}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.69875, y: 0.5455625}
   m_AnchorMax: {x: 0.69875, y: 0.5455625}
@@ -3794,6 +3810,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonClick: {fileID: 1137177216343493979}
+--- !u!114 &1755201465817515609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137177217030367902}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f256d961c0aa66a4095968fcd71fe4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentPanel: {fileID: 1137177216015851281}
+  scrollRect: {fileID: 1137177217043828434}
 --- !u!1 &1137177217043828432
 GameObject:
   m_ObjectHideFlags: 0
@@ -4824,6 +4854,7 @@ GameObject:
   - component: {fileID: 1137177217492825338}
   - component: {fileID: 1137177217492825339}
   - component: {fileID: 1137177217492825316}
+  - component: {fileID: 6171185406753408814}
   m_Layer: 5
   m_Name: ResolutionDropdown
   m_TagString: Untagged
@@ -4846,7 +4877,7 @@ RectTransform:
   - {fileID: 1137177216941404462}
   - {fileID: 1137177217495824656}
   m_Father: {fileID: 2607210461714899670}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.69875, y: 0.40600002}
   m_AnchorMax: {x: 0.69875, y: 0.40600002}
@@ -4984,6 +5015,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonClick: {fileID: 1137177216343493979}
+--- !u!114 &6171185406753408814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137177217492825337}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f256d961c0aa66a4095968fcd71fe4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  contentPanel: {fileID: 1137177216863166854}
+  scrollRect: {fileID: 1137177216941404457}
 --- !u!1 &1137177217495824663
 GameObject:
   m_ObjectHideFlags: 0
