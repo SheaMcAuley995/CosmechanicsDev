@@ -70,6 +70,8 @@ public class CharacterCustomization : MonoBehaviour
         NewColor(null);
 
         playerMovement.enabled = false;
+
+        GetComponent<TeleportShader>().MaterializeEffect();
     }
 
     /// <summary>

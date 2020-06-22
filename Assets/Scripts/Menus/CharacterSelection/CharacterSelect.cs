@@ -88,8 +88,26 @@ public class CharacterSelect : MonoBehaviour
             PlayerPrefs.SetInt("Total Players", numActivePlayers);
             PlayerSpawn.numPlayers = numActivePlayers;
 
-            transitioning = true;
-            SceneFader.instance.FadeTo(levelSelectScene);
+            foreach (PlayerInput player in playerInputs)
+            {
+                if (player != null)
+                {
+                    player.gameObject.GetComponent<TeleportShader>().TeleportEffect();
+                }
+            }
+
+            StartCoroutine(TeleportAndTransition());
         }
+    }
+
+    IEnumerator TeleportAndTransition()
+    {
+        TeleportShader tele = FindObjectOfType<TeleportShader>();
+        yield return new WaitForSeconds(tele.duration + 0.5f);
+
+        transitioning = true;
+        SceneFader.instance.FadeTo(levelSelectScene);
+
+        yield break;
     }
 }
