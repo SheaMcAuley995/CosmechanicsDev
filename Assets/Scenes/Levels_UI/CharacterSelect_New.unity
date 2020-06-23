@@ -4304,15 +4304,15 @@ MonoBehaviour:
   - {fileID: 1613673485}
   - {fileID: 1980913234}
   colorOptions:
-  - {fileID: 2100000, guid: 4a7afb62d4f4597488dbadaf820f9534, type: 2}
-  - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
-  - {fileID: 2100000, guid: 11204f5fda56b594eb040ceede7cbc91, type: 2}
-  - {fileID: 2100000, guid: 19d586073c8bf8946818e2a3b9680c6b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   headOptions:
-  - {fileID: 3378774141190377847, guid: 7b55f2d0eda9cb84083b8dba7d607550, type: 3}
-  - {fileID: 4337809821859009330, guid: 2a06cca3414421b44a6d4f13d2238b55, type: 3}
-  - {fileID: 2841336231819841722, guid: a199aeff110bd8f4fbac2b270916f266, type: 3}
-  - {fileID: 7645636631602232906, guid: a3550db76d71d1c4f8b34877ab16e217, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   nextColorString: next color
   previousColorString: previous color
   nextHeadString: next head
