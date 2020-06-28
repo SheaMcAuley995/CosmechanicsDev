@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 228857624158811868}
   - component: {fileID: 7568695366728193861}
   - component: {fileID: 202609199262425763}
+  - component: {fileID: 6074123468435993232}
   m_Layer: 10
   m_Name: Player_Prefab 1
   m_TagString: Char
@@ -339,6 +340,88 @@ MonoBehaviour:
   interactableObject: {fileID: 0}
   playerId: 0
   blockMovement: 0
+--- !u!114 &6074123468435993232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200728199365951240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed740c67bf6452a46a9c7cb1cc5f1b04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.75
+  maxIntensity: 10
+  maxStretchiness: -7
+  color: {r: 0.1098, g: 0.3215, b: 0.749, a: 1}
+  materializeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.30126506
+      value: 0.91216135
+      inSlope: 0.5992799
+      outSlope: 0.5992799
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  teleportCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.30126506
+      value: 0.91216135
+      inSlope: 0.5992799
+      outSlope: 0.5992799
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &200730266903630936
 GameObject:
   m_ObjectHideFlags: 0
