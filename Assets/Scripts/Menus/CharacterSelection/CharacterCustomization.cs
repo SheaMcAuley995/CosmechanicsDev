@@ -20,7 +20,7 @@ public class CharacterCustomization : MonoBehaviour
     int currentColor;
 
     [SerializeField] Image readyBar; // Not implemented yet. Frankly I might just wait for Unity to update the input system more to make holding buttons easier. 
-    bool ready = false;
+    bool ready = true;
 
     //Materialize materializeEffect;
     //bool materializing = false;
@@ -32,6 +32,8 @@ public class CharacterCustomization : MonoBehaviour
         playerMovement = GetComponent<Player>();
         player.SwitchCurrentActionMap("CharSelect");
         playerMovement.cameraTrans = Camera.main.transform;
+        ready = false;
+        PlayerPrefs.DeleteAll();
 
         /// WARNING: THIS METHOD SEEMINGLY APPLIES TO ALL CONTROLLERS PLUGGED IN!
         #region Experimental/broken Method
@@ -68,6 +70,8 @@ public class CharacterCustomization : MonoBehaviour
         NewColor(null);
 
         playerMovement.enabled = false;
+
+        GetComponent<TeleportShader>().MaterializeEffect();
     }
 
     /// <summary>
@@ -103,8 +107,10 @@ public class CharacterCustomization : MonoBehaviour
         {
             // Enable player movement
             ready = true;
-            player.SwitchCurrentActionMap("Gameplay");
+            //player.SwitchCurrentActionMap("Gameplay");
             playerMovement.enabled = true;
+            playerMovement.GetComponent<Rigidbody>().isKinematic = false;
+
 
             // Switch player animations out of Character Select state
             Animator bodyAnimator = GetComponent<Animator>();
@@ -114,13 +120,13 @@ public class CharacterCustomization : MonoBehaviour
             headAnimator.SetBool("CharSelect", false);
             headAnimator.Play("Idle", -1, 0);
 
+            // Store player's selected head & color into PlayerPrefs
+            PlayerPrefs.SetInt("Player " + (CharacterSelect.instance.numPlayersReady).ToString() + " Head", currentHead);
+            PlayerPrefs.SetInt("Player " + (CharacterSelect.instance.numPlayersReady).ToString() + " Color", currentColor);
+            
             // Update number of players ready & check if all ready
             CharacterSelect.instance.numPlayersReady++;
             CharacterSelect.instance.CheckIfAllReady();
-
-            // Store player's selected head & color into PlayerPrefs
-            PlayerPrefs.SetInt("Player " + player.playerIndex.ToString() + " Head", currentHead);
-            PlayerPrefs.SetInt("Player " + player.playerIndex.ToString() + " Color", currentColor);
 
             //string fileDestination = Application.persistentDataPath + "\\SelectedCharacterInfo.dat";
             //FileStream file;
@@ -143,21 +149,28 @@ public class CharacterCustomization : MonoBehaviour
         }
         else // Un-ready
         {
-            CharacterSelect.instance.numPlayersReady--;
+            if (!CharacterSelect.instance.transitioning)
+            {
+                CharacterSelect.instance.numPlayersReady--;
+                PlayerPrefs.DeleteKey("Player " + CharacterSelect.instance.numPlayersReady.ToString() + " Head");
+                PlayerPrefs.DeleteKey("Player " + CharacterSelect.instance.numPlayersReady.ToString() + " Color");
 
-            ready = false;
-            player.SwitchCurrentActionMap("CharSelect");
-            playerMovement.enabled = false;
-            CharacterSelect.instance.onResetPlayer(player);
+                ready = false;
+                player.SwitchCurrentActionMap("CharSelect");
+                playerMovement.enabled = false;
+                playerMovement.GetComponent<Rigidbody>().isKinematic = true; // Prevents sliding around / being knocked into
+                CharacterSelect.instance.onResetPlayer(player); // Resets transform back to spawn position
 
-            Animator bodyAnimator = GetComponent<Animator>();
-            Animator headAnimator = headToReplace.GetComponent<Animator>();
-            bodyAnimator.SetBool("CharSelect", true);
-            bodyAnimator.Play("CharSelect Idle", -1, 0);
-            headAnimator.SetBool("CharSelect", true);
-            headAnimator.Play("CharSelect Idle", -1, 0);
+                // Animation handling
+                Animator bodyAnimator = GetComponent<Animator>();
+                Animator headAnimator = headToReplace.GetComponent<Animator>();
+                bodyAnimator.SetBool("CharSelect", true);
+                bodyAnimator.Play("CharSelect Idle", -1, 0); // Starts the animation at 0% progress
+                headAnimator.SetBool("CharSelect", true);
+                headAnimator.Play("CharSelect Idle", -1, 0); // See above ^
 
-            PlayerSpawn.playerPrefabs[player.playerIndex] = null;
+                PlayerSpawn.playerPrefabs[player.playerIndex] = null;
+            }
         }
     }
 

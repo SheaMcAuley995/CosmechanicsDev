@@ -325,7 +325,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""e773ceb5-30e9-4aff-bf7e-5225b2272c96"",
                     ""path"": ""<XInputController>/leftStick"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
@@ -616,9 +616,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""9628192f-be27-4b04-9d9c-ec377c2ba79c"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=1)""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""Confirm"",
@@ -626,7 +626,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""id"": ""2dd7f641-81f7-4032-8f58-7dfb81f0d56f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Hold(duration=1)""
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
