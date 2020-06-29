@@ -11,6 +11,8 @@ public class SettingsMenu : MonoBehaviour
 
     public Dropdown resolutionDropdown;
 
+    public List<string> options;
+
     Resolution[] resolutions;
 
     private void Start()
@@ -19,7 +21,7 @@ public class SettingsMenu : MonoBehaviour
 
         resolutionDropdown.ClearOptions();
 
-        List<string> options = new List<string>();
+        options = new List<string>();
 
         int curResIndx = 0;
 
