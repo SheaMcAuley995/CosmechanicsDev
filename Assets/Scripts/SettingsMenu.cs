@@ -15,6 +15,14 @@ public class SettingsMenu : MonoBehaviour
 
     Resolution[] resolutions;
 
+    int rows;
+
+    float width;
+    float height;
+
+    public Button prefab;
+    Button button;
+
     private void Start()
     {
         resolutions = Screen.resolutions;
@@ -37,9 +45,21 @@ public class SettingsMenu : MonoBehaviour
             }
         }
 
-        resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = curResIndx;
-        resolutionDropdown.RefreshShownValue();
+        RectTransform myRect = GetComponent<RectTransform>();
+
+        rows = options.Count;
+
+        height = myRect.rect.height / (float)rows;
+        width = myRect.rect.width;
+
+        GridLayoutGroup grid = this.GetComponent<GridLayoutGroup>();
+        grid.cellSize = new Vector2(width, height);
+
+        for(int i = 0; i < options.Count; i++)
+        {
+            button = (Button)Instantiate(prefab);
+            button.transform.SetParent(transform, false);
+        }
     }
 
 
