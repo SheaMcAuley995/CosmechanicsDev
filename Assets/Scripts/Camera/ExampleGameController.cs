@@ -17,8 +17,8 @@ public class ExampleGameController : MonoBehaviour
     [HideInInspector] public Vector3[] spawnPoints;
     public List<string> spawnableScenes;
 
-    public Material[] colorOptions = new Material[4];
-    public GameObject[] headOptions = new GameObject[4];
+    [HideInInspector] public Material[] colorOptions = new Material[4];
+    [HideInInspector] public GameObject[] headOptions = new GameObject[4];
 
     private void Awake()
     {
@@ -38,6 +38,27 @@ public class ExampleGameController : MonoBehaviour
         {
             //Destroy(gameObject);
         }
+
+        LoadAssets();
+    }
+
+    /// <summary> 
+    /// The following code eliminates the need for color & head options to be set in the 
+    /// inspector of each level. 
+    /// </summary>
+    void LoadAssets()
+    {
+        // Load the head options from the Assets folder
+        headOptions[0] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_Blobfish 1");
+        headOptions[1] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_Fennec 1");
+        headOptions[2] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_Helmet 1");
+        headOptions[3] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_UncleBob 1");
+
+        // Load the color options from the Assets folder
+        colorOptions[0] = Resources.Load<Material>("ColorOptions/PlayerMat_Cyan 1");
+        colorOptions[1] = Resources.Load<Material>("ColorOptions/PlayerMat_Magenta 1");
+        colorOptions[2] = Resources.Load<Material>("ColorOptions/PlayerMat_Orange 1");
+        colorOptions[3] = Resources.Load<Material>("ColorOptions/PlayerMat_White 1");
     }
 
     private void Start()
