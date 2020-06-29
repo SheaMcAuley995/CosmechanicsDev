@@ -1,0 +1,135 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
+public class CharacterSelect : MonoBehaviour
+{
+    public static CharacterSelect instance;
+
+    public PlayerInput[] playerInputs;
+    [Space]
+    public Transform[] spawnPositions;
+    [Space]
+    public Material[] colorOptions;
+    [Space]
+    public GameObject[] headOptions;
+    [Space]
+    public string nextColorString = "next color";
+    public string previousColorString = "previous color";
+    public string nextHeadString = "next head";
+    public string previousHeadString = "previous head";
+    [Space]
+
+    [HideInInspector] public int numPlayersReady = 0;
+    int numActivePlayers = 0;
+    [SerializeField] string levelSelectScene;
+    [SerializeField] string mainMenuScene;
+    [HideInInspector] public bool transitioning;
+
+
+    private void Awake()
+    {
+        instance = this;
+        playerInputs = new PlayerInput[GetComponent<PlayerInputManager>().maxPlayerCount];
+        transitioning = false;
+
+        
+        LoadAssets();
+    }
+
+    /// <summary> 
+    /// The following code eliminates the need for color & head options to be set in the 
+    /// inspector of each level. 
+    /// </summary>
+    void LoadAssets()
+    {
+        // Load the head options from the Assets folder
+        headOptions[0] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_Blobfish 1");
+        headOptions[1] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_Fennec 1");
+        headOptions[2] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_Helmet 1");
+        headOptions[3] = Resources.Load<GameObject>("HeadOptions/Rig_Blank_UncleBob 1");
+
+        // Load the color options from the Assets folder
+        colorOptions[0] = Resources.Load<Material>("ColorOptions/PlayerMat_Cyan 1");
+        colorOptions[1] = Resources.Load<Material>("ColorOptions/PlayerMat_Magenta 1");
+        colorOptions[2] = Resources.Load<Material>("ColorOptions/PlayerMat_Orange 1");
+        colorOptions[3] = Resources.Load<Material>("ColorOptions/PlayerMat_White 1");
+    }
+
+    public void onPlayerSpawned(PlayerInput player)
+    {
+        numActivePlayers++;
+
+        for (int i = 0; i < playerInputs.Length; i++)
+        {
+            if (playerInputs[i] == null)
+            {
+                playerInputs[i] = player;
+                player.transform.position = spawnPositions[i].position;
+                player.transform.rotation = spawnPositions[i].rotation;
+
+                playerInputs[i].gameObject.AddComponent<CharacterCustomization>();
+                playerInputs[i].SwitchCurrentActionMap("CharSelect");
+                break;
+            }
+        }
+
+        player.GetComponent<Rigidbody>().isKinematic = true;
+    }
+
+    public void onResetPlayer(PlayerInput player)
+    {
+        player.transform.position = spawnPositions[player.playerIndex].position;
+        player.transform.rotation = spawnPositions[player.playerIndex].rotation;
+    }
+
+    public void onPlayerLeft(PlayerInput player)
+    {
+        numActivePlayers = 0;
+        for (int i = 0; i < playerInputs.Length; i++)
+        {
+            if (playerInputs[i] != null)
+            {
+                numActivePlayers++;
+            }
+        }
+        playerInputs[player.playerIndex] = null;
+
+        CheckIfAllReady();
+    }
+
+    public void CheckIfAllReady()
+    {
+        if (numPlayersReady == numActivePlayers && numActivePlayers > 0)
+        {
+            PlayerPrefs.SetInt("Total Players", numActivePlayers);
+            PlayerSpawn.numPlayers = numActivePlayers;
+
+            foreach (PlayerInput player in playerInputs)
+            {
+                if (player != null)
+                {
+                    player.gameObject.GetComponent<TeleportShader>().TeleportEffect();
+                }
+            }
+
+            StartCoroutine(TeleportAndTransition());
+        }
+    }
+
+    IEnumerator TeleportAndTransition()
+    {
+        TeleportShader tele = FindObjectOfType<TeleportShader>();
+        yield return new WaitForSeconds(tele.duration + 0.5f);
+
+        transitioning = true;
+        SceneFader.instance.FadeTo(levelSelectScene);
+
+        yield break;
+    }
+}

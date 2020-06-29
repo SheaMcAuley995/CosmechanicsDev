@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour {
+public class Grid : MonoBehaviour
+{
 
     public static Grid instance;
 
@@ -69,14 +70,14 @@ public class Grid : MonoBehaviour {
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
-                if(spawnTheFires)
+                if (spawnTheFires)
                 {
                     grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)), new Collider[4]);
                     grid[x, y].fireEffect.SetActive(startOnFire);
                 }
                 else
                 {
-                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null,new Collider[4]);
+                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null, new Collider[4]);
                 }
 
                 if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
@@ -87,7 +88,7 @@ public class Grid : MonoBehaviour {
             }
         }
 
-        if(startOnFire)
+        if (startOnFire)
         {
             for (int x = 0; x < gridSizeX; x++)
             {
@@ -173,21 +174,21 @@ public class Grid : MonoBehaviour {
     {
         if (firePos.isFlamable && nullCheck<Node>(firePos))
         {
-            if(nullCheck<AlertUI>(alertUI))
+            if (nullCheck<AlertUI>(alertUI))
             {
                 alertUI.problemCurrent -= 1;
             }
-            
+
             firePos.fireTimer = fireTimer;
             firePos.fireEffect.SetActive(true);
             fires.Add(firePos);
         }
-        
+
     }
 
     private bool nullCheck<T>(T thing)
     {
-        if(thing != null)
+        if (thing != null)
         {
             return true;
         }
@@ -207,10 +208,10 @@ public class Grid : MonoBehaviour {
         {
             if (firePos.playerArray[i].CompareTag("Extinguisher"))
             {
-               //if (nullCheck<AlertUI>(alertUI))
-               //{
-               //    alertUI.problemCurrent += 1;
-               //}
+                //if (nullCheck<AlertUI>(alertUI))
+                //{
+                //    alertUI.problemCurrent += 1;
+                //}
                 fires.Remove(firePos);
                 firePos.isFlamable = true;
                 firePos.fireEffect.SetActive(false);

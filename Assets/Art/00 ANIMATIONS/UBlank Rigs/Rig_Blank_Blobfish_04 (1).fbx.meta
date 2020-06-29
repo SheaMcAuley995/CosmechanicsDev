@@ -1,42 +1,114 @@
 fileFormatVersion: 2
 guid: c3c1f0590ba20f1418df2634f60dfcb7
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Blobfish
-    100002: Body_Main
-    100004: L_Eye
-    100006: L_Fin1
-    100008: L_Fin2
-    100010: R_Eye
-    100012: R_Fin1
-    100014: R_Fin2
-    100016: //RootNode
-    100018: ROOT_Blobfish
-    100020: Tail
-    100022: Tailfin_1
-    100024: Tailfin_2
-    400000: Blobfish
-    400002: Body_Main
-    400004: L_Eye
-    400006: L_Fin1
-    400008: L_Fin2
-    400010: R_Eye
-    400012: R_Fin1
-    400014: R_Fin2
-    400016: //RootNode
-    400018: ROOT_Blobfish
-    400020: Tail
-    400022: Tailfin_1
-    400024: Tailfin_2
-    2100000: Fish
-    2100002: Bowl
-    4300000: Blobfish
-    9500000: //RootNode
-    13700000: Blobfish
-  externalObjects: {}
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Blobfish
+  - first:
+      1: 100002
+    second: Body_Main
+  - first:
+      1: 100004
+    second: L_Eye
+  - first:
+      1: 100006
+    second: L_Fin1
+  - first:
+      1: 100008
+    second: L_Fin2
+  - first:
+      1: 100010
+    second: R_Eye
+  - first:
+      1: 100012
+    second: R_Fin1
+  - first:
+      1: 100014
+    second: R_Fin2
+  - first:
+      1: 100016
+    second: //RootNode
+  - first:
+      1: 100018
+    second: ROOT_Blobfish
+  - first:
+      1: 100020
+    second: Tail
+  - first:
+      1: 100022
+    second: Tailfin_1
+  - first:
+      1: 100024
+    second: Tailfin_2
+  - first:
+      4: 400000
+    second: Blobfish
+  - first:
+      4: 400002
+    second: Body_Main
+  - first:
+      4: 400004
+    second: L_Eye
+  - first:
+      4: 400006
+    second: L_Fin1
+  - first:
+      4: 400008
+    second: L_Fin2
+  - first:
+      4: 400010
+    second: R_Eye
+  - first:
+      4: 400012
+    second: R_Fin1
+  - first:
+      4: 400014
+    second: R_Fin2
+  - first:
+      4: 400016
+    second: //RootNode
+  - first:
+      4: 400018
+    second: ROOT_Blobfish
+  - first:
+      4: 400020
+    second: Tail
+  - first:
+      4: 400022
+    second: Tailfin_1
+  - first:
+      4: 400024
+    second: Tailfin_2
+  - first:
+      21: 2100000
+    second: Fish
+  - first:
+      21: 2100002
+    second: Bowl
+  - first:
+      43: 4300000
+    second: Blobfish
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Blobfish
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bowl
+    second: {fileID: 2100000, guid: e76d6068478d20a48a1dcf0e775abdf5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fish
+    second: {fileID: 2100000, guid: 57d9686f5bca5544cafdef5cd0ec7eab, type: 2}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -68,6 +140,8 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -75,27 +149,32 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
+    secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 4
+    secondaryUVPackMargin: 10
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -105,8 +184,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

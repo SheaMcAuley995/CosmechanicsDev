@@ -70,7 +70,7 @@ public class EndGameScore : MonoBehaviour
     #endregion
     public void giveFinalScore()
     {
-        finalScore = (int)ShipHealth.instance.shipCurrenHealth + 1;
+        finalScore = (int)Old_GameplayEvents.instance.shipCurrenHealth + 1;
     }
     private void Update()
     {

@@ -21,6 +21,14 @@ TagManager:
   - Floor
   - Laser
   - Head
+  - World
+  - Dispenser
+  - Suit
+  - GearImage
+  - PointerImage
+  - PauseMenu
+  - GameOverlay
+  - OptionsMenu
   layers:
   - Default
   - TransparentFX
@@ -40,8 +48,8 @@ TagManager:
   - Florp
   - Head
   - Extinguisher
-  - 
-  - 
+  - Force Field
+  - FlorpFiller
   - 
   - 
   - 

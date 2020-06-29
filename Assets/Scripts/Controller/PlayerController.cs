@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Rewired;
+using UnityEngine.InputSystem;
+
+//using Rewired;
 
 
 public class PlayerController : MonoBehaviour
 {
-
+    public PlayerControls controls;
 
     public delegate void currentInteraction();
     public currentInteraction myCurrentInteraction;
@@ -17,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     //Rewired ID
     public int playerId = 0;
-    [HideInInspector] public Player player;
+    [HideInInspector] public PlayerController player;
 
     [HideInInspector] public Vector2 movementVector;
     private Vector2 movementDir;
@@ -27,15 +29,14 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool pauseButton;
 
     [HideInInspector] public Vector2 selectModel;
-    [HideInInspector] public bool selectCrime;
-    [HideInInspector] public bool previousCrime;
-    [HideInInspector] public bool selectColourRight;
-    [HideInInspector] public bool selectColourLeft;
-    [HideInInspector] public bool readyUp;
-    [HideInInspector] public bool cancel;
+    [HideInInspector] public bool Button_Y;
+    [HideInInspector] public bool Button_X;
+    [HideInInspector] public bool Button_RB;
+    [HideInInspector] public bool Button_LB;
+    [HideInInspector] public bool Button_A;
+    [HideInInspector] public bool Button_B;
     [HideInInspector] public bool start;
     CharacterController cc;
-    public bool normalMovement = true;
 
     [HideInInspector] public bool pickUp = false;
     public Transform pickUpTransform;
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTrans;
 
     Rigidbody rb;
-    InteractWithInterface interact;
+    public InteractWithInterface interact;
     public int maxPossibleCollisions;
     public LayerMask collisionLayer;
     public float radius;
@@ -70,24 +71,39 @@ public class PlayerController : MonoBehaviour
     public float onFireTimerCur;
     public GameObject onFireEffect;
     private bool onFire;
+    public Collider myCollider;
 
     private void Start()
     {
+        controls.Gameplay.Move.performed += Move_performed;
+
+
         thisCollider = GetComponent<CapsuleCollider>();
         possibleColliders = new Collider[maxPossibleCollisions];
         onFireTimerCur = onFiretimer;
         animators = GetComponentsInChildren<Animator>();
-        player = ReInput.players.GetPlayer(playerId);
+        //player = ReInput.players.GetPlayer(playerId);
+        
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         interact = GetComponentInChildren<InteractWithInterface>();
-        interact.controller = this;
+        //interact.controller = this;
+    }
+
+    private void Move_performed(InputAction.CallbackContext obj)
+    {
+        Debug.LogError("MOVEMENT NOT IMPLIMENTED");
+        throw new System.NotImplementedException();
     }
 
     void Update()
     {
-        getInput();
-        ProcessInput();
+        // If the game isn't paused
+        if (GameStateManager.instance.GetState() != GameState.Paused)
+        {
+            getInput();
+            ProcessInput();
+        }
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
@@ -96,35 +112,30 @@ public class PlayerController : MonoBehaviour
     {
         #region Main Game Input
         // Normal axis when player is not on fire
-        if (normalMovement)
-        {
-            movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
-            movementVector.y = player.GetAxisRaw("Move Vertical");
-        }
-        // Flipped axis when a player is on fire
-        else
-        {
-            movementVector.x = player.GetAxisRaw("Move Vertical"); // get input by name or action id
-            movementVector.y = player.GetAxisRaw("Move Horizontal");
-        }
-        movementDir = movementVector.normalized;
-        Interact = player.GetButtonDown("Interact");
-        sprint = player.GetButton("Sprint");
-        pickUp = player.GetButtonDown("PickUp");
-        bumper = player.GetButtonDown("Bumper");
-        pauseButton = player.GetButtonDown("Pause");
+       // movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
+       // movementVector.y = player.GetAxisRaw("Move Vertical");
+       //
+       // movementDir = movementVector.normalized;
+       // Interact = player.GetButtonDown("Interact");
+       // sprint = player.GetButton("Sprint");
+       // pickUp = player.GetButtonDown("PickUp");
+       // bumper = player.GetButtonDown("Bumper");
+       // pauseButton = player.GetButtonDown("Pause");
         #endregion
 
         #region Char Select Input
-        selectModel.x = player.GetAxisRaw("ModelSelect");
-        selectCrime = player.GetButtonDown("SelectCrime");
-        previousCrime = player.GetButtonDown("PrevCrime");
-        selectColourRight = player.GetButtonDown("ColourSelectRight");
-        selectColourLeft = player.GetButtonDown("ColourSelectLeft");
-        readyUp = player.GetButtonDown("ReadyUp");
-        cancel = player.GetButtonDown("Cancel");
-        start = player.GetButtonDown("Start");
+        //selectModel.x = player.GetAxisRaw("ModelSelect");
+        //Button_Y = player.GetButtonDown("SelectCrime");
+        //Button_X = player.GetButtonDown("PrevCrime");
+        //Button_RB = player.GetButtonDown("ColourSelectRight");
+        //Button_LB = player.GetButtonDown("ColourSelectLeft");
+        //Button_A = player.GetButtonDown("ReadyUp");
+        //Button_B = player.GetButtonDown("Cancel");
+        //start = player.GetButtonDown("Start");
         #endregion
+
+
+
     }
 
     private void ProcessInput()
@@ -149,11 +160,7 @@ public class PlayerController : MonoBehaviour
 
         if(pickUp)
         {
-            interact.pickUpObject();
-            animators[0].SetBool("ButtonPress", true);
-            animators[1].SetBool("ButtonPress", true);
-            animators[0].SetBool("ButtonPress", false);
-            animators[1].SetBool("ButtonPress", false);
+            interact.pickUpObject(myCollider);
         }
 
     }
@@ -199,37 +206,10 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 inputDir, bool running)
     {
-
-       // int count = Physics.OverlapSphereNonAlloc(transform.position, radius, possibleColliders);
-       //
-       // for (int i = 0; i < count; ++i)
-       // {
-       //     var collider = possibleColliders[i];
-       //
-       //     if (collider == thisCollider)
-       //         continue; // skip ourself
-       //
-       //     Vector3 otherPosition = collider.gameObject.transform.position;
-       //     Quaternion otherRotation = collider.gameObject.transform.rotation;
-       //
-       //     Vector3 direction;
-       //     float distance;
-       //
-       //     bool overlapped = Physics.ComputePenetration(
-       //         thisCollider, transform.position, transform.rotation,
-       //         collider, otherPosition, otherRotation,
-       //         out direction, out distance
-       //     );
-       //     if(overlapped)
-       //     {
-       //         Debug.Log("Collision");
-       //         Debug.DrawRay(otherPosition, direction * distance);
-       //     }
-       // }
         if (!onFire)
         {
-            animators[0].SetBool("OnFire", false);
-            animators[1].SetBool("OnFire", false);
+            //animators[0].SetBool("OnFire", false);
+            //animators[1].SetBool("OnFire", false);
             if (inputDir != Vector2.zero)
             {
                 float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
@@ -254,8 +234,8 @@ public class PlayerController : MonoBehaviour
 
         if (onFire)
         {
-            animators[0].SetBool("OnFire", true);
-            animators[1].SetBool("OnFire", true);
+           // animators[0].SetBool("OnFire", true);
+           // animators[1].SetBool("OnFire", true);
             onFireEffect.SetActive(true);
 
             if (inputDir != Vector2.zero)
@@ -271,7 +251,6 @@ public class PlayerController : MonoBehaviour
         {
             onFireEffect.SetActive(false);
         }
-
 
 
         rb.velocity = transform.forward * currentSpeed;

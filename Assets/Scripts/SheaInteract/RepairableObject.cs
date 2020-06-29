@@ -10,9 +10,9 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public int repairAmount = 1;
 
-    MeshRenderer mesh;
-    MeshFilter filter;
-    [SerializeField]Mesh[] meshes;
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] MeshFilter filter;
+    [SerializeField] Mesh[] meshes;
     int currentMesh;
     //public GameObject steamParticlePrefab;
     public GameObject repairEffect;
@@ -20,16 +20,24 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     public ParticleSystem steamEffect2;
     public AlertUI alertUI;
 
+    public bool takeDamageDebug = false;
+
+    AudioSource pipeSound;
+
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
-        if(ShipHealth.instance != null)
+        pipeSound = GetComponent<AudioSource>();
+
+        if(filter == null) { filter = GetComponent<MeshFilter>(); }
+        if(mesh == null) { mesh = GetComponent<MeshRenderer>(); }
+        
+        if(GameplayLoopManager.instance != null)
         {
-            ShipHealth.instance.shipMaxHealth += healthMax;
-            ShipHealth.instance.shipCurrenHealth += health;
+            //GameplayLoopManager.instance.shipMaxHealth += healthMax;
+            //GameplayLoopManager.instance.shipCurrenHealth += health;
         }
 
-        filter = GetComponent<MeshFilter>();
+        
         if(alertUI != null)
         {
             alertUI.problemMax += healthMax;
@@ -49,7 +57,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             GameObject nutsAndBolts = Instantiate(repairEffect, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
              
-            AudioEventManager.instance.PlaySound("clang", .7f, Random.Range(.9f,1f), 0);    //play clang audio
+           // AudioEventManager.instance.PlaySound("clang", .7f, Random.Range(.9f,1f), 0);    //play clang audio
            //ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
@@ -64,18 +72,28 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
 
 
-
+    private void Update()
+    {
+        if(takeDamageDebug)
+        {
+            TakeDamage(1);
+            takeDamageDebug = false;
+        }
+    }
 
     public void repairObject(int repairAmount)
     {
+        GameplayLoopManager.instance.explosionDamage -= repairAmount;
+        pipeSound.pitch = Random.Range(1.6f, 2.2f);
+        pipeSound.Play();
         currentMesh -= 1;
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;
-        alertUI.problemCurrent += repairAmount;
-        if (ShipHealth.instance != null)
+        //alertUI.problemCurrent += repairAmount;
+        if (Old_GameplayEvents.instance != null)
         {
-            ShipHealth.instance.shipCurrenHealth += repairAmount;
-            ShipHealth.instance.AdjustUI();
+            Old_GameplayEvents.instance.shipCurrenHealth += repairAmount;
+            Old_GameplayEvents.instance.AdjustUI();
         }
 
         // health = Mathf.Clamp(health + repairAmount, 0, healthMax);
@@ -88,16 +106,17 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     {
         if (health > 0)
         {
+            GameplayLoopManager.instance.explosionDamage += damageTaken;
             health -= damageTaken;
             currentMesh += 1;
             filter.mesh = meshes[currentMesh];
             mesh.material.color += Color.red;
-            if (alertUI != null) { alertUI.problemCurrent -= damageTaken; }
-            if(ShipHealth.instance != null)
-            {
-                ShipHealth.instance.shipCurrenHealth -= damageTaken;
-                ShipHealth.instance.AdjustUI();
-            }
+            //if (alertUI != null) { alertUI.problemCurrent -= damageTaken; }
+            //if(Old_GameplayEvents.instance != null)
+            //{
+            //    Old_GameplayEvents.instance.shipCurrenHealth -= damageTaken;
+            //    Old_GameplayEvents.instance.AdjustUI();
+            //}
             //Debug.Log("Health Points : " + health);
             if (AudioEventManager.instance != null)
             {

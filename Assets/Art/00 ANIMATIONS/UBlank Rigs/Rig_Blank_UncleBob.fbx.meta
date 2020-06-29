@@ -1,40 +1,98 @@
 fileFormatVersion: 2
 guid: 3bc04538dc8b4e644b7fad9abc086e7d
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: ALIEN
-    100002: ALIEN_ROOT
-    100004: Head
-    100006: L_Ear_1
-    100008: L_Ear_2
-    100010: L_Eye
-    100012: Neck
-    100014: Nose
-    100016: R_Ear_1
-    100018: R_Ear_2
-    100020: R_Eye
-    100022: //RootNode
-    400000: ALIEN
-    400002: ALIEN_ROOT
-    400004: Head
-    400006: L_Ear_1
-    400008: L_Ear_2
-    400010: L_Eye
-    400012: Neck
-    400014: Nose
-    400016: R_Ear_1
-    400018: R_Ear_2
-    400020: R_Eye
-    400022: //RootNode
-    2100000: Alien
-    4300000: ALIEN
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: ALIEN
+  serializedVersion: 26
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: ALIEN
+  - first:
+      1: 100002
+    second: ALIEN_ROOT
+  - first:
+      1: 100004
+    second: Head
+  - first:
+      1: 100006
+    second: L_Ear_1
+  - first:
+      1: 100008
+    second: L_Ear_2
+  - first:
+      1: 100010
+    second: L_Eye
+  - first:
+      1: 100012
+    second: Neck
+  - first:
+      1: 100014
+    second: Nose
+  - first:
+      1: 100016
+    second: R_Ear_1
+  - first:
+      1: 100018
+    second: R_Ear_2
+  - first:
+      1: 100020
+    second: R_Eye
+  - first:
+      1: 100022
+    second: //RootNode
+  - first:
+      4: 400000
+    second: ALIEN
+  - first:
+      4: 400002
+    second: ALIEN_ROOT
+  - first:
+      4: 400004
+    second: Head
+  - first:
+      4: 400006
+    second: L_Ear_1
+  - first:
+      4: 400008
+    second: L_Ear_2
+  - first:
+      4: 400010
+    second: L_Eye
+  - first:
+      4: 400012
+    second: Neck
+  - first:
+      4: 400014
+    second: Nose
+  - first:
+      4: 400016
+    second: R_Ear_1
+  - first:
+      4: 400018
+    second: R_Ear_2
+  - first:
+      4: 400020
+    second: R_Eye
+  - first:
+      4: 400022
+    second: //RootNode
+  - first:
+      21: 2100000
+    second: Alien
+  - first:
+      43: 4300000
+    second: ALIEN
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: ALIEN
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -66,6 +124,8 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -73,27 +133,32 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
+    secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
-    secondaryUVPackMargin: 4
+    secondaryUVPackMargin: 10
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-  importAnimation: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 0
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -103,8 +168,8 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1

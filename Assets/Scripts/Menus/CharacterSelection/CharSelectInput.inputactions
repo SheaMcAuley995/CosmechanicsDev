@@ -1,0 +1,44 @@
+{
+    "name": "CharSelectInput",
+    "maps": [
+        {
+            "name": "CharacterSelect",
+            "id": "f87dc0f7-6f31-4bca-b416-3aa2a599a31a",
+            "actions": [
+                {
+                    "name": "BackToMenu",
+                    "type": "Button",
+                    "id": "a29da606-78b0-4109-b1ae-eca1985d7ded",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "281bdfe1-dcdc-4a54-9617-8f9f910d3509",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackToMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d85395a8-0a93-48a6-90d7-a6ccfd2c04d1",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackToMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

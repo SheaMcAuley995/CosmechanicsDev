@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Node  {
+public class Node
+{
 
     public Collider[] playerArray;
     public BoxCollider box;
