@@ -14,9 +14,7 @@ public enum GameState
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager instance;
-    public GameState gameState = GameState.Playing;
-
-    
+    public GameState gameState = GameState.Playing;    
 
     void Awake()
     {
